@@ -1,0 +1,25 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'restaurants/bootstrap-grid.css' %}">
+        <link rel="stylesheet" href="{% static 'restaurants/styles.css' %}">
+        
+        {% block js %}{% endblock %}
+
+        <title>{% block title %}Restaurants{% endblock %}</title>
+    </head>
+
+    <body>    
+        <div>
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
