@@ -7,7 +7,7 @@ body, html {
 .cover_photo {
   background: linear-gradient( rgba(247, 142, 5, 0.424), rgba(247, 142, 5, 0.424) ), url("https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80");
   /* background-image: url("https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80"); */
-  height: 75vh;
+  height: 100vh;
 
   background-position: center;
   background-repeat: no-repeat;
@@ -17,14 +17,19 @@ body, html {
 .flex_center {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
 .title {
-    width:30%;
     color: white;
     font-size: 70px;
     font-weight: bold;
-    margin-left: auto;
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+.sub_title {
+    color: white;
+    margin-top: 0;
 }

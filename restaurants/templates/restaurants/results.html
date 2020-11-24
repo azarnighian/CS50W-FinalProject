@@ -1,0 +1,16 @@
+{% extends "restaurants/layout.html" %}
+{% load static %}
+
+{% block js %}
+    <script src="{% static 'restaurants/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1>Results Page for {{ city }}</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}

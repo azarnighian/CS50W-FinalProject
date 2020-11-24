@@ -9,8 +9,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col cover_photo flex_center">
-                <h1 class="title">Discover Restaurants Around The World</h1>
+                <h1 class="title">Restaurants</h1>
+                <h2 class="sub_title">Discover Restaurants Around The World</h2>
             </div>
         </div>
     </div>
+        <!-- Figure out how to align this over image, instead of under -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit">
+                </form>
+            </div>                     
+        </div>
+    </div>    
 {% endblock %}
