@@ -4,7 +4,9 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 
 class SearchForm(forms.Form):
-    city = forms.CharField(label="City")
+    city = forms.CharField(label="", 
+                           widget=forms.TextInput(attrs={'class': 'search_bar', 
+                                                         'placeholder': 'Name of city'}))
 
 
 def index(request):
