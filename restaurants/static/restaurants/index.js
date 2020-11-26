@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const geocoder = new google.maps.Geocoder();
     document.querySelector('form').onsubmit = function (event) {
         event.preventDefault();
-        geocodeAddress(geocoder, callback);
+        geocodeAddress(geocoder, geo_callback);
     };
 });
 
@@ -22,43 +22,33 @@ function geocodeAddress(geocoder, callback) {
     });
 }
 
-function callback(results) {
+function geo_callback(results) {
     coordinates = [results[0].geometry.location.lat(), results[0].geometry.location.lng()]
-    return coordinates;
+    search(coordinates);
 }
 
 
 // Maps Javascript API
 
-// Get API key
-// const api_key; 
+var service;
 
-// var map;
-// var service;
-// var infowindow;
+function search(coordinates) {           
+    var city = new google.maps.LatLng(coordinates[0], coordinates[1]);
 
-// function search() {           
-//     var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+    var request = {
+        location: city,
+        radius: '3000',
+        type: ['restaurant']
+    };
 
-//     map = new google.maps.Map(document.getElementById('map'), {
-//         center: pyrmont,
-//         zoom: 15
-//     });
+    service = new google.maps.places.PlacesService(document.createElement('div'));
+    service.nearbySearch(request, search_callback);
+}
 
-//     var request = {
-//         location: pyrmont,
-//         radius: '500',
-//         type: ['restaurant']
-//     };
-
-//     service = new google.maps.places.PlacesService(map);
-//     service.nearbySearch(request, callback);
-// }
-
-// function callback(results, status) {
-//     if (status == google.maps.places.PlacesServiceStatus.OK) {
-//         for (var i = 0; i < results.length; i++) {
-//             createMarker(results[i]);
-//         }
-//     }
-// }
+function search_callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            console.log(results[i]);
+        }
+    }
+}
