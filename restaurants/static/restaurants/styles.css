@@ -1,14 +1,142 @@
-body, html {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+} */
+
+/* Variables */
+:root {
+  --NavBarHeight: 9vh;
+  --Orange: #da7337;
 }
 
-.cover_photo {
-  background: linear-gradient( rgba(247, 142, 5, 0.424), rgba(247, 142, 5, 0.424) ), url("https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80");
-  /* background-image: url("https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80"); */
-  height: 100vh;
+/* Nav Bar */
+  /* Learned from here: https://www.youtube.com/watch?v=gXkqy0b4M5g&t=837s */
 
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: var(--NavBarHeight);
+}
+
+.logo {
+  font-size: 20px;
+  color: var(--Orange);
+  cursor: default;
+  width: 40%;
+}
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+}
+.nav-links li {
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  color: grey;
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--Orange);
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+.burger div {
+  width: 25px;
+  height: 2px;
+  background-color: grey;
+  margin: 5px;  
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width:1024px){
+  .nav-links {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width:768px){
+  html, body {
+    overflow-x: hidden;
+    position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
+  }
+  .logo {
+    width: 60%;
+  }
+  .nav-links {
+    position: absolute;
+      right: 0px;
+      height: calc( 100vh - (var(--NavBarHeight)) );
+      top: var(--NavBarHeight);
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;  
+      transform: translateX(100%);
+      transition: transform 0.5s ease-in;
+
+      z-index: 10;
+  }
+  .nav-links li {
+    opacity: 0;
+  }
+  .nav-links a {
+    color: var(--Orange);
+  }  
+  .burger {
+    display: block;
+  }
+}
+
+.nav-active {
+  transform: translateX(0%);
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-5px,5px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3  {
+  transform: rotate(45deg) translate(-5px,-5px);
+}
+
+/* End Nav Bar */
+
+
+.cover_photo {
+  background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
+                    url("https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+    /* rgba codes from opentable.com */                 
+  height: calc( 100vh - (var(--NavBarHeight)) );
+  
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,25 +145,35 @@ body, html {
 .flex_center {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
 }
 
 .title {
     color: white;
-    font-size: 70px;
+    font-size: 45px;
     font-weight: bold;
-    margin-top: 2em;
-    margin-bottom: 0;    
+    /* margin-top: -.5em; */
+    margin-bottom: 30px;
 }
 
-.sub_title {
-    color: white;
-    margin-top: 0;
+.search {
+    padding: 1em;
+    font-size: 1rem;
+    border-radius: 5px;
+    border-style: none;
 }
 
 .search_bar {
-    padding: .5em;
-    font-size: 1rem;
-    border-radius: 5px;
+  width: 300px;  
+}
+
+.margin {
+  margin-left: 15px;
+}
+
+.search_button {
+  background-color: var(--Orange);
+  color: white;
+  width: 130px;
 }

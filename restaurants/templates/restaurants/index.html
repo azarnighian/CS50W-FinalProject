@@ -2,11 +2,9 @@
 {% load static %}
 
 {% block js %}
-    <script src="{% static 'restaurants/index.js' %}"></script> 
-    
-    <!-- might need to re-add callback to url -->
+    <script src="{% static 'restaurants/index.js' %}"></script>     
     <script defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTlAyLKqOub32bbSiRhxDGv2HJoEyr46g&libraries=places">
+        src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places">
     </script>   
 {% endblock %}
 
@@ -14,13 +12,20 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col cover_photo flex_center">
-                <h1 class="title">Restaurants</h1>
-                <h2 class="sub_title">Discover Restaurants Around The World</h2>
-                <form action="{% url 'index' %}" method="post">
+                <h1 class="title">Discover Restaurants Around The World</h1>
+                <!-- <form action="{% url 'index' %}" method="post">
                     {% csrf_token %}
                     {{ form }}
                     <input type="submit" class="search_bar search_button">
+                </form> -->
+                <form>
+                    <input type="text" class="search search_bar" name="city" placeholder="Name of city">
+                    <input type="text" class="search search_bar margin" name="radius" placeholder="Distance from city">
+                    <input type="text" class="search search_bar margin" name="filters" placeholder="Filters">
+                        <!-- (Make this a dropdown list) -->
+                    <input type="submit" class="search search_button margin">
                 </form>
+                <!-- <button class="testing_button"></button> -->
             </div>
         </div>
     </div>           
