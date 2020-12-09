@@ -74,8 +74,9 @@ nav {
     overflow-x: hidden;
     position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
   }
+
   .logo {
-    width: 60%;
+    width: auto;
   }
   .nav-links {
     position: absolute;
@@ -100,6 +101,8 @@ nav {
   }  
   .burger {
     display: block;
+    position: absolute;
+    left: 15px;
   }
 }
 
