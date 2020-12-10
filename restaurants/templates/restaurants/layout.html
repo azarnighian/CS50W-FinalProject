@@ -2,15 +2,14 @@
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
+    <head>        
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="{% static 'restaurants/layout.css' %}">
         
-        <!-- CSS -->
-        <link rel="stylesheet" href="{% static 'restaurants/bootstrap-grid.css' %}">
-        <link rel="stylesheet" href="{% static 'restaurants/styles.css' %}">
-        
+        {% block css %}{% endblock %}
+
         {% block js %}{% endblock %}
 
         <title>{% block title %}Restaurants{% endblock %}</title>
