@@ -42,19 +42,17 @@ def index(request):
     #     "form": SearchForm(),
     #     "api_key": api_key
     # })
-
-def results(request, city):
+@csrf_exempt
+def results(request):    
     data = json.loads(request.body)
     print(data)
     
-    return render(request, "restaurants/results.html", {
-        "city": city,
-        "results": results
-    })        
+    return render(request, "restaurants/results.html")        
 
 @csrf_exempt
 def testing(request):
     data = json.loads(request.body)
     print(data)
     
-    return render(request, "restaurants/results.html")
+    # return render(request, "restaurants/results.html")
+    return HttpResponseRedirect(reverse("results"))

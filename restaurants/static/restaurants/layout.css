@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-/* body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-} */
-
 /* Variables */
 :root {
   --NavBarHeight: 9vh;
@@ -27,7 +21,7 @@ nav {
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 1.5rem;
   color: var(--Orange);
   cursor: default;
   width: 40%;
@@ -43,7 +37,7 @@ nav {
 .nav-links a {
   text-decoration: none;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 1rem;
   color: grey;
   transition: color 0.2s;
 }

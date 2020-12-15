@@ -7,13 +7,14 @@
 document.addEventListener('DOMContentLoaded', function () {    
     navSlide();
     
+    // document.querySelector('.testing_button').onclick = tester;    
+
     // const geocoder = new google.maps.Geocoder();
     // document.querySelector('form').onsubmit = function (event) {
     //     // event.preventDefault();
     //     // geocodeAddress(geocoder, geo_callback);
     //     send_to_view;
     // };
-    // document.querySelector('.testing_button').onclick = tester;    
 });
 
 // Geocoding
