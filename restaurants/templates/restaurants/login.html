@@ -11,10 +11,11 @@
 {% endblock %}
 
 {% block body %}
+<div class="flex-container">
     <h1>Login</h1>
 
     {% if message %}
-    <div>{{ message }}</div>
+        <div>{{ message }}</div>
     {% endif %}
 
     <form action="{% url 'login' %}" method="post">
@@ -22,4 +23,5 @@
         {{ form }}
         <input type="submit" value="Login">
     </form>
+</div>
 {% endblock %}

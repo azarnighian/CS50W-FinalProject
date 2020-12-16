@@ -1,3 +1,31 @@
-body {
+.flex-container {    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
     background-color: lightgrey;
+    height: calc( 100vh - (var(--NavBarHeight)) );
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+}
+input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border-style: none;
+  margin-bottom: 5px;
+}
+
+input[type=submit] {
+  background-color: var(--Orange);
+  color: white;
+  margin-bottom: 0;
+  font-weight: bold;
 }
