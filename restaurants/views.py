@@ -76,6 +76,13 @@ def testing(request):
     # return render(request, "restaurants/results.html")
     return HttpResponseRedirect(reverse("results"))
 
+
+def profile(request, username):
+    # this_user = User.objects.get(username=username)
+
+    return render(request, "restaurants/profile.html")
+
+
 # Learned register,login, and logout functions from CS50W network project
 
 def register(request):    
@@ -102,7 +109,7 @@ def register(request):
                 "form": RegisterForm()
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("profile", args=[username]))
     else:        
         return render(request, "restaurants/register.html", {
             "form": RegisterForm()
@@ -120,7 +127,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("profile", args=[username]))
         else:
             return render(request, "restaurants/login.html", {
                 "message": "Invalid username and/or password.",
