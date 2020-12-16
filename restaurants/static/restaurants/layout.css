@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html,body {
+  height: 100%;
+}
+
 /* Variables */
 :root {
   --NavBarHeight: 9vh;
@@ -18,6 +22,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: var(--NavBarHeight);
+  background-color: white;
 }
 
 .logo {

@@ -1,0 +1,25 @@
+{% extends "restaurants/layout.html" %}
+{% load static %}
+
+<!-- {% block css %}
+    <link rel="stylesheet" href="{% static 'restaurants/register.css' %}">
+{% endblock %} -->
+
+{% block js %}
+    <script src="{% static 'restaurants/index.js' %}"></script>
+    <!-- <script defer src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places"></script> -->
+{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock %}
