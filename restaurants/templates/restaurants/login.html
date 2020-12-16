@@ -11,15 +11,15 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1>Login</h1>
 
     {% if message %}
-        <div>{{ message }}</div>
+    <div>{{ message }}</div>
     {% endif %}
 
-    <form action="{% url 'register' %}" method="post">
+    <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Register">
+        <input type="submit" value="Login">
     </form>
 {% endblock %}

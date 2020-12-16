@@ -23,6 +23,11 @@ class RegisterForm(forms.Form):
     confirmation = forms.CharField(label="Confirm password", widget=forms.PasswordInput)
 
 
+class LogInForm(forms.Form):
+    username = forms.CharField(label="Username")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+
+
 def index(request):
     return render(request, "restaurants/index.html")
     # with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as f:
@@ -71,10 +76,9 @@ def testing(request):
     # return render(request, "restaurants/results.html")
     return HttpResponseRedirect(reverse("results"))
 
+# Learned register,login, and logout functions from CS50W network project
 
-def register(request):
-    # Learned from CS50W network project
-
+def register(request):    
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
@@ -84,7 +88,8 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "restaurants/register.html", {
-                "message": "Passwords must match."
+                "message": "Passwords must match.",
+                "form": RegisterForm()
             })
 
         # Attempt to create new user
@@ -93,7 +98,8 @@ def register(request):
             user.save()
         except IntegrityError:
             return render(request, "restaurants/register.html", {
-                "message": "Username already taken."
+                "message": "Username already taken.",
+                "form": RegisterForm()
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
@@ -101,3 +107,31 @@ def register(request):
         return render(request, "restaurants/register.html", {
             "form": RegisterForm()
         })
+
+
+def login_view(request):
+    if request.method == "POST":
+
+        # Attempt to sign user in
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "restaurants/login.html", {
+                "message": "Invalid username and/or password.",
+                "form": LogInForm()
+            })
+    else:
+        return render(request, "restaurants/login.html", {
+            "form": LogInForm()
+        })
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("index"))        
