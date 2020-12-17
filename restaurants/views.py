@@ -60,10 +60,10 @@ def index(request):
     # })
 
 
-@csrf_exempt
+# @csrf_exempt
 def results(request):    
-    data = json.loads(request.body)
-    print(data)
+    # data = json.loads(request.body)
+    # print(data)
     
     return render(request, "restaurants/results.html")        
 
