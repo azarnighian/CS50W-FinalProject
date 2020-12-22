@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import User
 
+import googlemaps
+
 class SearchForm(forms.Form):
     city = forms.CharField(label="", 
                            widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
@@ -26,10 +28,7 @@ class LogInForm(forms.Form):
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
 
 
-def index(request):
-    # with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as f:
-    #     api_key = f.read().strip()
-
+def index(request):    
 # From CS50W notes
     # Check if method is POST
     if request.method == "POST":
@@ -38,7 +37,8 @@ def index(request):
         # Check if form data is valid (server-side)
         if form.is_valid():
             # Isolate the task from the 'cleaned' version of form data
-            city = form.cleaned_data["city"]                               
+            city = form.cleaned_data["city"]                                           
+            
             # Redirect user
             return HttpResponseRedirect(reverse("results", kwargs={'city': city}))
         else:
@@ -51,11 +51,36 @@ def index(request):
         "form": SearchForm()
     })
 
+
+def search(city):
+    # Get API key
+    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+        api_key = file.read().strip()
+
+    # https://github.com/googlemaps/google-maps-services-python
+    # https://www.youtube.com/watch?v=qkSmuquMueA
+    
+    gmaps = googlemaps.Client(key=api_key)
+    
+    # Geocode city 
+    geocode_result = gmaps.geocode(city)
+    lat_lng = geocode_result[0]["geometry"]["location"]
+    lat = lat_lng["lat"]
+    lng = lat_lng["lng"]    
+
+    # Search for restaurants nearby city    
+    places_result = gmaps.places_nearby(location=[lat,lng], radius=1000, type="restaurant")
+    return places_result["results"]   
+
+
 # later, learn how to use csrf and not just use exempt 
 @csrf_exempt
-def results(request, city):        
+def results(request, city):
+    results = search(city)
+
     return render(request, "restaurants/results.html", {
-        "city": city
+        "city": city,
+        "results": results
     })        
 
 

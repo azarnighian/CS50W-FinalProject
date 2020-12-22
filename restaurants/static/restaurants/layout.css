@@ -99,6 +99,9 @@ nav {
   .nav-links a {
     color: var(--Orange);
   }  
+  .nav-links a:hover {
+  color: grey;
+}
   .burger {
     display: block;
     position: absolute;
