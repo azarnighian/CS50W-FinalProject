@@ -52,9 +52,9 @@ input[type=submit] {
 } */
 
 @media only screen and (min-width: 768px) {
-  html {
+  /* html {
     font-size: 18px; 
-  }
+  } */
   
   form {
     flex-direction: row;

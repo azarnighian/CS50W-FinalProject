@@ -1,0 +1,40 @@
+.flex-container {    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgb(250, 250, 250);
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: column;    
+    align-items: center;
+        /* https://stackoverflow.com/questions/35106814/why-isnt-justify-content-centering-my-divs */
+    margin: 20px;
+}
+
+/* https://www.w3schools.com/howto/howto_css_cards.asp */
+.card {    
+    box-shadow: 0px 16px 24px 2px rgba(0,0,0,0.14) , 0px 6px 30px 5px rgba(0,0,0,0.12) , 0px 8px 10px -7px rgba(0,0,0,0.2);
+        /* https://boxshadows.com/presets */
+    background-color: white;
+    width: 95%;
+    height: 50%;
+
+    padding: 1rem;
+}
+
+/* https://www.freecodecamp.org/news/time-saving-css-techniques-to-create-responsive-images-ebb1e84f90d5/ */
+img {
+    height: auto;
+    width: 100%;
+}
+
+/* doesn't work...make a bootstrap like grid insteed */
+    /* try searching flexbox grid on google */
+/* @media only screen and (min-width: 768px) {
+    .cards-container {
+        flex-direction: row;
+    }
+} */

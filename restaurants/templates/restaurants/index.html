@@ -6,30 +6,17 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'restaurants/index.js' %}"></script>     
-    <script defer
-        src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places">
-    </script>   
+    <script src="{% static 'restaurants/index.js' %}"></script>    
 {% endblock %}
 
 {% block body %}
     <div class="cover_photo container">
         <h1 class="title">Discover Restaurants Around The World</h1>
         
-        <!-- <button class="testing_button"></button> -->
-
-        <form>
-            <input type="text" name="city" placeholder="Name of city">                        
-            <input type="text" name="radius" placeholder="Distance from city">                        
-            <input type="text" name="filters" placeholder="Filters">
-                <!-- (Make this a dropdown list) -->                        
-            <input type="submit" value="Search">            
-        </form>
-
-        <!-- <form action="{% url 'index' %}" method="post">
+        <form action="{% url 'index' %}" method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" class="search_bar search_button">
-        </form> -->
+            <input type="submit">
+        </form>
     </div>        
 {% endblock %}

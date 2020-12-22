@@ -1,4 +1,3 @@
-import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django import forms
@@ -12,8 +11,7 @@ from .models import User
 
 class SearchForm(forms.Form):
     city = forms.CharField(label="", 
-                           widget=forms.TextInput(attrs={'class': 'search_bar', 
-                                                         'placeholder': 'Name of city'}))
+                           widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
 
 
 class RegisterForm(forms.Form):
@@ -29,52 +27,36 @@ class LogInForm(forms.Form):
 
 
 def index(request):
-    return render(request, "restaurants/index.html")
     # with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as f:
     #     api_key = f.read().strip()
 
-    # # Check if method is POST
-    # if request.method == "POST":
-    #     # Take in the data the user submitted and save it as form
-    #     form = SearchForm(request.POST)
-    #     # Check if form data is valid (server-side)
-    #     if form.is_valid():
-    #         # Isolate the task from the 'cleaned' version of form data
-    #         city = form.cleaned_data["city"]
-            
-    #         # Add the new task to our list of tasks
-    #         # tasks.append(task)
-
-    #         # Redirect user to list of tasks
-    #         return HttpResponseRedirect(reverse("results", kwargs={'city': city}))
-    #     else:
-    #         # If the form is invalid, re-render the page with existing information.
-    #         return render(request, "restaurants/index.html", {
-    #             "form": form,
-    #             "api_key": api_key
-    #         })
+# From CS50W notes
+    # Check if method is POST
+    if request.method == "POST":
+        # Take in the data the user submitted and save it as form
+        form = SearchForm(request.POST)
+        # Check if form data is valid (server-side)
+        if form.is_valid():
+            # Isolate the task from the 'cleaned' version of form data
+            city = form.cleaned_data["city"]                               
+            # Redirect user
+            return HttpResponseRedirect(reverse("results", kwargs={'city': city}))
+        else:
+            # If the form is invalid, re-render the page with existing information.
+            return render(request, "restaurants/index.html", {
+                "form": form
+            })
     
-    # return render(request, "restaurants/index.html", {
-    #     "form": SearchForm(),
-    #     "api_key": api_key
-    # })
+    return render(request, "restaurants/index.html", {
+        "form": SearchForm()
+    })
 
-
-# @csrf_exempt
-def results(request):    
-    # data = json.loads(request.body)
-    # print(data)
-    
-    return render(request, "restaurants/results.html")        
-
-
+# later, learn how to use csrf and not just use exempt 
 @csrf_exempt
-def testing(request):
-    data = json.loads(request.body)
-    print(data)
-    
-    # return render(request, "restaurants/results.html")
-    return HttpResponseRedirect(reverse("results"))
+def results(request, city):        
+    return render(request, "restaurants/results.html", {
+        "city": city
+    })        
 
 
 def profile(request, username):
