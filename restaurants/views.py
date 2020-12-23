@@ -85,25 +85,38 @@ def search(city):
     return places_result["results"]
 
 
-# def photos(gmaps, results):
-#   photo_reference_string = results[0]["photos"][0]["photo_reference"]
-#   photo = gmaps.places_photo(photo_reference_string, max_width=100)
-
-
 def restaurant_details(request, name, id):
     with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
         api_key = file.read().strip()
 
     gmaps = googlemaps.Client(key=api_key)
 
-    my_fields = ['formatted_address', 'name', 'formatted_phone_number', 'opening_hours', 'website']
+    my_fields = ['formatted_address', 'name', 'photo', 'formatted_phone_number', 'opening_hours', 'website']
     
     details_result = gmaps.place(place_id=id, fields=my_fields)
+
+    # To get photos:
+    get_photos(gmaps, details_result)
     
     return render(request, "restaurants/restaurant.html", {
         "details": details_result["result"]
     }) 
 
+
+def get_photos(gmaps, details):
+    counter = 1
+    
+    for photo in details['result']['photos']: 
+        photo_reference_string = photo['photo_reference']
+        raw_image_data = gmaps.places_photo(photo_reference_string, max_width=5000, max_height=5000)        
+        
+        f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/Restaurant_Images/RestaurantImage{counter}.jpg', 'wb')        
+        for chunk in raw_image_data:
+            if chunk:
+                f.write(chunk)
+        f.close()
+
+        counter += 1
 
 def profile(request, username):
     # this_user = User.objects.get(username=username)
