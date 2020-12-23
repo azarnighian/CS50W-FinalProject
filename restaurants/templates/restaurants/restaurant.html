@@ -1,0 +1,19 @@
+{% extends "restaurants/layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'restaurants/register.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'restaurants/index.js' %}"></script>
+    <!-- <script defer src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places"></script> -->
+{% endblock %}
+
+{% block body %}
+    <h1>{{ details.name }}</h1>
+    <p><b>Address:</b> {{ details.formatted_address }}</p>
+    <p><b>Phone Number:</b> {{ details.formatted_phone_number }}</p>
+    <!-- <p>{{ details.opening_hours }}</p> -->
+    <a href="{{ details.website }}">Website</a>
+{% endblock %}

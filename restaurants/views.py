@@ -52,6 +52,17 @@ def index(request):
     })
 
 
+# later, learn how to use csrf and not just use exempt 
+@csrf_exempt
+def results(request, city):
+    results = search(city)            
+
+    return render(request, "restaurants/results.html", {
+        "city": city,
+        "results": results
+    })        
+
+
 def search(city):
     # Get API key
     with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
@@ -70,18 +81,28 @@ def search(city):
 
     # Search for restaurants nearby city    
     places_result = gmaps.places_nearby(location=[lat,lng], radius=1000, type="restaurant")
-    return places_result["results"]   
+    # return [places_result["results"], photos(gmaps, places_result["results"])]  
+    return places_result["results"]
 
 
-# later, learn how to use csrf and not just use exempt 
-@csrf_exempt
-def results(request, city):
-    results = search(city)
+# def photos(gmaps, results):
+#   photo_reference_string = results[0]["photos"][0]["photo_reference"]
+#   photo = gmaps.places_photo(photo_reference_string, max_width=100)
 
-    return render(request, "restaurants/results.html", {
-        "city": city,
-        "results": results
-    })        
+
+def restaurant_details(request, name, id):
+    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+        api_key = file.read().strip()
+
+    gmaps = googlemaps.Client(key=api_key)
+
+    my_fields = ['formatted_address', 'name', 'formatted_phone_number', 'opening_hours', 'website']
+    
+    details_result = gmaps.place(place_id=id, fields=my_fields)
+    
+    return render(request, "restaurants/restaurant.html", {
+        "details": details_result["result"]
+    }) 
 
 
 def profile(request, username):
