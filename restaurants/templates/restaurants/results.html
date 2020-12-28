@@ -13,16 +13,37 @@
     <div class="flex-container">
         <div class="title">Restaurants in {{ city }}</div> 
         
-        {% for result in results %}
-            <div class="cards-container">
+        <div class="cards-containter">
+            {% for result in results %}            
                 <a href="{% url 'restaurant' result.name result.place_id %}">
                     <div class="card">
-                        <!-- <img src="https://images.unsplash.com/photo-1583359426622-5483408b031d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"> -->
-                        <h3>{{ result.name }}</h3>
-                        <!-- <p>Some information about this restaurant</p> -->
+                        <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
+                        {% with counter=forloop.counter|stringformat:"s" %}
+                            <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">                            
+                        {% endwith %}
+                        <div class="caption">
+                            <h3>{{ result.name }}</h3>
+                            <p>Some information about this restaurant</p>
+                        </div>                      
                     </div>
                 </a>                            
-            </div>     
-        {% endfor %}   
+            {% endfor %} 
+            <a href="{% url 'restaurant' 'Dunkin Donuts' 'ChIJyWEHuEmuEmsRm9hTkapTCrk' %}">
+                <div class="card empty-card">
+                    {% with counter=1|stringformat:"s" %}
+                        <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">
+                    {% endwith %}
+                    <div class="caption">
+                        <h3>Empty</h3>
+                        <p>No information about this restaurant</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <footer>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+                    href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+        </footer>
     </div>
 {% endblock %}
