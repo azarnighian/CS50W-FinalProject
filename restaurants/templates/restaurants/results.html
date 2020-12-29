@@ -13,34 +13,44 @@
     <div class="flex-container">
         <div class="title">Restaurants in {{ city }}</div> 
         
-        <div class="cards-containter">
-            {% for result in results %}            
-                <a href="{% url 'restaurant' result.name result.place_id %}">
-                    <div class="card">
-                        <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
-                        {% with counter=forloop.counter|stringformat:"s" %}
-                            <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">                            
+        <div class="sidebar-and-cards-container">
+            <div class="sidebar-container">
+                <form action="{% url 'results' city 'yes' 1000 'empty' 0 4 %}" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit">
+                </form>
+            </div>
+
+            <div class="cards-containter">
+                {% for result in results %}            
+                    <a href="{% url 'restaurant' result.name result.place_id %}">
+                        <div class="card">
+                            <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
+                            {% with counter=forloop.counter|stringformat:"s" %}
+                                <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">                            
+                            {% endwith %}
+                            <div class="caption">
+                                <h3>{{ result.name }}</h3>
+                                <p>Some information about this restaurant</p>
+                            </div>                      
+                        </div>
+                    </a>                            
+                {% endfor %} 
+                <a href="{% url 'restaurant' 'Dunkin Donuts' 'ChIJyWEHuEmuEmsRm9hTkapTCrk' %}">
+                    <div class="card empty-card">
+                        {% with counter=1|stringformat:"s" %}
+                            <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">
                         {% endwith %}
                         <div class="caption">
-                            <h3>{{ result.name }}</h3>
-                            <p>Some information about this restaurant</p>
-                        </div>                      
+                            <h3>Empty</h3>
+                            <p>No information about this restaurant</p>
+                        </div>
                     </div>
-                </a>                            
-            {% endfor %} 
-            <a href="{% url 'restaurant' 'Dunkin Donuts' 'ChIJyWEHuEmuEmsRm9hTkapTCrk' %}">
-                <div class="card empty-card">
-                    {% with counter=1|stringformat:"s" %}
-                        <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">
-                    {% endwith %}
-                    <div class="caption">
-                        <h3>Empty</h3>
-                        <p>No information about this restaurant</p>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
-        
+
         <footer>
             <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
                     href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

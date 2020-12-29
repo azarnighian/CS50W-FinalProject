@@ -23,6 +23,10 @@
     margin-bottom: 20px;
 }
 
+.sidebar-and-cards-container{
+    display: flex;    
+}
+
 .cards-containter {
     display: flex;
     flex-wrap: wrap;   
@@ -62,10 +66,7 @@ img {
     visibility: hidden;
 }
 
-@media only screen and (min-width: 768px) {
-    /* .cards-containter > a {
-        flex: 50%;
-    } */
+@media only screen and (min-width: 768px) {    
     .card {
         flex-direction: row;
     }
@@ -76,15 +77,10 @@ img {
         display: none;
     }
 }
-@media only screen and (min-width: 992px) {
-    /* .cards-containter > a {
-        flex: 33.3%;
-    } */
-}
-@media only screen and (min-width: 2000px) {
-    /* .cards-containter > a {
-        flex: 25%;
-    } */
+/* @media only screen and (min-width: 992px) {
+    
+} */
+@media only screen and (min-width: 2000px) {    
     html {
         font-size: 22px;
     }

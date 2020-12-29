@@ -19,6 +19,26 @@ class SearchForm(forms.Form):
                            widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
 
 
+class SidebarForm(forms.Form):
+    location = forms.CharField(label="Name of city", 
+                           widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
+    radius = forms.IntegerField(label="Radius from city", 
+                           widget=forms.NumberInput(attrs={'placeholder': 'Radius'})) 
+    keyword = forms.CharField(label="Keyword", 
+                           widget=forms.TextInput(attrs={'placeholder': 'Keyword'}))
+    my_choices = ( 
+        ("0", "0"), 
+        ("1", "1"), 
+        ("2", "2"), 
+        ("3", "3"),
+        ("4", "4"),          
+    ) 
+    min_price = forms.ChoiceField(label="Minimum price", choices = my_choices,
+                           widget=forms.Select(attrs={'placeholder': 'Minimum Price'}))
+    max_price = forms.ChoiceField(label="Maximum price", choices = my_choices,
+                           widget=forms.Select(attrs={'placeholder': 'Maximum Price'}))
+
+
 class RegisterForm(forms.Form):
     username = forms.CharField(label="Username")
     email = forms.EmailField(label="Email")
@@ -43,7 +63,7 @@ def index(request):
             city = form.cleaned_data["city"]                                           
             
             # Redirect user
-            return HttpResponseRedirect(reverse("results", kwargs={'city': city}))
+            return HttpResponseRedirect(reverse("results", args=[city, "no", 1000, 'empty', 0, 4]))
         else:
             # If the form is invalid, re-render the page with existing information.
             return render(request, "restaurants/index.html", {
@@ -57,16 +77,36 @@ def index(request):
 
 # later, learn how to use csrf and not just use exempt 
 @csrf_exempt
-def results(request, city):
-    results = search(city)                
+def results(request, city, filters, radius, keyword, min_price, max_price):                   
+    if request.method == "POST":
+        form = SidebarForm(request.POST)
+        if form.is_valid():
+            location = form.cleaned_data["location"]
+            city = location
+            radius = form.cleaned_data["radius"] 
+            keyword = form.cleaned_data["keyword"] 
+            min_price = form.cleaned_data["min_price"] 
+            max_price = form.cleaned_data["max_price"]
+            
+            return HttpResponseRedirect(reverse("results", 
+                    args=[city, "yes", radius, keyword, min_price, max_price]))                        
+        else:
+            return render(request, "restaurants/results.html", {
+                "form": form
+            })
+
+    results = search(city, filters, radius, keyword, min_price, max_price) 
 
     return render(request, "restaurants/results.html", {
         "city": city,
-        "results": results
+        "results": results,
+        "form": SidebarForm(initial={'location': city, 'radius': radius, 
+                                     'keyword': keyword, 'min_price': min_price, 
+                                     'max_price': max_price})
     })        
 
 
-def search(city):
+def search(city, filters, radius, keyword, min_price, max_price):
     # Get API key
     with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
         api_key = file.read().strip()
@@ -82,8 +122,15 @@ def search(city):
     lat = lat_lng["lat"]
     lng = lat_lng["lng"]    
 
-    # Search for restaurants nearby city    
-    places_result = gmaps.places_nearby(location=[lat,lng], radius=1000, type="restaurant")
+    if filters == "no":
+        # Search for restaurants nearby city    
+        places_result = gmaps.places_nearby(type="restaurant", 
+                        location=[lat,lng], radius=radius)
+    else:
+        # Search for restaurants nearby city, with filters    
+        places_result = gmaps.places_nearby(type="restaurant", location=[lat,lng], 
+                        radius=radius, keyword=keyword, min_price=min_price,
+                        max_price=max_price)                        
 
     # To save photos
     get_photos(gmaps, places_result)
