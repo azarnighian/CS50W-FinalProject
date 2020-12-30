@@ -36,9 +36,21 @@
                             {% endwith %}
                             <div class="caption">
                                 <h3>{{ result.name }}</h3>
-                                <p>Some information about this restaurant</p>
+                                {% if result.opening_hours.open_now %}
+                                    <p>Open now</p>
+                                {% else %}
+                                    <p>Not open now</p>
+                                {% endif %}
+                                <p><b>Address: </b>{{ results_details.0.formatted_address }}</p>
+                                <p><b>Phone Number: </b>{{ results_details.0.formatted_phone_number }}</p>
+                                {% if results_details.1.website %}
+                                    <p><b>Website: </b><a href="{{ results_details.1.website }}">{{ results_details.1.website }}</a></p>
+                                {% else %}
+                                    <p><b>Website: </b>unavailable</p>
+                                {% endif %}
                             </div>                      
                         </div>
+                        <div class="line"></div>
                     </a>                            
                 {% endfor %} 
                 <a href="{% url 'restaurant' 'Dunkin Donuts' 'ChIJyWEHuEmuEmsRm9hTkapTCrk' %}">

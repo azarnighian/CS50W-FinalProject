@@ -25,7 +25,7 @@ class SidebarForm(forms.Form):
     radius = forms.IntegerField(label="Radius from city", 
                            widget=forms.NumberInput(attrs={'placeholder': 'Radius'})) 
     keyword = forms.CharField(label="Keyword", 
-                           widget=forms.TextInput(attrs={'placeholder': 'Keyword'}))
+                           widget=forms.TextInput(attrs={'placeholder': 'e.g. Vegan, Sandwich, Cafe'}))
     my_choices = ( 
         ("0", "0"), 
         ("1", "1"), 
@@ -95,15 +95,30 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
                 "form": form
             })
 
-    results = search(city, filters, radius, keyword, min_price, max_price) 
+    results = search(city, filters, radius, keyword, min_price, max_price)
 
-    return render(request, "restaurants/results.html", {
-        "city": city,
-        "results": results,
-        "form": SidebarForm(initial={'location': city, 'radius': radius, 
-                                     'keyword': keyword, 'min_price': min_price, 
-                                     'max_price': max_price})
-    })        
+    results_details = []
+    for result in results:
+        results_details.append(restaurant_details(result["place_id"]))
+
+    if keyword == "empty":
+        return render(request, "restaurants/results.html", {
+            "city": city,
+            "results": results, 
+            "results_details": results_details,
+            "form": SidebarForm(initial={'location': city, 'radius': radius, 
+                                        'min_price': min_price, 
+                                        'max_price': max_price})                                                  
+        })      
+    else:
+        return render(request, "restaurants/results.html", {
+            "city": city,
+            "results": results,
+            "results_details": results_details,
+            "form": SidebarForm(initial={'location': city, 'radius': radius, 
+                                        'keyword': keyword, 'min_price': min_price, 
+                                        'max_price': max_price})
+        })                                                   
 
 
 def search(city, filters, radius, keyword, min_price, max_price):
@@ -164,7 +179,7 @@ def get_photos(gmaps, result):
             counter += 1
 
 
-def restaurant_details(request, name, id):
+def restaurant_details(id):
     with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
         api_key = file.read().strip()
 
@@ -174,12 +189,14 @@ def restaurant_details(request, name, id):
     
     details_result = gmaps.place(place_id=id, fields=my_fields)
 
+    return details_result["result"]
+
     # To get photos:
-    get_photos(gmaps, details_result)
+    # get_photos(gmaps, details_result)
     
-    return render(request, "restaurants/restaurant.html", {
-        "details": details_result["result"]
-    }) 
+    # return render(request, "restaurants/restaurant.html", {
+    #     "details": details_result["result"]
+    # }) 
 
 
 def profile(request, username):
