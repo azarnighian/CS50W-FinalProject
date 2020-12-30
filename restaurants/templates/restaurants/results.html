@@ -14,6 +14,8 @@
         <div class="title">Restaurants in {{ city }}</div> 
         
         <div class="sidebar-and-cards-container">
+            <div class="filters-bar">Filters</div>
+
             <div class="sidebar-container">
                 <p>Filters</p>
                 
@@ -24,7 +26,7 @@
                 </form>
             </div>
 
-            <div class="cards-containter">
+            <div class="cards-container">
                 {% for result in results %}            
                     <a href="{% url 'restaurant' result.name result.place_id %}">
                         <div class="card">
@@ -53,7 +55,12 @@
             </div>
         </div>
 
-        <footer>
+        <footer>                        
+            <div>Design inspired by <a href="https://www.yelp.com/">Yelp</a>, 
+                <a href="https://www.opentable.com/">OpenTable</a>, 
+                and <a href="https://www.grubhub.com/">Grubhub</a>
+            </div>                    
+
             <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
                     href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </footer>

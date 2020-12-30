@@ -25,17 +25,27 @@
     z-index: 10;
 }
 
-.sidebar-and-cards-container{
-    display: flex;    
+.sidebar-and-cards-container {
+    display: flex;
+    flex-direction: column;    
+}
+
+.filters-bar {
+    text-align: center;
+    background-color: var(--Orange);
+    color: white;
+    padding: 15px;
+    font-size: 1.2rem;
 }
 
 .sidebar-container {
+    display: block;
     flex: 25%;
     background-color: rgb(251, 251, 252);
     padding: 1rem;
     box-shadow: 0 0 0 1px rgba(67,41,163,.1), 0 1px 8px 0 rgba(67,41,163,.1)
         /* box-shadow codes from grubhub.com */
-}
+    }
 .sidebar-container > p {
     font-size: 1.5rem;  
     font-weight: 800; 
@@ -43,9 +53,9 @@
     margin-bottom: 50px;
 }
 form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
 }
 label {
     font-size: 1.3rem;   
@@ -66,7 +76,7 @@ input[type=submit] {
     border-style: none;
 }
 
-.cards-containter {
+.cards-container {
     display: flex;
     flex-wrap: wrap;   
     justify-content: center; 
@@ -95,7 +105,7 @@ img {
     text-decoration: none;    
 }
 .caption > h3 {
-    color: black;
+    color: var(--Orange);
     margin-bottom: 5px;
 }
 .caption > p {
@@ -106,7 +116,11 @@ img {
     visibility: hidden;
 }
 
-@media only screen and (min-width: 768px) {    
+@media only screen and (min-width: 992px) {    
+    .filters-bar {
+        display: none;
+    }
+
     .card {
         flex-direction: row;
     }
@@ -116,6 +130,10 @@ img {
     .empty-card {
         display: none;
     }
+
+    .sidebar-and-cards-container {
+        flex-direction: row;
+    }    
 }
 /* @media only screen and (min-width: 992px) {
     
@@ -123,5 +141,11 @@ img {
 @media only screen and (min-width: 2000px) {    
     html {
         font-size: 22px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar-container {
+        display: none;
     }
 }
