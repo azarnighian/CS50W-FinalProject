@@ -31,11 +31,11 @@ nav {
     align-items: center; 
     text-align: center;
     
-    height: 5rem;
+    height: 10rem;
     width: 100%;
     background-color: var(--Orange);   
     
-    font-size: 1.7rem;
+    font-size: 2rem;
     font-weight: 700;
     color: white;
     
@@ -161,9 +161,6 @@ img {
 }
 .caption a {
     color: rgb(0, 98, 255);
-}
-.website {
-    display: inline-block;
 }
 
 .open_status {

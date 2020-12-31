@@ -101,11 +101,16 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     for result in results:
         results_details.append(restaurant_details(result["place_id"]))
 
+    # Get API key
+    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+        api_key = file.read().strip()
+
     if keyword == "empty":
         return render(request, "restaurants/results.html", {
             "city": city,
             "results": results, 
             "results_details": results_details,
+            "api_key": api_key,
             "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                         'min_price': min_price, 
                                         'max_price': max_price})                                                  
@@ -115,6 +120,7 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
             "city": city,
             "results": results,
             "results_details": results_details,
+            "api_key": api_key,
             "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                         'keyword': keyword, 'min_price': min_price, 
                                         'max_price': max_price})
@@ -148,7 +154,7 @@ def search(city, filters, radius, keyword, min_price, max_price):
                         max_price=max_price)                        
 
     # To save photos
-    get_photos(gmaps, places_result)
+    # get_photos(gmaps, places_result)
 
     return places_result["results"]
 
