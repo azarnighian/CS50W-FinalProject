@@ -1,8 +1,12 @@
+.nav-links li:nth-of-type(1) a {
+  color: var(--Orange);
+}
+
 .cover_photo {
   background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
                     url("https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
     /* rgba codes from opentable.com */                 
-  height: calc( 100vh - (var(--NavBarHeight)) );
+  height: 100vh;
   
   background-position: center;
   background-repeat: no-repeat;
@@ -13,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: column;    
 }
 
 .title {

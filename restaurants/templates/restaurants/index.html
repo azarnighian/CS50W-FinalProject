@@ -16,7 +16,7 @@
         <form action="{% url 'index' %}" method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit">
+            <input type="submit" value="Search">
         </form>
     </div>        
 {% endblock %}
