@@ -107,9 +107,8 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
 
     if keyword == "empty":
         return render(request, "restaurants/results.html", {
-            "city": city,
-            "results": results, 
-            "results_details": results_details,
+            "city": city,             
+            "restaurants": results_details,
             "api_key": api_key,
             "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                         'min_price': min_price, 
@@ -117,9 +116,8 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
         })      
     else:
         return render(request, "restaurants/results.html", {
-            "city": city,
-            "results": results,
-            "results_details": results_details,
+            "city": city,            
+            "restaurants": results_details,
             "api_key": api_key,
             "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                         'keyword': keyword, 'min_price': min_price, 
@@ -191,18 +189,22 @@ def restaurant_details(id):
 
     gmaps = googlemaps.Client(key=api_key)
 
-    my_fields = ['formatted_address', 'name', 'photo', 'formatted_phone_number', 'opening_hours', 'website']
+    my_fields = ['formatted_address', 'name', 'photo', 'place_id', 'formatted_phone_number', 'opening_hours', 'website']
     
     details_result = gmaps.place(place_id=id, fields=my_fields)
 
     return details_result["result"]
 
     # To get photos:
-    # get_photos(gmaps, details_result)
-    
-    # return render(request, "restaurants/restaurant.html", {
-    #     "details": details_result["result"]
-    # }) 
+    # get_photos(gmaps, details_result)     
+
+
+def restaurant_page(request, name, id):
+    details = restaurant_details(id)
+
+    return render(request, "restaurants/restaurant.html", {
+        "details": details
+    })
 
 
 def profile(request, username):

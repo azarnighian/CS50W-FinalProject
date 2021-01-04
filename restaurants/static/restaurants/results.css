@@ -129,7 +129,6 @@ input[type=submit]:hover {
 .card {    
     display: flex;
     flex-direction: column;
-    margin: 15px 15px;
     padding: 20px;    
     width: 100%;
     border-radius: 5px;
