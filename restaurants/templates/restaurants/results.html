@@ -28,13 +28,16 @@
         
             <div class="cards-container">        
                 {% for restaurant in restaurants %}
-                    <a href="{% url 'restaurant_page' restaurant.name restaurant.place_id %}">
+                    <a class="card-link" href="{% url 'restaurant_page' restaurant.name restaurant.place_id %}">
                         <div class="card">
-                            <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
-                            {% with counter=forloop.counter|stringformat:"s" ref=restaurant.photos.0.photo_reference %}
+                            <div class="card-img">
+                                <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
+                                {% with counter=forloop.counter|stringformat:"s" ref=restaurant.photos.0.photo_reference %}
                                 <!-- <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">                             -->
                                 <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{ref}}&key={{api_key}}">
-                            {% endwith %}
+                                {% endwith %}
+                            </div>
+                            
                             <div class="caption">
                                 <h3>{{ restaurant.name }}</h3>
                                 <p><b>Address: </b>{{ restaurant.formatted_address }}</p>
@@ -49,9 +52,9 @@
                                     <div class="open_status">Not Open Now</div>
                                 {% endif %}
                             </div>
-                        </div>
-                        <div class="line"></div>
+                        </div>                        
                     </a>
+                    <div class="line"></div>
                 {% endfor %}
             </div>
                     <!-- <div class="card empty-card">
