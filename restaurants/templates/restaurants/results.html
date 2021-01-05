@@ -40,11 +40,11 @@
                             
                             <div class="caption">
                                 <h3>{{ restaurant.name }}</h3>
-                                <p><b>Address: </b>{{ restaurant.formatted_address }}</p>
+                                <p class="caption-wrap"><b>Address: </b>{{ restaurant.formatted_address }}</p>
                                 <p><b>Phone Number: </b>{{ restaurant.formatted_phone_number }}</p>
                                 {% if restaurant.website %}
                                     <p><b>Website: </b></p>
-                                    <a href="{{ restaurant.website }}">{{ restaurant.website }}</a>
+                                    <a class="caption-wrap caption-website" href="{{ restaurant.website }}">{{ restaurant.website }}</a>
                                 {% else %}
                                     <p><b>Website: </b>unavailable</p>
                                 {% endif %}

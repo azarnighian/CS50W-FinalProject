@@ -109,10 +109,14 @@ img {
 }
 .caption p {    
     margin-bottom: 10px;
-    color: rgb(80, 80, 80);    
+    color: rgb(80, 80, 80); 
+    font-size: .9rem;   
 }
 .caption a {
     color: rgb(0, 98, 255);    
+}
+.caption-website {
+    font-size: .9rem;
 }
 
 .open_status {
@@ -164,7 +168,7 @@ footer a:visited {
     .sidebar-and-cards-container {
         flex-direction: row;
     }  
-    
+
     .filters-bar {
         display: none;
     }    
@@ -172,9 +176,10 @@ footer a:visited {
     .sidebar-container {
         display: block;
         flex: 0 0 25%;
-        background-color: #fbfbfc;
+        /* background-color: #fbfbfc; */
         padding: 1rem;
-        box-shadow: 0 0 0 1px rgba(67,41,163,.1), 0 1px 8px 0 rgba(67,41,163,.1)
+        margin-left: 20px;
+        /* box-shadow: 0 0 0 1px rgba(67,41,163,.1), 0 1px 8px 0 rgba(67,41,163,.1) */
             /* box-shadow codes from grubhub.com */
         }
     .sidebar-container > p {
@@ -228,12 +233,19 @@ footer a:visited {
     }
 
     .card-img {
-        flex: 0 0 30%;
+        flex: 0 0 25%;
     }
     .caption {
-        flex: 0 0 70%;
+        flex: 0 0 75%;
+        /* align-self: center; */
     }    
-            
+    .caption-wrap {
+        width: 40%;
+    }
+    .caption h3, .caption p {
+        margin-bottom: 15px;
+    }            
+
     /* .empty-card {
         display: none;
     } */      
