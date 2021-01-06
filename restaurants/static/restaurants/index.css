@@ -1,16 +1,6 @@
-nav {
-  background-color: transparent;
-  top: 20px;
-}
-.nav-links a {
-  color: white;
-}
-.logo {
-  color: white;
-}
-/* .nav-links li:nth-of-type(1) a {
+.nav-links li:nth-of-type(1) a {
   color: var(--Orange);
-} */
+}
 
 .cover_photo {
   background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
@@ -34,7 +24,7 @@ nav {
     color: white;
     font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -65,6 +55,23 @@ input[type=submit] {
     font-size: 18px; 
   } */
   
+  nav {
+    background-color: transparent;
+    top: 20px;
+  }
+  .nav-links a {
+    color: white;
+  }
+  .nav-links li:nth-of-type(1) a {
+    color: white;
+  }
+  .nav-links li:nth-of-type(1) a:hover {
+    color: var(--Orange);
+  }
+  .logo {
+    color: white;
+  }
+
   form {
     flex-direction: row;
   }

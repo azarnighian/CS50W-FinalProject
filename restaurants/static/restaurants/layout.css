@@ -7,6 +7,8 @@
 
 html,body {
   height: 100%;
+  overflow-x: hidden;
+  position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
 }
 
 /* Variables */
@@ -34,15 +36,27 @@ nav {
   font-size: 1.5rem;
   color: var(--Orange);
   cursor: default;
-  width: 40%;
+  width: auto;
 }
 .nav-links {
-  display: flex;
-  justify-content: space-around;
-  width: 30%;
+  position: absolute;
+      left: 0px;
+      height: calc( 100vh - (var(--NavBarHeight)) );
+      top: var(--NavBarHeight);
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 50%;  
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+
+      z-index: 10;
 }
 .nav-links li {
   list-style: none;
+  opacity: 0;
 }
 .nav-links a {
   text-decoration: none;
@@ -56,8 +70,9 @@ nav {
 }
 
 .burger {
-  display: none;
-  cursor: pointer;
+  display: block;
+  position: absolute;
+  left: 15px;    
 }
 .burger div {
   width: 25px;
@@ -67,51 +82,48 @@ nav {
   transition: all 0.3s ease;
 }
 
-@media screen and (max-width:1024px){
-  .nav-links {
+
+@media screen and (min-width: 768px){
+  .logo {
     width: 40%;
   }
-}
+  
+  /* Reseting mobile styles */
 
-@media screen and (max-width:768px){
   html, body {
-    overflow-x: hidden;
-    position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
+    overflow-x: initial;
+    position: initial;
   }
+  
+  .nav-links {    
+    width: 40%;
+        
+    position: initial;
+      left: initial;
+      height: initial;
+      top: initial;
+      background-color: initial;
+      flex-direction: initial;
+      align-items: initial;
+      transform: initial;
+      transition: initial;
 
-  .logo {
-    width: auto;
-  }
-  .nav-links {
-    position: absolute;
-      left: 0px;
-      height: calc( 100vh - (var(--NavBarHeight)) );
-      top: var(--NavBarHeight);
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50%;  
-      transform: translateX(-100%);
-      transition: transform 0.6s;
-
-      z-index: 10;
+      z-index: initial;
   }
   .nav-links li {
-    opacity: 0;
-  }
-  .nav-links a {
-    color: var(--Orange);
+    opacity: initial;
   }  
-  .nav-links a:hover {
-  color: grey;
-}
   .burger {
-    display: block;
-    position: absolute;
-    left: 15px;
+    display: none;
   }
 }
+
+@media screen and (min-width: 1024px){
+  .nav-links {
+    width: 30%;
+  }
+}
+
 
 .nav-active {
   transform: translateX(0%);
