@@ -1,6 +1,16 @@
-.nav-links li:nth-of-type(1) a {
-  color: var(--Orange);
+nav {
+  background-color: transparent;
+  top: 20px;
 }
+.nav-links a {
+  color: white;
+}
+.logo {
+  color: white;
+}
+/* .nav-links li:nth-of-type(1) a {
+  color: var(--Orange);
+} */
 
 .cover_photo {
   background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
