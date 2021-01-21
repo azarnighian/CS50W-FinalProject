@@ -12,16 +12,21 @@
 
 {% block body %}
 <div class="flex-container">
-    <h1>Register</h1>
-
     {% if message %}
         <div>{{ message }}</div>
     {% endif %}
+    
+    <div class="side-image-container"></div>
 
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Register">
-    </form>
+    <div class="register-container">
+        <h1>Register</h1>
+        
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    
 </div>    
 {% endblock %}
