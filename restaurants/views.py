@@ -40,15 +40,15 @@ class SidebarForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label="Username")
-    email = forms.EmailField(label="Email")
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
-    confirmation = forms.CharField(label="Confirm password", widget=forms.PasswordInput)
+    username = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(label="", widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    confirmation = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}))
 
 
 class LogInForm(forms.Form):
-    username = forms.CharField(label="Username")
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    username = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
 
 def index(request):    
