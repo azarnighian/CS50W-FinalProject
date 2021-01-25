@@ -4,7 +4,7 @@
 
 .cover_photo {
   background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
-                    url("https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+                    url("https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_960_720.jpg");
     /* rgba codes from opentable.com */                 
   height: 100vh;
   

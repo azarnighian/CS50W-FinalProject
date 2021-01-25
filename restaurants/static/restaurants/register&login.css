@@ -37,7 +37,7 @@ form {
 
 input {
   width: 80%;
-  padding: 1rem;
+  padding: 1.2rem;
   background-color: transparent;
   font-size: 1.1rem;
   font-weight: 300;
@@ -59,8 +59,8 @@ input[type=submit] {
       display: block;
       flex: 55%;  
 
-      background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),
-                        url("https://images.unsplash.com/photo-1601769568317-80c253cc87e6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");
+      background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),
+                        url("https://images.unsplash.com/photo-1563207462-a346082efd12?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80");
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
