@@ -1,0 +1,42 @@
+nav {
+  position: initial;
+}
+
+body {
+  background-color: #f7f7f7;
+}
+
+.flex-container {    
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  
+  min-height: calc( 100vh - (var(--NavBarHeight)) );
+}
+
+.white-box {
+    background-color: white;
+    margin: 1.5rem;
+    text-align: center;
+    width: 100%;
+    height: calc( 91vh - (var(--NavBarHeight)) );
+}
+
+h1 {    
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.white-box ul {
+    padding: 1rem;
+}
+.white-box li {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    list-style-position: inside;
+}
+.white-box a {
+    word-wrap: anywhere;
+    overflow-wrap: anywhere;
+}

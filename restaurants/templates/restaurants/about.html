@@ -1,0 +1,42 @@
+{% extends "restaurants/layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'restaurants/about.css' %}">
+{% endblock %}
+
+{% block style %}
+    <style>
+        .nav-links li:nth-of-type(4) a {
+            color: var(--Orange);
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'restaurants/index.js' %}"></script>
+    <!-- <script defer src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places"></script> -->
+{% endblock %}
+
+{% block body %}
+    <div class="flex-container">        
+       <div class="white-box">
+            <h1>About Restaurants</h1>
+            
+            <ul>
+                <li>
+                    Design inspired by <a href="https://www.yelp.com/">Yelp</a>,
+                    <a href="https://www.opentable.com/">OpenTable</a>,
+                    and <a href="https://www.grubhub.com/">Grubhub</a>
+                </li>
+                <li>
+                    Register/login page's design inspired by: <a
+                    href="https://colorlib.com/etc/lf/Login_v18/index.html">https://colorlib.com/etc/lf/Login_v18/index.html</a>
+                </li>  
+                <li>
+                    Restaurant information obtained using the ____ API
+                </li>                      
+            </ul>            
+       </div> 
+    </div>        
+{% endblock %}
