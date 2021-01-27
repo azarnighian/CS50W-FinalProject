@@ -15,6 +15,7 @@ html,body {
 :root {
   --NavBarHeight: 9vh;
   --Orange: #da7337;
+  --HoverOrange: #dd641e;
 }
 
 /* Nav Bar */

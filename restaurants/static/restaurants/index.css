@@ -49,6 +49,9 @@ input[type=submit] {
   margin-bottom: 0;
   font-weight: 600;
 }
+input[type=submit]:hover {
+  background-color: var(--HoverOrange);
+}
 
 @media only screen and (min-width: 768px) {
   /* html {
