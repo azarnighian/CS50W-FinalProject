@@ -1,5 +1,3 @@
-/* Design inspired by yelp.com, opentable.com, and grubhub.com */
-
 a {
     text-decoration: none;
 }
@@ -113,7 +111,7 @@ img {
     font-size: .9rem;   
 }
 .caption a {
-    color: rgb(0, 98, 255);    
+    color: var(--LinkBlue);    
 }
 .caption-website {
     font-size: .9rem;
@@ -142,13 +140,13 @@ img {
 }
 
 footer a {
-    color: rgb(0, 98, 255);
+    color: var(--LinkBlue);
 }
 footer a:link {
-    color: rgb(0, 98, 255);
+    color: var(--LinkBlue);
 }
 footer a:visited {
-    color: rgb(0, 98, 255);
+    color: var(--LinkBlue);
 }
 
 

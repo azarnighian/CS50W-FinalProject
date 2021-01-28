@@ -8,35 +8,52 @@ body {
 
 .flex-container {    
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  
+  flex-wrap: wrap;  
   min-height: calc( 100vh - (var(--NavBarHeight)) );
 }
 
 .white-box {
-    background-color: white;
-    margin: 1.5rem;
+    background-color: white;    
+    margin-top: 3rem;
     text-align: center;
-    width: 100%;
-    height: calc( 91vh - (var(--NavBarHeight)) );
+    width: 100%;    
+    box-shadow: 0px 0px 10px 2px #eeeeee;    
 }
 
 h1 {    
-    margin-top: 3rem;
+    margin-top: 5rem;
     margin-bottom: 3rem;
+    font-weight: 500;
 }
 
 .white-box ul {
     padding: 1rem;
+    list-style-type: none;
 }
+
 .white-box li {
     font-size: 1.2rem;
     margin-bottom: 2rem;
     list-style-position: inside;
+    font-weight: 300;
 }
+
 .white-box a {
     word-wrap: anywhere;
     overflow-wrap: anywhere;
+    text-decoration: none;
+    color: var(--LinkBlue);
+}
+.white-box a:hover {
+    color: var(--HoverLinkBlue);
+    text-decoration: underline;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .white-box {
+        margin: 3rem 7rem 0;
+        height: calc( 91vh - (var(--NavBarHeight)) ); 
+        border-radius: 10px;       
+    }
 }

@@ -16,6 +16,8 @@ html,body {
   --NavBarHeight: 9vh;
   --Orange: #da7337;
   --HoverOrange: #dd641e;
+  --LinkBlue: rgb(0, 98, 255);
+  --HoverLinkBlue: rgb(0, 60, 156);
 }
 
 /* Nav Bar */
