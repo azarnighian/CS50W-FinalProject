@@ -52,9 +52,11 @@ input[type=submit] {
   margin-top: 10px;
   margin-bottom: 0;
   font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
 }
 input[type=submit]:hover {
-  background-color: var(--HoverOrange);
+  background-color: var(--HoverOrange);  
 }
 
 @media only screen and (min-width: 768px) {
@@ -62,8 +64,8 @@ input[type=submit]:hover {
       display: block;
       flex: 55%;  
 
-      background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),
-                        url("https://images.unsplash.com/photo-1584255014406-2a68ea38e48c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=707&q=80");
+      background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),
+                        url("https://images.unsplash.com/photo-1580802841960-bb47baa91eac?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=717&q=80");
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
