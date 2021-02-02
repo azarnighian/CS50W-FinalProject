@@ -1,0 +1,16 @@
+nav {
+  position: initial;
+}
+.nav-links li:nth-of-type(2) a {
+  color: var(--Orange);
+}
+
+body {
+  background-color: var(--GrayBackground);
+}
+
+h1 {
+  text-align: center;
+  font-weight: 500;  
+  margin-top: 40px;
+}
