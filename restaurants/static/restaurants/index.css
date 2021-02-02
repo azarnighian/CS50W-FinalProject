@@ -61,6 +61,7 @@ input[type=submit]:hover {
   nav {
     background-color: transparent;
     top: 20px;
+    box-shadow: none;
   }
   .nav-links a {
     color: white;
