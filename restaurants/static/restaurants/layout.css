@@ -18,6 +18,7 @@ html,body {
   --HoverOrange: #dd641e;
   --LinkBlue: rgb(0, 98, 255);
   --HoverLinkBlue: rgb(0, 60, 156);
+  --GrayBackground: #f7f7f7;
 }
 
 /* Nav Bar */
@@ -35,27 +36,29 @@ nav {
   width: 100%;
 }
 
-.logo {
-  font-size: 1.5rem;
-  color: var(--Orange);
-  cursor: default;
-  width: auto;
+.logo img {
+  height: 2rem;
+  margin-top: -6px;
 }
+.whitelogo {
+  display: none;
+}
+
 .nav-links {
   position: absolute;
-      left: 0px;
-      height: calc( 100vh - (var(--NavBarHeight)) );
-      top: calc( var(--NavBarHeight) - 1px );
-      background-color: white;      
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 80%;  
-      transform: translateX(-100%);
-      transition: transform 0.6s;
+  left: 0px;
+  height: calc( 100vh - (var(--NavBarHeight)) );
+  top: calc( var(--NavBarHeight) - 1px );
+  background-color: white;      
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;  
+  transform: translateX(-100%);
+  transition: transform 0.6s;
 
-      z-index: 10;
+  z-index: 10;
 }
 .nav-links li {
   list-style: none;

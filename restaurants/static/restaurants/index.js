@@ -6,8 +6,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {    
     navSlide();
+    logoChange();
 
-    document.querySelector('.filters-bar').addEventListener('click', () => filters_bar());
+    // document.querySelector('.filters-bar').addEventListener('click', () => filters_bar());
     
 
     
@@ -50,6 +51,14 @@ const navSlide = () => {
         // Burger Animation
         burger.classList.toggle('toggle');
     });        
+}
+
+function logoChange() {
+    const nav = document.querySelector('nav');
+    if (window.getComputedStyle(nav).backgroundColor === 'rgba(0, 0, 0, 0)') {
+        document.querySelector('.orangelogo').style.display = 'none';        
+        document.querySelector('.whitelogo').style.display = 'block';        
+    }    
 }
 
 function filters_bar() {

@@ -71,8 +71,8 @@ input[type=submit]:hover {
   .nav-links li:nth-of-type(1) a:hover {
     color: var(--Orange);
   }
-  .logo {
-    color: white;
+  .logo img {
+    margin-top: -15px;
   }
 
   form {
