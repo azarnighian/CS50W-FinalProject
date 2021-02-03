@@ -9,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import User
 
+import requests
+import urllib.parse
+
 
 class SearchForm(forms.Form):
     city = forms.CharField(label="", 
@@ -58,8 +61,14 @@ def index(request):
             # Isolate the task from the 'cleaned' version of form data
             city = form.cleaned_data["city"]                                           
             
+            lat_and_lon = geocode(city)
+
+            # Nearby search
+            # ...
+
             # Redirect user
-            return HttpResponseRedirect(reverse("results", args=[city, "no", 1000, 'empty', 0, 4]))
+            # return HttpResponseRedirect(reverse("results", args=[city, "no", 1000, 'empty', 0, 4]))
+            return HttpResponseRedirect(reverse("about"))
         else:
             # If the form is invalid, re-render the page with existing information.
             return render(request, "restaurants/index.html", {
@@ -70,6 +79,26 @@ def index(request):
         "form": SearchForm()
     })
 
+
+def geocode(city):
+    # URL-encode city string
+        # https://www.kite.com/python/answers/how-to-encode-a-url-in-python
+        # https://www.urlencoder.io/python/#:~:text=In%20Python%203%2B%2C%20You%20can,uses%20UTF%2D8%20encoding%20scheme.
+    # url_encoded_city = urllib.parse.quote(city)
+    
+    # Get API key
+    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+        api_key = file.read().strip()
+        
+    parameters = {
+        'query': city,        
+        'key': api_key
+    }
+    
+    response = requests.get('https://api.tomtom.com/search/2/geocode/.json', params=parameters)
+    
+    lat_and_lon = response.json()['results'][0]['position']    
+    return lat_and_lon
 
 # later, learn how to use csrf and not just use exempt 
 @csrf_exempt
