@@ -13,19 +13,19 @@
 {% block body %}
     <div class="flex-container">        
        <div class="white-box">
-            <div>
+            <div class="about">
                 <h1>About</h1>            
                 <img src="{% static 'restaurants/LogoMakr-61dCEP.png' %}">
             </div>
 
             <div class="line"></div>
-            <h2>Made by <a href="https://github.com/AProgrammerZ">AProgrammerZ</a></h2>
+            <h2>Made by <a href="https://github.com/azarnighian">Aharon Zarnighian</a></h2>
             <div class="line"></div>
 
             <ul>
                 <li>
-                    - Restaurant information obtained using the ____ API
-                </li>
+                    - Restaurant information obtained using <a href="https://developer.tomtom.com/products/places-api">TomTom's APIs</a>, powered by <a href="https://foursquare.com/">Foursquare</a>
+                </li> 
                 <li>
                     - Created my free logo at <a href="https://logomakr.com/">LogoMakr.com</a>
                 </li>
@@ -41,7 +41,29 @@
                 <li>
                     - About page design inspired by <a href="https://blog.hubspot.com/hs-fs/hubfs/Screen%20Shot%202017-01-06%20at%202.10.03%20PM.png?width=669&name=Screen%20Shot%202017-01-06%20at%202.10.03%20PM.png">Apptopia</a>
                 </li>                                                      
-            </ul>            
+            </ul>    
+            
+            <div>
+                <h1>TomTom Terms:</h1>
+                <a href="https://developer.tomtom.com/terms-and-conditions">Full TomTom Terms and Conditions</a>
+                <p>ANNEX 1 – ADDITIONAL TERMS APPLICABLE TO THE EXTENDED SERVICES                
+                <br>Extended Search-Points of Interest Details API and Points of Interest Photos API                
+                <br>With respect to the above Extended Services, the following applies:                
+                <br>i) You shall attribute all Results delivered by the Extended Search-Points of Interest Details API and Points of
+                Interest Photos API as being ‘powered by Foursquare’.                
+                <br>ii) You shall not use any Results delivered by the Extended Search-Points of Interest Details API and Points of Interest
+                Photos API to create, improve, or edit a venue or point of interest database.                
+                <br>iii) You shall not cache any Results delivered by the Extended Search-Points of Interest Details API and Points of
+                Interest Photos API for more than 30 days.                
+                <br>iv) You shall not use the Extended Search-Points of Interest Details API and Points of Interest Photos API to create or
+                develop any Ad-Targeting Product or Ad-Effectiveness Product. “Ad-Targeting Product or Ad-Effectiveness Product” for
+                these purposes shall mean: (a) any digital advertising solution that targets end users and audience segments based on
+                visitation to points of interest; (b) any attribution product that measures the impact of mobile and out-of-home
+                advertising on point of interest visits, or (c) any analytics or research product that enable advertisers and agencies
+                to better understand foot traffic patterns.                
+                <br>v) You shall include the above terms as part of the End User License Agreement which you must ensure an End User accepts
+                prior to use of your Permitted Application.</p>
+            </div>
        </div> 
     </div>        
 {% endblock %}
