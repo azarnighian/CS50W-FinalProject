@@ -45,7 +45,14 @@
                                 <p><b>Phone Number: </b>{{ restaurant.poi.phone }}</p>
                                 {% if restaurant.poi.url %}
                                     <p><b>Website: </b></p>
-                                    <a class="caption-wrap caption-website" href="{{ restaurant.poi.url }}">{{ restaurant.poi.url }}</a>
+                                        {% if "http" in restaurant.poi.url %}
+                                            <a class="caption-wrap caption-website" href="{{ restaurant.poi.url }}">{{ restaurant.poi.url }}</a>
+                                        {% elif "http" not in restaurant.poi.url and "www." in restaurant.poi.url %}
+                                            <a class="caption-wrap caption-website" href="https://{{ restaurant.poi.url }}">https://{{ restaurant.poi.url }}</a>
+                                        {% else %}
+                                            <!-- https://stackoverflow.com/questions/8951423/html-links-without-http-protocol -->
+                                            <a class="caption-wrap caption-website" href="//www.{{ restaurant.poi.url }}">www.{{ restaurant.poi.url }}</a>
+                                        {% endif %}
                                 {% else %}
                                     <p><b>Website: </b>unavailable</p>
                                 {% endif %}
