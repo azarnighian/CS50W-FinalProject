@@ -59,16 +59,10 @@ def index(request):
         # Check if form data is valid (server-side)
         if form.is_valid():
             # Isolate the task from the 'cleaned' version of form data
-            city = form.cleaned_data["city"]                                           
-            
-            lat_and_lon = geocode(city)
-
-            # Nearby search
-            # ...
+            city = form.cleaned_data["city"]                                                                   
 
             # Redirect user
-            # return HttpResponseRedirect(reverse("results", args=[city, "no", 1000, 'empty', 0, 4]))
-            return HttpResponseRedirect(reverse("about"))
+            return HttpResponseRedirect(reverse("results", args=[city, "no", 1000, 'empty', 0, 4]))
         else:
             # If the form is invalid, re-render the page with existing information.
             return render(request, "restaurants/index.html", {
@@ -100,6 +94,26 @@ def geocode(city):
     lat_and_lon = response.json()['results'][0]['position']    
     return lat_and_lon
 
+
+def search(lat_and_lon):
+    # Get API key
+    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+        api_key = file.read().strip()
+        
+    parameters = {                
+        'key': api_key,
+        'lat': lat_and_lon['lat'],
+        'lon': lat_and_lon['lon'],
+        # 'radius':  ,
+        'categorySet': 7315 #(Restaurant category number) 
+    }
+    
+    response = requests.get('https://api.tomtom.com/search/2/nearbySearch/.json', params=parameters)
+    
+    restaurants = response.json()['results']
+    return restaurants
+
+
 # later, learn how to use csrf and not just use exempt 
 @csrf_exempt
 def results(request, city, filters, radius, keyword, min_price, max_price):                   
@@ -119,16 +133,17 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
             return render(request, "restaurants/results.html", {
                 "form": form
             })
-
     
-    # Get API key
-    # with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
-    #     api_key = file.read().strip()
+
+    # Turn city name into coordinates
+    lat_and_lon = geocode(city)
+
+    # Search for nearby restaurants
+    restaurants = search(lat_and_lon)    
 
     return render(request, "restaurants/results.html", {
         "city": city,            
-        "restaurants": results_details,
-        "api_key": api_key,
+        "restaurants": restaurants,        
         "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                     'keyword': keyword, 'min_price': min_price, 
                                     'max_price': max_price})
