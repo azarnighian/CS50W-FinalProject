@@ -50,6 +50,11 @@ class LogInForm(forms.Form):
     password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
 
+# Get API key
+with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+    api_key = file.read().strip()
+
+
 def index(request):    
 # From CS50W notes
     # Check if method is POST
@@ -78,11 +83,7 @@ def geocode(city):
     # URL-encode city string
         # https://www.kite.com/python/answers/how-to-encode-a-url-in-python
         # https://www.urlencoder.io/python/#:~:text=In%20Python%203%2B%2C%20You%20can,uses%20UTF%2D8%20encoding%20scheme.
-    # url_encoded_city = urllib.parse.quote(city)
-    
-    # Get API key
-    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
-        api_key = file.read().strip()
+    # url_encoded_city = urllib.parse.quote(city)        
         
     parameters = {
         'query': city,        
@@ -95,11 +96,7 @@ def geocode(city):
     return lat_and_lon
 
 
-def search(lat_and_lon):
-    # Get API key
-    with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
-        api_key = file.read().strip()
-        
+def search(lat_and_lon):            
     parameters = {                
         'key': api_key,
         'lat': lat_and_lon['lat'],
@@ -112,6 +109,18 @@ def search(lat_and_lon):
     
     restaurants = response.json()['results']
     return restaurants
+
+
+def get_restaurant_details(id):
+    parameters = {                
+        'key': api_key,
+        'id': id
+    }
+    
+    response = requests.get('https://api.tomtom.com/search/2/poiDetails.json', params=parameters)
+    
+    restaurant_details = response.json()
+    return restaurant_details
 
 
 # later, learn how to use csrf and not just use exempt 
@@ -141,9 +150,22 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     # Search for nearby restaurants
     restaurants = search(lat_and_lon)    
 
+    # Get the additional details for each restaurant
+    restaurant_details_list = []
+    for restaurant in restaurants:
+        # If the restaurant has a details id
+        if 'dataSources' in restaurant:
+            id = restaurant['dataSources']['poiDetails'][0]['id']
+            restaurant_details_list.append(get_restaurant_details(id))
+        else:
+            restaurant_details_list.append(0)
+
+    # Get the photos for each restaurant
+    
+                
     return render(request, "restaurants/results.html", {
         "city": city,            
-        "restaurants": restaurants,        
+        "restaurants": restaurants,       
         "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                     'keyword': keyword, 'min_price': min_price, 
                                     'max_price': max_price})
@@ -226,4 +248,4 @@ def logout_view(request):
 
 
 def about(request):
-    return render(request, "restaurants/about.html")               
+    return render(request, "restaurants/about.html")

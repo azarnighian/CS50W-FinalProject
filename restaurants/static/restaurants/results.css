@@ -117,7 +117,7 @@ nav {
     font-size: .9rem;
 }
 
-.open_status {
+/* .open_status {
     margin-top: 10px;
     height: 30px;
     width: 140px;
@@ -129,7 +129,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 .line {
     width: 100%;
     background-color: rgb(200, 200, 200);
