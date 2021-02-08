@@ -116,6 +116,10 @@ nav {
 .caption-website {
     font-size: .9rem;
 }
+.caption-website:hover {
+    color: var(--HoverLinkBlue);
+    text-decoration: underline;
+}
 
 /* .open_status {
     margin-top: 10px;
@@ -137,16 +141,6 @@ nav {
 }
 .empty-card {
     visibility: hidden;
-}
-
-footer a {
-    color: var(--LinkBlue);
-}
-footer a:link {
-    color: var(--LinkBlue);
-}
-footer a:visited {
-    color: var(--LinkBlue);
 }
 
 

@@ -183,7 +183,7 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     counter = 1
 
     for restaurant in restaurant_details_list:        
-        if restaurant != 0:
+        if restaurant != 0 and 'photos' in restaurant['result']:
             photo_id = restaurant['result']['photos'][0]['id']
             get_photo(photo_id, counter)        
         # if restaurant has no details and photos:
