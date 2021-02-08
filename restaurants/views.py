@@ -12,6 +12,9 @@ from .models import User
 import requests
 import urllib.parse
 
+from shutil import copy
+import os 
+
 
 class SearchForm(forms.Form):
     city = forms.CharField(label="", 
@@ -132,7 +135,7 @@ def get_photo(photo_id, counter):
         response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)
         
         # https://www.w3schools.com/python/python_file_handling.asp
-        f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}Photo.jpg', 'wb')        
+        f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}.jpg', 'wb')        
         for chunk in response:
             if chunk:
                 f.write(chunk)
@@ -179,13 +182,19 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     # Get a photo for each restaurant
     counter = 1
 
-    for restaurant in restaurant_details_list:
+    for restaurant in restaurant_details_list:        
         if restaurant != 0:
             photo_id = restaurant['result']['photos'][0]['id']
-            get_photo(photo_id, counter)
-        else:
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}Photo.jpg', 'x')        
-            
+            get_photo(photo_id, counter)        
+        # if restaurant has no details and photos:
+        else:                    
+            # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
+            # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
+            copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Restaurant_Photos')
+
+            # https://www.geeksforgeeks.org/python-os-rename-method/
+            os.rename('restaurants/static/restaurants/Restaurant_Photos/no_image.png', f'restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}.jpg')
+
         counter += 1            
                 
     return render(request, "restaurants/results.html", {

@@ -32,11 +32,9 @@
                         <div class="card">
                             <div class="card-img">
                                 <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
-                                <!-- {% with counter=forloop.counter|stringformat:"s" ref=restaurant.photos.0.photo_reference %} -->
-                                    <!-- <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">                             -->
-                                    <!-- <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{ref}}&key={{api_key}}"> -->
-                                <!-- {% endwith %} -->
-                                <img src="https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_960_720.jpg">
+                                {% with counter=forloop.counter|stringformat:"s" %}                                    
+                                    <img src="{% static 'restaurants/Restaurant_Photos/Restaurant'|add:counter|add:'.jpg' %}">                            
+                                {% endwith %}
                             </div>
                             
                             <div class="caption">
@@ -61,7 +59,7 @@
                     </a>
                     <div class="line"></div>
                 {% endfor %}
-            </div>
+            </div>            
                     <!-- <div class="card empty-card">
                         {% with counter=1|stringformat:"s" %}
                             <img src="{% static 'restaurants/Restaurant_Images/Restaurant'|add:counter|add:'.jpg' %}">
