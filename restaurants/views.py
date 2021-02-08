@@ -123,6 +123,22 @@ def get_restaurant_details(id):
     return restaurant_details
 
 
+def get_photo(photo_id, counter):
+        parameters = {                
+            'key': api_key,
+            'id': photo_id
+        }
+        
+        response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)
+        
+        # https://www.w3schools.com/python/python_file_handling.asp
+        f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}Photo.jpg', 'wb')        
+        for chunk in response:
+            if chunk:
+                f.write(chunk)
+        f.close()
+
+
 # later, learn how to use csrf and not just use exempt 
 @csrf_exempt
 def results(request, city, filters, radius, keyword, min_price, max_price):                   
@@ -160,8 +176,17 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
         else:
             restaurant_details_list.append(0)
 
-    # Get the photos for each restaurant
-    
+    # Get a photo for each restaurant
+    counter = 1
+
+    for restaurant in restaurant_details_list:
+        if restaurant != 0:
+            photo_id = restaurant['result']['photos'][0]['id']
+            get_photo(photo_id, counter)
+        else:
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}Photo.jpg', 'x')        
+            
+        counter += 1            
                 
     return render(request, "restaurants/results.html", {
         "city": city,            
