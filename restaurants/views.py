@@ -143,6 +143,7 @@ def get_photo(photo_id, counter):
 
 
 # later, learn how to use csrf and not just use exempt 
+# make this function smaller by breaking it into different parts
 @csrf_exempt
 def results(request, city, filters, radius, keyword, min_price, max_price):                   
     if request.method == "POST":
@@ -170,19 +171,19 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     restaurants = search(lat_and_lon)    
 
     # Get the additional details for each restaurant
-    restaurant_details_list = []
+    restaurant_details = []
     for restaurant in restaurants:
         # If the restaurant has a details id
         if 'dataSources' in restaurant:
             id = restaurant['dataSources']['poiDetails'][0]['id']
-            restaurant_details_list.append(get_restaurant_details(id))
+            restaurant_details.append(get_restaurant_details(id))
         else:
-            restaurant_details_list.append(0)
+            restaurant_details.append(0)
 
     # Get a photo for each restaurant
     counter = 1
 
-    for restaurant in restaurant_details_list:        
+    for restaurant in restaurant_details:        
         if restaurant != 0 and 'photos' in restaurant['result']:
             photo_id = restaurant['result']['photos'][0]['id']
             get_photo(photo_id, counter)        
@@ -199,19 +200,33 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
                 
     return render(request, "restaurants/results.html", {
         "city": city,            
-        "restaurants": restaurants,       
+        "restaurants": restaurants,              
         "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                     'keyword': keyword, 'min_price': min_price, 
                                     'max_price': max_price})
     })                                                        
 
 
-def restaurant_page(request, name, id):
-    details = restaurant_details(id)
+def restaurant_page(request, name, id, details_id):    
+    restaurant = get_restaurant(id)
+    restaurant_details = get_restaurant_details(details_id) if details_id != '0' else 0
 
     return render(request, "restaurants/restaurant.html", {
-        "details": details
+        "restaurant": restaurant['results'][0],
+        "restaurant_details": restaurant_details
     })
+
+
+def get_restaurant(id):
+    parameters = {                        
+        'entityId': id,
+        'key': api_key
+    }
+    
+    response = requests.get('https://api.tomtom.com/search/2/place.json', params=parameters)
+    
+    restaurant = response.json()
+    return restaurant
 
 
 def profile(request, username):
