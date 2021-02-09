@@ -1,8 +1,49 @@
 .flex-container {    
     display: flex;
     flex-direction: column;
-    align-items: center;    
-        /* https://stackoverflow.com/questions/35106814/why-isnt-justify-content-centering-my-divs */
-    margin-top: var(--NavBarHeight);
+    margin-top: calc(var(--NavBarHeight) + 1rem);    
 }
 
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+    
+    height: 10rem;
+    width: 100%;
+    background-color: var(--Orange);   
+    
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    
+    z-index: 10;
+}
+
+h2 {
+    color: var(--Orange);
+    margin-bottom: 2rem;
+    margin-left: 10rem;
+    margin-top: 2rem;
+}
+
+p, .flex-container a {    
+    margin-bottom: 1rem;
+    margin-left: 11rem;
+}
+
+.photos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 11rem;     
+}
+
+.photos img {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: .5rem;
+}

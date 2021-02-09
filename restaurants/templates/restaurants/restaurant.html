@@ -12,55 +12,58 @@
 
 {% block body %}
     <div class="flex-container">
-        <h1>{{ restaurant.poi.name }}</h1>
-        <p><b>Address:</b> {{ restaurant.address.freeformAddress }}</p>
-        <p><b>Phone Number:</b> {{ restaurant.poi.phone }}</p>
-        <!-- <p>{{ details.opening_hours }}</p> -->
-        {% if restaurant.poi.url %}
-            <p><b>Website: </b></p>
-                {% if "http" in restaurant.poi.url %}
-                    <a href="{{ restaurant.poi.url }}">{{ restaurant.poi.url }}</a>
-                {% elif "http" not in restaurant.poi.url and "www." in restaurant.poi.url %}
-                    <a href="https://{{ restaurant.poi.url }}">https://{{ restaurant.poi.url }}</a>
-                {% else %}
-                    <!-- https://stackoverflow.com/questions/8951423/html-links-without-http-protocol -->
-                    <a href="//www.{{ restaurant.poi.url }}">www.{{ restaurant.poi.url }}</a>
-                {% endif %}
-        {% else %}
-            <p><b>Website: </b>unavailable</p>
-        {% endif %}
+        <div class="title">{{ restaurant.poi.name }}</div>
+        <h2>About</h2>
+            <p><b>Address:</b> {{ restaurant.address.freeformAddress }}</p>
+            <p><b>Phone Number:</b> {{ restaurant.poi.phone }}</p>
+            <!-- <p>{{ details.opening_hours }}</p> -->
+            {% if restaurant.poi.url %}
+                <p><b>Website: </b></p>
+                    {% if "http" in restaurant.poi.url %}
+                        <a href="{{ restaurant.poi.url }}">{{ restaurant.poi.url }}</a>
+                    {% elif "http" not in restaurant.poi.url and "www." in restaurant.poi.url %}
+                        <a href="https://{{ restaurant.poi.url }}">https://{{ restaurant.poi.url }}</a>
+                    {% else %}
+                        <!-- https://stackoverflow.com/questions/8951423/html-links-without-http-protocol -->
+                        <a href="//www.{{ restaurant.poi.url }}">www.{{ restaurant.poi.url }}</a>
+                    {% endif %}
+            {% else %}
+                <p><b>Website: </b>unavailable</p>
+            {% endif %}
 
-        {% if restaurant_details.result.description %}
-            <p><b>Description:</b> {{ restaurant_details.result.description }}</p>
-        {% else %}
-            <p><b>Description:</b> unavailable</p>
-        {% endif %}
+            {% if restaurant_details.result.description %}
+                <p><b>Description:</b> {{ restaurant_details.result.description }}</p>
+            {% else %}
+                <p><b>Description:</b> unavailable</p>
+            {% endif %}
 
-        {% if restaurant_details.result.priceRange %}
-            <p><b>Price Range:</b> {{ restaurant_details.result.priceRange.label }}/{{ restaurant_details.result.priceRange.value }}</p>
-        {% else %}
-            <p><b>Price Range:</b> unavailable</p>
-        {% endif %}
+            {% if restaurant_details.result.priceRange %}
+                <p><b>Price Range:</b> {{ restaurant_details.result.priceRange.label }}/{{ restaurant_details.result.priceRange.value }}</p>
+            {% else %}
+                <p><b>Price Range:</b> unavailable</p>
+            {% endif %}
 
-        {% if restaurant_details.result.socialMedia %}
-            <p><b>Social Media:</b>
-            {% for social_media in restaurant_details.result.socialMedia %}
-                <b>{{ social_media.name }}: </b> <a href="{{ social_media.url }}">{{ social_media.url }}</a></p>
-            {% endfor %}
-        {% else %}
-            <p><b>Social Media:</b> unavailable</p>
-        {% endif %} 
+            {% if restaurant_details.result.socialMedia %}
+                <p><b>Social Media:</b>
+                {% for social_media in restaurant_details.result.socialMedia %}
+                    <b>{{ social_media.name }}: </b> <a href="{{ social_media.url }}">{{ social_media.url }}</a></p>
+                {% endfor %}
+            {% else %}
+                <p><b>Social Media:</b> unavailable</p>
+            {% endif %} 
         
-        {% if photos_quantity != 0 %}
-            <p><b>Photos: </b></p>
-            {% for counter in range %}        
-                <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
-                {% with counter=counter|stringformat:"s" %}                                                    
-                    <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:counter|add:'.jpg' %}">
-                {% endwith %}
-            {% endfor %}
-        {% else %}
-            <p><b>Photos: </b> unavailable</p>
-        {% endif %}
+        <h2>Photos</h2>
+            {% if photos_quantity != 0 %}        
+                <div class="photos">                                        
+                    {% for counter in range %}
+                    <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
+                        {% with counter=counter|stringformat:"s" %}
+                            <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:counter|add:'.jpg' %}">
+                        {% endwith %}
+                    {% endfor %}
+                </div>            
+            {% else %}
+                <p>unavailable</p>
+            {% endif %}
     </div>    
 {% endblock %}
