@@ -49,6 +49,18 @@
             {% endfor %}
         {% else %}
             <p><b>Social Media:</b> unavailable</p>
-        {% endif %}        
+        {% endif %} 
+        
+        {% if photos_quantity != 0 %}
+            <p><b>Photos: </b></p>
+            {% for counter in range %}        
+                <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
+                {% with counter=counter|stringformat:"s" %}                                                    
+                    <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:counter|add:'.jpg' %}">
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+            <p><b>Photos: </b> unavailable</p>
+        {% endif %}
     </div>    
 {% endblock %}

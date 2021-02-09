@@ -4,3 +4,5 @@
     align-items: center;    
         /* https://stackoverflow.com/questions/35106814/why-isnt-justify-content-centering-my-divs */
     margin-top: var(--NavBarHeight);
+}
+

@@ -14,6 +14,7 @@ import urllib.parse
 
 from shutil import copy
 import os 
+import glob
 
 
 class SearchForm(forms.Form):
@@ -126,7 +127,7 @@ def get_restaurant_details(id):
     return restaurant_details
 
 
-def get_photo(photo_id, counter):
+def get_photos(photo_id, counter, quantity):
         parameters = {                
             'key': api_key,
             'id': photo_id
@@ -135,7 +136,11 @@ def get_photo(photo_id, counter):
         response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)
         
         # https://www.w3schools.com/python/python_file_handling.asp
-        f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}.jpg', 'wb')        
+        if quantity == "one":
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')        
+        else:
+             f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
+        
         for chunk in response:
             if chunk:
                 f.write(chunk)
@@ -186,15 +191,15 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     for restaurant in restaurant_details:        
         if restaurant != 0 and 'photos' in restaurant['result']:
             photo_id = restaurant['result']['photos'][0]['id']
-            get_photo(photo_id, counter)        
+            get_photos(photo_id, counter, "one")        
         # if restaurant has no details and photos:
         else:                    
             # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
             # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
-            copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Restaurant_Photos')
+            copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Restaurants_Photos')
 
             # https://www.geeksforgeeks.org/python-os-rename-method/
-            os.rename('restaurants/static/restaurants/Restaurant_Photos/no_image.png', f'restaurants/static/restaurants/Restaurant_Photos/Restaurant{counter}.jpg')
+            os.rename('restaurants/static/restaurants/Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg')
 
         counter += 1            
                 
@@ -210,10 +215,21 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
 def restaurant_page(request, name, id, details_id):    
     restaurant = get_restaurant(id)
     restaurant_details = get_restaurant_details(details_id) if details_id != '0' else 0
+    
+    delete_photos()
 
+    if restaurant_details != 0 and 'photos' in restaurant_details['result']:
+        get_restaurant_photos(restaurant_details['result']['photos'])
+
+    # https://stackoverflow.com/questions/49284015/how-to-check-if-folder-is-empty-with-python
+    photos_quantity = len(os.listdir('restaurants/static/restaurants/Restaurant_Photos'))
+    
     return render(request, "restaurants/restaurant.html", {
         "restaurant": restaurant['results'][0],
-        "restaurant_details": restaurant_details
+        "restaurant_details": restaurant_details,
+        "photos_quantity": photos_quantity,
+        # https://stackoverflow.com/questions/48637178/do-django-templates-allow-for-range-in-for-loops
+        "range": range(photos_quantity)
     })
 
 
@@ -227,6 +243,25 @@ def get_restaurant(id):
     
     restaurant = response.json()
     return restaurant
+
+
+def delete_photos():
+    # https://linuxize.com/post/python-delete-files-and-directories/
+    files = glob.glob('/restaurants/static/restaurants/Restaurant_Photos/*')
+
+    for f in files:
+        try:
+            f.remove()
+        except OSError as e:
+            print("Error: %s : %s" % (f, e.strerror))
+
+
+def get_restaurant_photos(photo_ids):
+    counter = 0
+    
+    for photo_id in photo_ids:
+        get_photos(photo_id['id'], counter, "all")
+        counter += 1
 
 
 def profile(request, username):

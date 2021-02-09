@@ -37,7 +37,7 @@
                                 <div class="card-img">
                                     <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
                                     {% with counter=forloop.counter|stringformat:"s" %}                                    
-                                        <img src="{% static 'restaurants/Restaurant_Photos/Restaurant'|add:counter|add:'.jpg' %}">                            
+                                        <img src="{% static 'restaurants/Restaurants_Photos/Restaurant'|add:counter|add:'.jpg' %}">                            
                                     {% endwith %}
                                 </div>
                                 
