@@ -4,9 +4,7 @@ from django import forms
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-
 from django.views.decorators.csrf import csrf_exempt
-
 from .models import User
 
 import requests
@@ -15,6 +13,9 @@ import urllib.parse
 from shutil import copy
 import os 
 import glob
+
+from datetime import date
+import calendar
 
 
 class SearchForm(forms.Form):
@@ -224,6 +225,18 @@ def restaurant_page(request, name, id, details_id):
     # https://stackoverflow.com/questions/49284015/how-to-check-if-folder-is-empty-with-python
     photos_quantity = len(os.listdir('restaurants/static/restaurants/Restaurant_Photos'))
     
+    # Changing each date in 'openingHours' to the name of the day of the week
+        # Ex: '2019-02-05' should become 'Tuesday'
+    # if 'openingHours' in restaurant['results'][0]:
+    #     for time_range in restaurant['results'][0]['openingHours']['timeRanges']:
+    #         # https://stackoverflow.com/questions/9847213/how-do-i-get-the-day-of-week-given-a-date
+    #         this_date_string = time_range['startTime']['date']
+    #         this_date = date.fromisoformat(this_date_string)
+    #         this_date_name = calendar.day_name[this_date.weekday()]
+            
+    #         time_range['startTime']['date'] = this_date_name
+    
+
     return render(request, "restaurants/restaurant.html", {
         "restaurant": restaurant['results'][0],
         "restaurant_details": restaurant_details,
