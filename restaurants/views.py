@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
+    # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
 from .models import User
 
 import requests
@@ -151,6 +153,7 @@ def get_photos(photo_id, counter, quantity):
 # later, learn how to use csrf and not just use exempt 
 # make this function smaller by breaking it into different parts
 @csrf_exempt
+@never_cache
 def results(request, city, filters, radius, keyword, min_price, max_price):                   
     if request.method == "POST":
         form = SidebarForm(request.POST)
@@ -187,6 +190,9 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
             restaurant_details.append(0)
 
     # Get a photo for each restaurant
+    
+    delete_photos("results")
+    
     counter = 1
 
     for restaurant in restaurant_details:        
@@ -213,18 +219,21 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     })                                                        
 
 
+@never_cache
 def restaurant_page(request, name, id, details_id):    
     restaurant = get_restaurant(id)
     restaurant_details = get_restaurant_details(details_id) if details_id != '0' else 0
     
-    delete_photos()
+    delete_photos("restaurant_page")
 
     if restaurant_details != 0 and 'photos' in restaurant_details['result']:
         get_restaurant_photos(restaurant_details['result']['photos'])
+        # https://stackoverflow.com/questions/49284015/how-to-check-if-folder-is-empty-with-python
+        # photos_quantity = len(os.listdir('restaurants/static/restaurants/Restaurant_Photos'))
+        photos_quantity = len(restaurant_details['result']['photos'])
+    else:
+        photos_quantity = 0
 
-    # https://stackoverflow.com/questions/49284015/how-to-check-if-folder-is-empty-with-python
-    photos_quantity = len(os.listdir('restaurants/static/restaurants/Restaurant_Photos'))
-    
     # Changing each date in 'openingHours' to the name of the day of the week
         # Ex: '2019-02-05' should become 'Tuesday'
     # if 'openingHours' in restaurant['results'][0]:
@@ -258,13 +267,16 @@ def get_restaurant(id):
     return restaurant
 
 
-def delete_photos():
+def delete_photos(type):
     # https://linuxize.com/post/python-delete-files-and-directories/
-    files = glob.glob('/restaurants/static/restaurants/Restaurant_Photos/*')
-
+    if type == "results":
+        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurants_Photos/*')
+    else:
+        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/*')
+    
     for f in files:
         try:
-            f.remove()
+            os.remove(f)
         except OSError as e:
             print("Error: %s : %s" % (f, e.strerror))
 
@@ -277,6 +289,7 @@ def get_restaurant_photos(photo_ids):
         counter += 1
 
 
+@never_cache
 def profile(request, username):
     # this_user = User.objects.get(username=username)
 
