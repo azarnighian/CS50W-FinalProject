@@ -57,8 +57,16 @@
                                             {% endif %}
                                     {% else %}
                                         <p><b>Website: </b>unavailable</p>
-                                    {% endif %}                                 
-                                </div>
+                                    {% endif %}
+                                    
+                                    {% if user.is_authenticated %}
+                                    <!-- {% if restaurant.id in liked_posts %} -->
+                                    <!-- <button class="like_button" type="button">Unlike</button> -->
+                                    <!-- {% else %} -->
+                                        <button type="button">Add to saved restaurants</button>
+                                    <!-- {% endif %} -->
+                                    {% endif %}
+                                </div>                                                                                                           
                             </div>                        
                         </a>
                         <div class="line"></div>

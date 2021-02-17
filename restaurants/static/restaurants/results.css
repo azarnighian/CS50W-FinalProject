@@ -121,6 +121,14 @@ nav {
     text-decoration: underline;
 }
 
+button {
+    background-color: var(--Orange);
+    color: white;
+    border: none;
+    padding: 1rem;
+    width: 40%;
+}
+
 /* .open_status {
     margin-top: 10px;
     height: 30px;
