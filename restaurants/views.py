@@ -219,6 +219,11 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     })                                                        
 
 
+# def add_or_remove(request, name, id, details_id):
+    # https://docs.djangoproject.com/en/3.1/topics/auth/default/#authentication-in-web-requests
+
+
+
 @never_cache
 def restaurant_page(request, name, id, details_id):    
     restaurant = get_restaurant(id)

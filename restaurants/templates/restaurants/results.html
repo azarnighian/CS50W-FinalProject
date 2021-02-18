@@ -7,6 +7,7 @@
 
 {% block js %}
     <script src="{% static 'restaurants/index.js' %}"></script>
+    <script src="{% static 'restaurants/add_or_remove.js' %}"></script>
 {% endblock %}
 
 {% block body %}    
@@ -29,9 +30,9 @@
             <div class="cards-container">        
                 {% for restaurant in restaurants %}
                     {% if 'dataSources' in restaurant %}
-                        <a class="card-link" href="{% url 'restaurant_page' restaurant.poi.name restaurant.id restaurant.dataSources.poiDetails.0.id %}">
+                        <a class="card-link" href="{% url 'restaurant_page' restaurant.poi.name restaurant.id restaurant.dataSources.poiDetails.0.id %}">                            
                     {% else %}
-                        <a class="card-link" href="{% url 'restaurant_page' restaurant.poi.name restaurant.id '0' %}">
+                        <a class="card-link" href="{% url 'restaurant_page' restaurant.poi.name restaurant.id '0' %}">                            
                     {% endif %}
                             <div class="card">
                                 <div class="card-img">
@@ -60,6 +61,31 @@
                                     {% endif %}
                                     
                                     {% if user.is_authenticated %}
+                                        {% if 'dataSources' in restaurant %}
+                                            <ol class="invisible_info">
+                                                <li>
+                                                    {{ restaurant.poi.name }}
+                                                </li>
+                                                <li>
+                                                    {{ restaurant.id }}
+                                                </li>
+                                                <li>
+                                                    {{ restaurant.dataSources.poiDetails.0.id }}
+                                                </li>
+                                            </ol>
+                                        {% else %}
+                                            <ol class="invisible_info">
+                                                <li>
+                                                    {{ restaurant.poi.name }}
+                                                </li>
+                                                <li>
+                                                    {{ restaurant.id }}
+                                                </li>
+                                                <li>
+                                                    '0'
+                                                </li>
+                                            </ol>
+                                        {% endif %}
                                     <!-- {% if restaurant.id in liked_posts %} -->
                                     <!-- <button class="like_button" type="button">Unlike</button> -->
                                     <!-- {% else %} -->
