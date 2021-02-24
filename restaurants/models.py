@@ -3,7 +3,6 @@ from django.db import models
 
 # https://www.reddit.com/r/django/comments/llb98f/arraylist_as_model_field/
 class Restaurant(models.Model):
-    name = models.CharField(max_length=500)
     regular_id = models.CharField(max_length=500)
     details_id = models.CharField(max_length=500)
 

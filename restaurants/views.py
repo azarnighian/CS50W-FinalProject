@@ -3,11 +3,11 @@ from django.db import IntegrityError
 from django import forms
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
     # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
-from .models import User
+from .models import User, Restaurant
 
 import requests
 import urllib.parse
@@ -130,7 +130,7 @@ def get_restaurant_details(id):
     return restaurant_details
 
 
-def get_photos(photo_id, counter, quantity):
+def get_photos(photo_id, counter, type):
         parameters = {                
             'key': api_key,
             'id': photo_id
@@ -139,10 +139,12 @@ def get_photos(photo_id, counter, quantity):
         response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)
         
         # https://www.w3schools.com/python/python_file_handling.asp
-        if quantity == "one":
+        if type == "Results":
             f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')        
+        elif type == "Profile":
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
         else:
-             f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
         
         for chunk in response:
             if chunk:
@@ -198,7 +200,7 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     for restaurant in restaurant_details:        
         if restaurant != 0 and 'photos' in restaurant['result']:
             photo_id = restaurant['result']['photos'][0]['id']
-            get_photos(photo_id, counter, "one")        
+            get_photos(photo_id, counter, "Results")        
         # if restaurant has no details and photos:
         else:                    
             # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
@@ -218,14 +220,51 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
                                     'max_price': max_price})
     })                                                        
 
+@never_cache
+def add_or_remove(request, add_or_remove, regular_id, details_id):
+    # if you have time, learn about the django get_or_create() method
+        # (https://docs.djangoproject.com/en/3.1/ref/models/querysets/#get-or-create)
+    
+    # print("regular_id:", regular_id)
+    # print("details_id:", details_id)
 
-# def add_or_remove(request, name, id, details_id):
-    # https://docs.djangoproject.com/en/3.1/topics/auth/default/#authentication-in-web-requests
+    # Creating a Restaurant object
+    try:  
+        restaurant = Restaurant.objects.get(regular_id=regular_id, details_id=details_id)
+    except Restaurant.DoesNotExist:             
+        restaurant = Restaurant.objects.create(regular_id=regular_id, details_id=details_id)
+    
+    # Adding the Restaurant object to the user's list
+    if add_or_remove == "add":        
+        request.user.saved_restaurants.add(restaurant) 
+    else:
+        request.user.saved_restaurants.remove(restaurant) 
 
+    # print("restaurant: ", restaurant)
+    # print("saved_restaurants: ", request.user.saved_restaurants.all())
+
+    return HttpResponse()
+        # https://docs.djangoproject.com/en/3.1/topics/http/views/
+        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")
+        
+@never_cache
+def check_status(request, regular_id, details_id):
+    try:  
+        restaurant = Restaurant.objects.get(regular_id=regular_id, details_id=details_id)
+    except Restaurant.DoesNotExist:             
+        return HttpResponse("Restaurant object doesn't exist")
+
+    if restaurant in request.user.saved_restaurants.all():
+        return HttpResponse("Restaurant is in my list")
+    else:
+        return HttpResponse("Restaurant is not in my list")
 
 
 @never_cache
 def restaurant_page(request, name, id, details_id):    
+    # Make the following a single function to be shared with the profile function
+    # (return an array with restaurant, restaurant_details, and photos_quantity)
+    
     restaurant = get_restaurant(id)
     restaurant_details = get_restaurant_details(details_id) if details_id != '0' else 0
     
@@ -276,9 +315,11 @@ def delete_photos(type):
     # https://linuxize.com/post/python-delete-files-and-directories/
     if type == "results":
         files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurants_Photos/*')
-    else:
+    elif type == "restaurant_page":
         files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/*')
-    
+    else:
+        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/*')
+
     for f in files:
         try:
             os.remove(f)
@@ -290,15 +331,45 @@ def get_restaurant_photos(photo_ids):
     counter = 0
     
     for photo_id in photo_ids:
-        get_photos(photo_id['id'], counter, "all")
+        get_photos(photo_id['id'], counter, "Restaurant")
         counter += 1
 
 
 @never_cache
 def profile(request, username):
-    # this_user = User.objects.get(username=username)
+    saved_restaurants_objects = request.user.saved_restaurants.all()
+    saved_restaurants = []
 
-    return render(request, "restaurants/profile.html")
+    delete_photos("saved_restaurants")
+
+    for saved_restaurant_object in saved_restaurants_objects:
+        print("regular_id: ", saved_restaurant_object.regular_id)
+        restaurant = get_restaurant(saved_restaurant_object.regular_id)
+        # restaurant = restaurant['results'][0]
+        restaurant_details = get_restaurant_details(saved_restaurant_object.details_id) if saved_restaurant_object.details_id != '0' else 0
+
+        saved_restaurants.append(restaurant)
+
+        # Get photos        
+        counter = 1
+
+        if restaurant_details != 0 and 'photos' in restaurant_details['result']:
+            photo_id = restaurant_details['result']['photos'][0]['id']
+            get_photos(photo_id, counter, "Profile")        
+        # if restaurant has no details and photos:
+        else:                    
+            # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
+            # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
+            copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Saved_Restaurants_Photos')
+
+            # https://www.geeksforgeeks.org/python-os-rename-method/
+            os.rename('restaurants/static/restaurants/Saved_Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg')
+
+        counter += 1     
+    
+    return render(request, "restaurants/profile.html", {
+        "saved_restaurants": saved_restaurants
+    })
 
 
 # Learned register,login, and logout functions from CS50W network project

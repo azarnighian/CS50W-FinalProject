@@ -62,28 +62,14 @@
                                     
                                     {% if user.is_authenticated %}
                                         {% if 'dataSources' in restaurant %}
-                                            <ol class="invisible_info">
-                                                <li>
-                                                    {{ restaurant.poi.name }}
-                                                </li>
-                                                <li>
-                                                    {{ restaurant.id }}
-                                                </li>
-                                                <li>
-                                                    {{ restaurant.dataSources.poiDetails.0.id }}
-                                                </li>
+                                            <ol class="invisible_info">                                                
+                                                <li>{{ restaurant.id }}</li>
+                                                <li>{{ restaurant.dataSources.poiDetails.0.id }}</li>
                                             </ol>
                                         {% else %}
-                                            <ol class="invisible_info">
-                                                <li>
-                                                    {{ restaurant.poi.name }}
-                                                </li>
-                                                <li>
-                                                    {{ restaurant.id }}
-                                                </li>
-                                                <li>
-                                                    '0'
-                                                </li>
+                                            <ol class="invisible_info">                                                
+                                                <li>{{ restaurant.id }}</li>
+                                                <li>'0'</li>
                                             </ol>
                                         {% endif %}
                                     <!-- {% if restaurant.id in liked_posts %} -->
