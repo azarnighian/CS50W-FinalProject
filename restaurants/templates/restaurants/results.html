@@ -72,11 +72,12 @@
                                                 <li>'0'</li>
                                             </ol>
                                         {% endif %}
-                                    <!-- {% if restaurant.id in liked_posts %} -->
-                                    <!-- <button class="like_button" type="button">Unlike</button> -->
-                                    <!-- {% else %} -->
-                                        <button type="button">Add to saved restaurants</button>
-                                    <!-- {% endif %} -->
+                                        
+                                        {% if restaurant.id in regular_ids_list %}
+                                            <button type="button">Remove from saved restaurants</button>
+                                        {% else %}
+                                            <button type="button">Add to saved restaurants</button>
+                                        {% endif %}
                                     {% endif %}
                                 </div>                                                                                                           
                             </div>                        

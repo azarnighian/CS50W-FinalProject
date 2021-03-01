@@ -211,10 +211,15 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
             os.rename('restaurants/static/restaurants/Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg')
 
         counter += 1            
-                
+
+    regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
+                        if request.user.is_authenticated 
+                        else [])                 
+
     return render(request, "restaurants/results.html", {
         "city": city,            
-        "restaurants": restaurants,              
+        "restaurants": restaurants,    
+        "regular_ids_list": regular_ids_list,          
         "form": SidebarForm(initial={'location': city, 'radius': radius, 
                                     'keyword': keyword, 'min_price': min_price, 
                                     'max_price': max_price})
@@ -223,10 +228,7 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
 @never_cache
 def add_or_remove(request, add_or_remove, regular_id, details_id):
     # if you have time, learn about the django get_or_create() method
-        # (https://docs.djangoproject.com/en/3.1/ref/models/querysets/#get-or-create)
-    
-    # print("regular_id:", regular_id)
-    # print("details_id:", details_id)
+        # (https://docs.djangoproject.com/en/3.1/ref/models/querysets/#get-or-create)        
 
     # Creating a Restaurant object
     try:  
@@ -238,26 +240,11 @@ def add_or_remove(request, add_or_remove, regular_id, details_id):
     if add_or_remove == "add":        
         request.user.saved_restaurants.add(restaurant) 
     else:
-        request.user.saved_restaurants.remove(restaurant) 
-
-    # print("restaurant: ", restaurant)
-    # print("saved_restaurants: ", request.user.saved_restaurants.all())
+        request.user.saved_restaurants.remove(restaurant)     
 
     return HttpResponse()
         # https://docs.djangoproject.com/en/3.1/topics/http/views/
-        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")
-        
-@never_cache
-def check_status(request, regular_id, details_id):
-    try:  
-        restaurant = Restaurant.objects.get(regular_id=regular_id, details_id=details_id)
-    except Restaurant.DoesNotExist:             
-        return HttpResponse("Restaurant object doesn't exist")
-
-    if restaurant in request.user.saved_restaurants.all():
-        return HttpResponse("Restaurant is in my list")
-    else:
-        return HttpResponse("Restaurant is not in my list")
+        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
 
 @never_cache

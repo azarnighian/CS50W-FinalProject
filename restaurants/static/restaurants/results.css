@@ -75,7 +75,7 @@ nav {
 }
 
 .invisible_info {
-    display: block;
+    display: none;
 }
 
 /* https://www.w3schools.com/howto/howto_css_cards.asp */
