@@ -324,15 +324,14 @@ def get_restaurant_photos(photo_ids):
 
 @never_cache
 def profile(request, username):
-    saved_restaurants_objects = request.user.saved_restaurants.all()
-    saved_restaurants = []
-
     delete_photos("saved_restaurants")
 
+    saved_restaurants_objects = request.user.saved_restaurants.all()
+    saved_restaurants = []    
+
     for saved_restaurant_object in saved_restaurants_objects:
-        print("regular_id: ", saved_restaurant_object.regular_id)
         restaurant = get_restaurant(saved_restaurant_object.regular_id)
-        # restaurant = restaurant['results'][0]
+        restaurant = restaurant['results'][0]
         restaurant_details = get_restaurant_details(saved_restaurant_object.details_id) if saved_restaurant_object.details_id != '0' else 0
 
         saved_restaurants.append(restaurant)

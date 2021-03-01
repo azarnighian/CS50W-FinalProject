@@ -1,6 +1,3 @@
-nav {
-  position: initial;
-}
 .nav-links li:nth-of-type(2) a {
   color: var(--Orange);
 }
@@ -9,8 +6,13 @@ body {
   background-color: var(--GrayBackground);
 }
 
-h1 {
-  text-align: center;
-  font-weight: 500;  
-  margin-top: 40px;
+.cards-container {
+  justify-content: center;
 }
+
+.card {
+  background-color: white;
+  width: 80%;
+}
+
+            /* Make sure this is mobile responsive */
