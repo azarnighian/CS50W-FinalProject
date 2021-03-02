@@ -12,7 +12,12 @@ body {
 
 .card {
   background-color: white;
-  width: 80%;
+  width: 80%;  
+  margin-bottom: 2rem;
+}
+
+.title {
+  margin-bottom: 4rem;
 }
 
             /* Make sure this is mobile responsive */
