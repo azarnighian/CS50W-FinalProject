@@ -45,20 +45,20 @@
                                     <a class="card-link" href="{% url 'restaurant_page' restaurant.poi.name restaurant.id '0' %}">{{ restaurant.poi.name }}</a>
                                 {% endif %}                            
                             </h3>
-                            <p class="caption-wrap"><b>Address: </b>{{ restaurant.address.freeformAddress }}</p>
-                            <p><b>Phone Number: </b>{{ restaurant.poi.phone }}</p>
+                            <p class="caption-wrap"><b>Address: </b><br>{{ restaurant.address.freeformAddress }}</p>
+                            <p><b>Phone Number: </b><br>{{ restaurant.poi.phone }}</p>
                             {% if restaurant.poi.url %}
                                 <p><b>Website: </b></p>
-                                    {% if "http" in restaurant.poi.url %}
-                                        <a class="caption-wrap caption-website" href="{{ restaurant.poi.url }}">{{ restaurant.poi.url }}</a>
-                                    {% elif "http" not in restaurant.poi.url and "www." in restaurant.poi.url %}
-                                        <a class="caption-wrap caption-website" href="https://{{ restaurant.poi.url }}">https://{{ restaurant.poi.url }}</a>
-                                    {% else %}
-                                        <!-- https://stackoverflow.com/questions/8951423/html-links-without-http-protocol -->
-                                        <a class="caption-wrap caption-website" href="//www.{{ restaurant.poi.url }}">www.{{ restaurant.poi.url }}</a>
-                                    {% endif %}
+                                {% if "http" in restaurant.poi.url %}
+                                    <a class="caption-wrap caption-website" href="{{ restaurant.poi.url }}">{{ restaurant.poi.url }}</a>
+                                {% elif "http" not in restaurant.poi.url and "www." in restaurant.poi.url %}
+                                    <a class="caption-wrap caption-website" href="https://{{ restaurant.poi.url }}">https://{{ restaurant.poi.url }}</a>
+                                {% else %}
+                                    <!-- https://stackoverflow.com/questions/8951423/html-links-without-http-protocol -->
+                                    <a class="caption-wrap caption-website" href="//www.{{ restaurant.poi.url }}">www.{{ restaurant.poi.url }}</a>
+                                {% endif %}
                             {% else %}
-                                <p><b>Website: </b>unavailable</p>
+                                <p><b>Website: </b><br>unavailable</p>
                             {% endif %}
                             
                             {% if user.is_authenticated %}

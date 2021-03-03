@@ -8,13 +8,14 @@
 
 {% block js %}
     <script src="{% static 'restaurants/index.js' %}"></script>
+    <script src="{% static 'restaurants/add_or_remove.js' %}"></script>
 {% endblock %}
 
 {% block body %}
     <div class="flex-container">    
         <div class="title">{{ user.username }}'s Saved Restaurants</div>
         
-        <div class="cards-container">
+        <div class="cards-container">            
             {% for restaurant in saved_restaurants %}                
                 <div class="card">
                     <div class="card-img">
@@ -32,8 +33,8 @@
                                 <a class="card-link" href="{% url 'restaurant_page' restaurant.poi.name restaurant.id '0' %}">{{ restaurant.poi.name }}</a>
                             {% endif %}                            
                         </h3>
-                        <p class="caption-wrap"><b>Address: </b>{{ restaurant.address.freeformAddress }}</p>
-                        <p><b>Phone Number: </b>{{ restaurant.poi.phone }}</p>
+                        <p class="caption-wrap"><b>Address: </b><br>{{ restaurant.address.freeformAddress }}</p>
+                        <p><b>Phone Number: </b><br>{{ restaurant.poi.phone }}</p>
                         {% if restaurant.poi.url %}
                             <p><b>Website: </b></p>
                             {% if "http" in restaurant.poi.url %}
@@ -45,7 +46,7 @@
                                 <a class="caption-wrap caption-website" href="//www.{{ restaurant.poi.url }}">www.{{ restaurant.poi.url}}</a>
                             {% endif %}
                         {% else %}
-                        <p><b>Website: </b>unavailable</p>
+                            <p><b>Website: </b><br>unavailable</p>
                         {% endif %}
         
                         {% if user.is_authenticated %}

@@ -230,7 +230,7 @@ def add_or_remove(request, add_or_remove, regular_id, details_id):
     # if you have time, learn about the django get_or_create() method
         # (https://docs.djangoproject.com/en/3.1/ref/models/querysets/#get-or-create)        
 
-    # Creating a Restaurant object
+    # Getting/creating a Restaurant object
     try:  
         restaurant = Restaurant.objects.get(regular_id=regular_id, details_id=details_id)
     except Restaurant.DoesNotExist:             
@@ -328,7 +328,9 @@ def profile(request, username):
 
     saved_restaurants_objects = request.user.saved_restaurants.all()
     saved_restaurants = []    
-
+    
+    counter = 1
+    
     for saved_restaurant_object in saved_restaurants_objects:
         restaurant = get_restaurant(saved_restaurant_object.regular_id)
         restaurant = restaurant['results'][0]
@@ -336,8 +338,7 @@ def profile(request, username):
 
         saved_restaurants.append(restaurant)
 
-        # Get photos        
-        counter = 1
+        # Get photos   
 
         if restaurant_details != 0 and 'photos' in restaurant_details['result']:
             photo_id = restaurant_details['result']['photos'][0]['id']
@@ -352,9 +353,12 @@ def profile(request, username):
             os.rename('restaurants/static/restaurants/Saved_Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg')
 
         counter += 1     
+
+    regular_ids_list = request.user.saved_restaurants.values_list('regular_id', flat=True)                           
     
     return render(request, "restaurants/profile.html", {
-        "saved_restaurants": saved_restaurants
+        "saved_restaurants": saved_restaurants,
+        "regular_ids_list": regular_ids_list
     })
 
 
