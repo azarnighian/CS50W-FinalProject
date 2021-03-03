@@ -19,6 +19,8 @@ import glob
 from datetime import date
 import calendar
 
+import json
+
 
 class SearchForm(forms.Form):
     city = forms.CharField(label="", 
@@ -84,6 +86,35 @@ def index(request):
     return render(request, "restaurants/index.html", {
         "form": SearchForm()
     })
+
+
+def get_categories(request):
+    # API call
+    parameters = {                
+        'key': api_key
+    }
+    
+    response = requests.get('https://api.tomtom.com/search/2/poiCategories.json', params=parameters)    
+    
+    # Convert to JSON
+    categories = response.json()['poiCategories']
+    
+    # Get restaurant category
+    restaurant_category = None
+    for category in categories:
+        if category['name'] == 'Restaurant':
+            restaurant_category = category
+            break
+
+    # Make a dictionary for the child categories
+    child_categories = {}
+    for childCategoryId in restaurant_category['childCategoryIds']:
+       for category in categories:
+           if category['id'] == childCategoryId:
+               child_categories[category['name']] = category['id'] 
+               break 
+
+    return HttpResponse(json.dumps(child_categories))
 
 
 def geocode(city):

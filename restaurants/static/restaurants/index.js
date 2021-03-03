@@ -3,8 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     logoChange();
 
     // document.querySelector('.filters-bar').addEventListener('click', () => filters_bar());            
+
+    document.querySelector('button').onclick = testCategoriesFunction;
 });
 
+function testCategoriesFunction() {
+    fetch('/get_categories');        
+}
 
 // Nav Bar
     // https://www.youtube.com/watch?v=gXkqy0b4M5g&t=837s
