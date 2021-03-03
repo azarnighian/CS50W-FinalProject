@@ -27,23 +27,63 @@ class SearchForm(forms.Form):
                            widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
 
 
+# Get API key
+with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+    api_key = file.read().strip()
+
+
+def get_categories():
+    # API call
+    parameters = {                
+        'key': api_key
+    }
+    
+    response = requests.get('https://api.tomtom.com/search/2/poiCategories.json', params=parameters)    
+    
+    # Convert to JSON
+    categories = response.json()['poiCategories']
+    
+    # Get restaurant category
+    restaurant_category = None
+    for category in categories:
+        if category['name'] == 'Restaurant':
+            restaurant_category = category
+            break
+
+    # Make a dictionary for the child categories
+    child_categories = {}
+    for childCategoryId in restaurant_category['childCategoryIds']:
+       for category in categories:
+           if category['id'] == childCategoryId:
+               child_categories[category['id']] = category['name'] 
+               break 
+
+    return json.dumps(child_categories)
+
+
 class SidebarForm(forms.Form):
     location = forms.CharField(label="Name of city", 
                            widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
     radius = forms.IntegerField(label="Radius from city", 
                            widget=forms.NumberInput(attrs={'placeholder': 'Radius'})) 
-    keyword = forms.CharField(label="Keyword", 
-                           widget=forms.TextInput(attrs={'placeholder': 'e.g. Vegan, Sandwich, Cafe'}))
-    my_choices = ( 
+    
+    categories_dictionary = json.loads(get_categories())
+    # Converting categories_dictionary into list of tuples
+        # https://www.geeksforgeeks.org/python-convert-dictionary-to-list-of-tuples/ 
+    categories_choices = [(k, v) for k, v in categories_dictionary.items()] 
+    
+    categories = forms.ChoiceField(label="Categories", choices = categories_choices,
+                           widget=forms.SelectMultiple(attrs={'placeholder': 'Categories'}))
+    price_choices = ( 
         ("0", "0"), 
         ("1", "1"), 
         ("2", "2"), 
         ("3", "3"),
         ("4", "4"),          
     ) 
-    min_price = forms.ChoiceField(label="Minimum price", choices = my_choices,
+    min_price = forms.ChoiceField(label="Minimum price", choices = price_choices,
                            widget=forms.Select(attrs={'placeholder': 'Minimum Price'}))
-    max_price = forms.ChoiceField(label="Maximum price", choices = my_choices,
+    max_price = forms.ChoiceField(label="Maximum price", choices = price_choices,
                            widget=forms.Select(attrs={'placeholder': 'Maximum Price'}))
 
 
@@ -57,11 +97,6 @@ class RegisterForm(forms.Form):
 class LogInForm(forms.Form):
     username = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(label="", widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
-
-
-# Get API key
-with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
-    api_key = file.read().strip()
 
 
 def index(request):    
@@ -86,35 +121,6 @@ def index(request):
     return render(request, "restaurants/index.html", {
         "form": SearchForm()
     })
-
-
-def get_categories(request):
-    # API call
-    parameters = {                
-        'key': api_key
-    }
-    
-    response = requests.get('https://api.tomtom.com/search/2/poiCategories.json', params=parameters)    
-    
-    # Convert to JSON
-    categories = response.json()['poiCategories']
-    
-    # Get restaurant category
-    restaurant_category = None
-    for category in categories:
-        if category['name'] == 'Restaurant':
-            restaurant_category = category
-            break
-
-    # Make a dictionary for the child categories
-    child_categories = {}
-    for childCategoryId in restaurant_category['childCategoryIds']:
-       for category in categories:
-           if category['id'] == childCategoryId:
-               child_categories[category['name']] = category['id'] 
-               break 
-
-    return HttpResponse(json.dumps(child_categories))
 
 
 def geocode(city):
