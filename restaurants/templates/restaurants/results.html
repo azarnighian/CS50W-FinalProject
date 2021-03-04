@@ -20,7 +20,7 @@
             <div class="sidebar-container">
                 <p>Filters</p>
                 
-                <form action="{% url 'results' city 'yes' 1000 'empty' 0 4 %}" method="post">
+                <form action="{% url 'results' %}" method="post">
                     {% csrf_token %}
                     {{ form }}
                     <input type="submit" value="Search">

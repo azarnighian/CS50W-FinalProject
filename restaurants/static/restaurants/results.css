@@ -224,6 +224,20 @@ button:hover {
         font-size: 1rem;   
         font-weight: 700; 
     }
+    label:nth-of-type(2)::after {        
+        content: "\a In meters";
+        white-space: pre-wrap;
+
+        font-size: .9rem;   
+        font-weight: 500; 
+    }
+    label:nth-of-type(3)::after {        
+        content: "\a Hold down the Ctrl (windows) / Command (Mac) button to select multiple categories.";
+        white-space: pre-wrap;
+
+        font-size: .9rem;   
+        font-weight: 500; 
+    }
     input, select {
         margin: 10px 0;
         padding: 12px;

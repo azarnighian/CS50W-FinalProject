@@ -64,7 +64,7 @@ def get_categories():
 class SidebarForm(forms.Form):
     location = forms.CharField(label="Name of city", 
                            widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
-    radius = forms.IntegerField(label="Radius from city", 
+    radius = forms.IntegerField(label="Radius", 
                            widget=forms.NumberInput(attrs={'placeholder': 'Radius'})) 
     
     categories_dictionary = json.loads(get_categories())
@@ -72,19 +72,8 @@ class SidebarForm(forms.Form):
         # https://www.geeksforgeeks.org/python-convert-dictionary-to-list-of-tuples/ 
     categories_choices = [(k, v) for k, v in categories_dictionary.items()] 
     
-    categories = forms.ChoiceField(label="Categories", choices = categories_choices,
-                           widget=forms.SelectMultiple(attrs={'placeholder': 'Categories'}))
-    price_choices = ( 
-        ("0", "0"), 
-        ("1", "1"), 
-        ("2", "2"), 
-        ("3", "3"),
-        ("4", "4"),          
-    ) 
-    min_price = forms.ChoiceField(label="Minimum price", choices = price_choices,
-                           widget=forms.Select(attrs={'placeholder': 'Minimum Price'}))
-    max_price = forms.ChoiceField(label="Maximum price", choices = price_choices,
-                           widget=forms.Select(attrs={'placeholder': 'Maximum Price'}))
+    categories = forms.MultipleChoiceField(label="Categories", choices = categories_choices,
+                           widget=forms.SelectMultiple(attrs={'placeholder': 'Categories'}))    
 
 
 class RegisterForm(forms.Form):
@@ -111,7 +100,7 @@ def index(request):
             city = form.cleaned_data["city"]                                                                   
 
             # Redirect user
-            return HttpResponseRedirect(reverse("results", args=[city, "no", 1000, 'empty', 0, 4]))
+            return HttpResponseRedirect(reverse("results", args=[city]))
         else:
             # If the form is invalid, re-render the page with existing information.
             return render(request, "restaurants/index.html", {
@@ -140,13 +129,13 @@ def geocode(city):
     return lat_and_lon
 
 
-def search(lat_and_lon):            
+def search(lat_and_lon, radius, categories):            
     parameters = {                
         'key': api_key,
         'lat': lat_and_lon['lat'],
         'lon': lat_and_lon['lon'],
-        # 'radius':  ,
-        'categorySet': 7315 #(Restaurant category number) 
+        'radius': radius,
+        'categorySet': categories # this: '7315003,7315062' works
     }
     
     response = requests.get('https://api.tomtom.com/search/2/nearbySearch/.json', params=parameters)
@@ -193,19 +182,19 @@ def get_photos(photo_id, counter, type):
 # make this function smaller by breaking it into different parts
 @csrf_exempt
 @never_cache
-def results(request, city, filters, radius, keyword, min_price, max_price):                   
+def results(request, city="None", radius=1500, categories='7315'):  
+    # (Restaurant category number is 7315)                  
     if request.method == "POST":
         form = SidebarForm(request.POST)
         if form.is_valid():
             location = form.cleaned_data["location"]
             city = location
             radius = form.cleaned_data["radius"] 
-            keyword = form.cleaned_data["keyword"] 
-            min_price = form.cleaned_data["min_price"] 
-            max_price = form.cleaned_data["max_price"]
-            
+            categories = form.cleaned_data["categories"]                         
+            categories = ",".join(categories)
+
             return HttpResponseRedirect(reverse("results", 
-                    args=[city, "yes", radius, keyword, min_price, max_price]))                        
+                    args=[city, radius, categories])) 
         else:
             return render(request, "restaurants/results.html", {
                 "form": form
@@ -216,7 +205,7 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
     lat_and_lon = geocode(city)
 
     # Search for nearby restaurants
-    restaurants = search(lat_and_lon)    
+    restaurants = search(lat_and_lon, radius, categories)    
 
     # Get the additional details for each restaurant
     restaurant_details = []
@@ -258,8 +247,7 @@ def results(request, city, filters, radius, keyword, min_price, max_price):
         "restaurants": restaurants,    
         "regular_ids_list": regular_ids_list,          
         "form": SidebarForm(initial={'location': city, 'radius': radius, 
-                                    'keyword': keyword, 'min_price': min_price, 
-                                    'max_price': max_price})
+                                    'categories': categories})
     })                                                        
 
 @never_cache
