@@ -246,8 +246,7 @@ def results(request, city="None", radius=1500, categories='7315'):
         "city": city,            
         "restaurants": restaurants,    
         "regular_ids_list": regular_ids_list,          
-        "form": SidebarForm(initial={'location': city, 'radius': radius, 
-                                    'categories': categories})
+        "form": SidebarForm(initial={'location': city, 'radius': radius})
     })                                                        
 
 @never_cache
