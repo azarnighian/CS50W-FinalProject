@@ -381,7 +381,7 @@ def profile(request, username):
     regular_ids_list = request.user.saved_restaurants.values_list('regular_id', flat=True)                           
     
     return render(request, "restaurants/profile.html", {
-        "saved_restaurants": saved_restaurants,
+        "restaurants": saved_restaurants,
         "regular_ids_list": regular_ids_list
     })
 
