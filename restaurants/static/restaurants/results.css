@@ -9,10 +9,16 @@ a:visited {
 }
 
 nav {
-    box-shadow: 0px 1px 10px 1px lightgrey;    
+    /* box-shadow: 0px 1px 10px 1px lightgrey;     */
+    box-shadow: initial;
+    background-color: var(--Orange);
 }
 .nav-links a {
-    color: grey;
+    color: white;
+}
+.nav-links a:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 .flex-container {    
@@ -29,7 +35,7 @@ nav {
     align-items: center; 
     text-align: center;
     
-    height: 10rem;
+    height: 13rem;
     width: 100%;
     background-color: var(--Orange);   
     

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {    
     navSlide();
-    logoChange();    
+    // logoChange();    
 });
 
 // Nav Bar
