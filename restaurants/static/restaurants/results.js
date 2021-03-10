@@ -1,0 +1,39 @@
+document.addEventListener('DOMContentLoaded', function () {
+    noMatch(); 
+    const no_match = document.querySelector('#no_match');
+    if (!no_match) {
+        document.querySelector('input[type = text]').style.textAlign = 'initial';
+        document.querySelector('select').style.textAlign = 'initial';
+    }
+    // pause with the above for now, so that I dont go above the API limit for today
+
+    document.querySelector('.filters-bar').addEventListener('click', () => filters_bar());
+});
+
+function noMatch() {
+    const text = document.getElementById("no_match");
+
+    if (text) {
+        document.querySelector('.cards-container').style.justifyContent = 'center';
+        document.querySelector('.sidebar-and-cards-container').style.cssText = "flex-direction:column; width:100%;"                
+        document.querySelector('.sidebar-container').style.cssText = "display:none; align-self:center; text-align:center; margin-left: 0;"        
+        document.querySelector('.filters-bar').style.cssText = "display:block; width:20%; padding:15px;"       
+        document.getElementById('filters_header').style.display = 'none';        
+        // document.querySelector('input:nth-of-type(1)').style.textAlign = 'center';
+        // document.querySelector('input:nth-of-type(3)').style.textAlign = 'center';
+        // document.querySelector('select').style.textAlign = 'center';
+        document.querySelector('input[type = submit]').style.cssText = "width:60%; align-self:center; text-align:center;"        
+    }
+}
+
+function filters_bar() {
+    if (document.querySelector('.sidebar-container').style.display === 'none') {
+        document.querySelector('.sidebar-container').style.display = 'block';
+        document.querySelector('.sidebar-and-cards-container').style.width = '100%';
+        document.querySelector('.cards-container').style.display = 'none';
+    }
+    else {
+        document.querySelector('.sidebar-container').style.display = 'none';
+        document.querySelector('.cards-container').style.display = 'flex';
+    }
+}
