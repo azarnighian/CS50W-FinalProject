@@ -36,10 +36,10 @@ const navSlide = () => {
     });        
 }
 
-function logoChange() {
-    const nav = document.querySelector('nav');
-    if (window.getComputedStyle(nav).backgroundColor === 'rgba(0, 0, 0, 0)') {
-        document.querySelector('.orangelogo').style.display = 'none';        
-        document.querySelector('.whitelogo').style.display = 'block';        
-    }    
-}
+// function logoChange() {
+//     const nav = document.querySelector('nav');
+//     if (window.getComputedStyle(nav).backgroundColor === 'rgba(0, 0, 0, 0)') {
+//         document.querySelector('.orangelogo').style.display = 'none';        
+//         document.querySelector('.whitelogo').style.display = 'block';        
+//     }    
+// }

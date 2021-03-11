@@ -6,7 +6,7 @@
 }
 
 html,body {
-  height: 100%;
+  /* height: 100%; */
   overflow-x: hidden;
   position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
 }

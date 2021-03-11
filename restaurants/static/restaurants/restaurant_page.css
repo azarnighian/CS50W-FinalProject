@@ -15,6 +15,9 @@ nav {
     color: white;
     text-decoration: underline;
 }
+.burger div {
+  background-color: white;
+}
 
 .title {
     display: flex;
