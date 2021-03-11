@@ -1,9 +1,15 @@
 nav {
-  position: initial;
+  position: fixed;
 }
 
 .nav-links li:nth-of-type(4) a {
     color: var(--Orange);
+}
+.whitelogo {
+    display: none;
+}
+.orangelogo {
+    display: block;
 }
 
 body {
@@ -14,6 +20,7 @@ body {
   display: flex;
   flex-wrap: wrap;  
   min-height: calc( 100vh - (var(--NavBarHeight)) );
+  margin-top: var(--NavBarHeight);
 }
 
 .white-box {
