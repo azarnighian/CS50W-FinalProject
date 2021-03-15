@@ -179,7 +179,7 @@ def get_photos(photo_id, counter, type):
 
 
 # later, learn how to use csrf and not just use exempt 
-# make this function smaller by breaking it into different parts (learned from App Academy Open)
+# make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
 @csrf_exempt
 @never_cache
 def results(request, city="None", radius=1500, categories='7315'):  
