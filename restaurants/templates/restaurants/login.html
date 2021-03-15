@@ -1,0 +1,38 @@
+{% extends "restaurants/layout.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'restaurants/register&login.css' %}">
+{% endblock %}
+
+{% block style %}
+    <style>        
+        .nav-links li:nth-of-type(3) a {
+            color: var(--Orange);
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'restaurants/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="flex-container">    
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <div class="side-image-container"></div>
+
+    <div class="form-container">
+        <h1>Login</h1>
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Login">
+        </form>
+    </div>    
+</div>
+{% endblock %}

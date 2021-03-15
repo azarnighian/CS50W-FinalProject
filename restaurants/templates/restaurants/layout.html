@@ -1,0 +1,72 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <head>        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="{% static 'restaurants/layout.css' %}">
+        
+        <!-- Google Fonts -->
+            <!-- https://developers.google.com/fonts/docs/getting_started -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900">
+        
+        {% block css %}{% endblock %}
+        {% block style %}{% endblock %}
+
+        {% block js %}{% endblock %}
+
+        <title>{% block title %}Trovare{% endblock %}</title>
+    </head>
+
+    <body>
+        <div class="nav-active-darken-screen"></div>
+        
+        <!-- Nav bar -->
+            <!-- Learned from here: https://www.youtube.com/watch?v=gXkqy0b4M5g&t=837s -->
+        <nav>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            
+            <div class="logo orangelogo">
+                <img src="{% static 'restaurants/LogoMakr-61dCEP.png' %}">
+            </div>
+            <div class="logo whitelogo">
+                <img src="{% static 'restaurants/LogoMakr-61dCEP white.png' %}">
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'profile' user.username %}">{{ user.username }}</a>                        
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Log out</a>
+                    </li>                                    
+                {% else %}
+                    <li>
+                        <a href="{% url 'register' %}">Register</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}">Log in</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'about' %}">About</a>
+                </li>
+            </ul>            
+        </nav>
+
+        <div>
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

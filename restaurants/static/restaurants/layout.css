@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+}
+
+html,body {
+  /* height: 100%; */
+  overflow-x: hidden;
+  position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
+}
+
+/* Variables */
+:root {
+  --NavBarHeight: 9vh;
+  --Orange: #da7337;
+  --HoverOrange: #dd641e;
+  --LinkBlue: rgb(0, 98, 255);
+  --HoverLinkBlue: rgb(0, 60, 156);
+  --GrayBackground: #f7f7f7;
+}
+
+/* Nav Bar */
+  /* Learned from here: https://www.youtube.com/watch?v=gXkqy0b4M5g&t=837s */
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: var(--NavBarHeight);
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+}
+
+                          /* To change on scroll: */
+.nav-scrolled {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);;
+    background-color: white;
+}
+.nav-scrolled .nav-links a {
+    color: grey;
+}
+.nav-scrolled .nav-links a:hover {
+    color: var(--Orange);
+}
+                                /* until here */
+
+.logo img {
+  height: 2rem;
+  margin-top: -6px;
+}
+.orangelogo {
+    display: none;
+}
+
+.nav-links {
+  position: absolute;
+  left: 0px;
+  height: calc( 100vh - (var(--NavBarHeight)) );
+  top: calc( var(--NavBarHeight) - 1px );
+  background-color: white;      
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;  
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+
+  z-index: 10;
+}
+.nav-links li {
+  list-style: none;
+  opacity: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: grey;
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--Orange);
+}
+
+.burger {
+  display: block;
+  position: absolute;
+  left: 15px;    
+}
+.burger div {
+  width: 25px;
+  height: 2px;
+  background-color: grey;
+  margin: 5px;  
+  transition: all 0.3s ease;
+}
+
+
+@media screen and (min-width: 768px){
+  .logo {
+    width: 40%;
+  }
+  
+  /* Reseting mobile styles */
+
+  html, body {
+    overflow-x: initial;
+    position: initial;
+  }
+  
+  .nav-links {    
+    width: 40%;
+        
+    position: initial;
+      left: initial;
+      height: initial;
+      top: initial;
+      background-color: initial;
+      flex-direction: initial;
+      align-items: initial;
+      transform: initial;
+      transition: initial;
+
+      z-index: initial;
+  }
+  .nav-links li {
+    opacity: initial;
+  }  
+  .burger {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  .nav-links {
+    width: 30%;
+  }
+}
+
+
+.nav-active {
+  transform: translateX(0%);
+  box-shadow: 0 16px 10px 5px #aaaaaa;
+}
+.nav-active-darken-screen {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: calc(100% - var(--NavBarHeight));
+  width: 100%;  
+  position: absolute;
+  top: var(--NavBarHeight);
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-5px,5px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3  {
+  transform: rotate(45deg) translate(-5px,-5px);
+}
+
+/* End Nav Bar */

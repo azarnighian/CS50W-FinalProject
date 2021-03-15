@@ -1,0 +1,97 @@
+.nav-links li:nth-of-type(1) a {
+  color: var(--Orange);
+}
+
+.cover_photo {
+  background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
+                    url("https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_960_720.jpg");
+    /* rgba codes from opentable.com */                 
+  height: 100vh;
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;    
+}
+
+.title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+}
+input {
+  padding: 1.1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border-style: none;
+  margin-bottom: 5px;
+}
+
+input[type=submit] {
+  background-color: var(--Orange);
+  color: white;
+  margin-bottom: 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: var(--HoverOrange);
+}
+
+@media only screen and (min-width: 550px) {
+  /* html {
+    font-size: 18px; 
+  } */
+
+  form {
+    flex-direction: row;
+  }
+  input {
+    margin-bottom: 0;
+    width: 60%;
+    border-radius: 5px 0 0 5px;
+  }
+  input[type=submit] {
+    width: 30%;
+    border-radius: 0 5px 5px 0;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  nav {
+    background-color: transparent;
+    top: 20px;
+    box-shadow: none;
+  }
+  .nav-links a {
+    color: white;
+  }
+  .nav-links li:nth-of-type(1) a {
+    color: white;
+  }
+  .nav-links li:nth-of-type(1) a:hover {
+    color: var(--Orange);
+  }
+  .logo img {
+    margin-top: -15px;
+  }
+
+  input[type=submit] {
+    width: 20%;
+  }
+}
