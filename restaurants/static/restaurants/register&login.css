@@ -1,8 +1,10 @@
-nav {
-  position: initial;
+.orangelogo {
+  display: block;
+}
+.whitelogo {
+  display: none;
 }
 
-/* Because of horizontal mode, when submit button will be past 100vh... */
 body {
   background-color: var(--GrayBackground);
 }
@@ -12,6 +14,7 @@ body {
   flex-wrap: wrap;
   
   height: calc( 100vh - (var(--NavBarHeight)) );
+  margin-top: var(--NavBarHeight);
 }
 
 .side-image-container {

@@ -2,6 +2,13 @@
   color: var(--Orange);
 }
 
+.orangelogo {
+  display: block;
+}
+.whitelogo {
+  display: none;
+}
+
 .cover_photo {
   background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
                     url("https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_960_720.jpg");
@@ -89,6 +96,12 @@ input[type=submit]:hover {
   }
   .logo img {
     margin-top: -15px;
+  }  
+  .orangelogo {
+    display: none;
+  }
+  .whitelogo {
+    display: block;
   }
 
   input[type=submit] {
