@@ -5,11 +5,15 @@
   font-family: 'Raleway', sans-serif;
 }
 
-html,body {
-  /* height: 100%; */
-  overflow-x: hidden;
-  position: relative; /* https://stackoverflow.com/a/27612858/11528872 */
-}
+/* html,body { */
+  /* height: 100%;  */
+    /* enabling this makes change_nav_bar.js not work */
+    /* disabling it makes darken screen not work */
+  /* overflow-x: hidden; */
+    /* this might cause change_nav_bar.js/darken screen to not work  */
+  /* position: relative;  */
+    /* https://stackoverflow.com/a/27612858/11528872 */
+/* } */
 
 /* Variables */
 :root {
@@ -59,12 +63,12 @@ nav {
 }
 
 .nav-links {
+  display: flex;
   position: absolute;
   left: 0px;
   height: calc( 100vh - (var(--NavBarHeight)) );
-  top: calc( var(--NavBarHeight) - 1px );
+  top: var(--NavBarHeight);
   background-color: white;      
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -110,10 +114,9 @@ nav {
   display: none;
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.5);
-  height: calc(100% - var(--NavBarHeight));
+  height: 100%;
   width: 100%;  
-  position: absolute;
-  top: var(--NavBarHeight);
+  position: fixed;
 }
 
 @keyframes navLinkFade {
@@ -145,10 +148,10 @@ nav {
   
   /* Reseting mobile styles */
 
-  html, body {
+  /* html, body {
     overflow-x: initial;
     position: initial;
-  }
+  } */
   
   .nav-links {    
     width: 40%;

@@ -30,7 +30,6 @@
             </div>
         
             <div class="cards-container">
-            {% if restaurants %}                
                 {% for restaurant in restaurants %}
                     <div class="card">
                         <div class="card-img">
@@ -86,10 +85,8 @@
                         </div>
                     </div>
                     <div class="line"></div>
-                {% endfor %}
-            {% else %}
-                <p id="no_match">No results match this criteria</p>
-            {% endif %}
+                {% endfor %}            
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {    
     navSlide();
-    // logoChange();    
 });
 
 // Nav Bar
@@ -12,7 +11,7 @@ const navSlide = () => {
     const darkBackground = document.querySelector('.nav-active-darken-screen');
 
     burger.addEventListener('click', () => {
-        // Toggle Nav
+        // Toggle Nav        
         nav.classList.toggle('nav-active');
         
         // Darken background
@@ -35,11 +34,3 @@ const navSlide = () => {
         burger.classList.toggle('toggle');
     });        
 }
-
-// function logoChange() {
-//     const nav = document.querySelector('nav');
-//     if (window.getComputedStyle(nav).backgroundColor === 'rgba(0, 0, 0, 0)') {
-//         document.querySelector('.orangelogo').style.display = 'none';        
-//         document.querySelector('.whitelogo').style.display = 'block';        
-//     }    
-// }

@@ -28,7 +28,6 @@ nav {
     flex-direction: column;
     align-items: center;    
         /* https://stackoverflow.com/questions/35106814/why-isnt-justify-content-centering-my-divs */
-    margin-top: calc(var(--NavBarHeight) - 2px);
 }
 
 .title {
@@ -36,6 +35,7 @@ nav {
     justify-content: center;
     align-items: center; 
     text-align: center;
+    margin-top: calc(var(--NavBarHeight) - 0.2px);
     
     height: 13rem;
     width: 100%;
@@ -114,6 +114,7 @@ label:nth-of-type(3)::after {
 input, select {
     margin: 10px 0;
     padding: 12px;
+    text-align: center;
     font-size: .9rem;
     border-width: 1px;
     border-style: solid;
@@ -236,30 +237,10 @@ button:hover {
     color: white;
 }
 
-/* .open_status {
-    margin-top: 10px;
-    height: 30px;
-    width: 140px;
-    padding: 1rem;
-    background-color: var(--Orange);
-    color: white;
-    font-size: 15px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 .line {
     width: 100%;
     background-color: rgb(200, 200, 200);
     height: 1px;
-}
-#no_match {
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    padding: 2rem;
-    margin-top: 3rem;    
 }
 
 
@@ -301,6 +282,9 @@ button:hover {
         flex: 0 0 25%;
         margin-left: 20px;   
         text-align: initial;     
+    }
+    input, select {
+        text-align: initial;
     }
     #filters_header {
         display: block;

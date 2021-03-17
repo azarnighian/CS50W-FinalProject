@@ -1,0 +1,17 @@
+.cards-container {
+    justify-content: center;
+    margin-top: 3rem;
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+@media only screen and (min-width: 992px) {
+    .sidebar-and-cards-container {
+        width: 100%;
+    }
+    .cards-container {
+        margin-top: initial;
+        padding-top: 7rem;
+    }
+}

@@ -8,15 +8,9 @@ nav {
     box-shadow: initial;
     background-color: var(--Orange);
 }
-.nav-links a {
-    color: white;
-}
-.nav-links a:hover {
-    color: white;
-    text-decoration: underline;
-}
+
 .burger div {
-  background-color: white;
+    background-color: white;
 }
 
 .title {
@@ -35,7 +29,7 @@ nav {
     
     z-index: 10;
 
-    margin-top: var(--NavBarHeight);
+    margin-top: calc(var(--NavBarHeight) - 0.2px);
 }
 
 .about-container {
@@ -98,6 +92,16 @@ p {
         margin-right: 1rem;
         margin-bottom: 1rem;
     }    
+}
+
+@media only screen and (min-width: 768px) {
+    .nav-links a {
+        color: white;
+    }
+    .nav-links a:hover {
+        color: white;
+        text-decoration: underline;
+    }
 }
 
 @media only screen and (min-width: 992px) {    

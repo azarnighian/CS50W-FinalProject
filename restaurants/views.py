@@ -207,6 +207,12 @@ def results(request, city="None", radius=1500, categories='7315'):
     # Search for nearby restaurants
     restaurants = search(lat_and_lon, radius, categories)    
 
+    if not restaurants:
+        return render(request, "restaurants/results_no_match.html", {
+            "city": city,                                             
+            "form": SidebarForm(initial={'location': city, 'radius': radius})
+        })
+
     # Get the additional details for each restaurant
     restaurant_details = []
     for restaurant in restaurants:
