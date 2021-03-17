@@ -28,7 +28,7 @@ class SearchForm(forms.Form):
 
 
 # Get API key
-with open('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/finalproject/api_key.txt') as file:
+with open('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/finalproject/api_key.txt') as file:
     api_key = file.read().strip()
 
 
@@ -166,11 +166,11 @@ def get_photos(photo_id, counter, type):
         
         # https://www.w3schools.com/python/python_file_handling.asp
         if type == "Results":
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')        
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')        
         elif type == "Profile":
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
         else:
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
+            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
         
         for chunk in response:
             if chunk:
@@ -331,11 +331,11 @@ def get_restaurant(id):
 def delete_photos(type):
     # https://linuxize.com/post/python-delete-files-and-directories/
     if type == "results":
-        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurants_Photos/*')
+        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurants_Photos/*')
     elif type == "restaurant_page":
-        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Restaurant_Photos/*')
+        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurant_Photos/*')
     else:
-        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/capstone/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/*')
+        files = glob.glob('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/*')
 
     for f in files:
         try:
