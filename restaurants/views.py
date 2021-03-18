@@ -4,7 +4,6 @@ from django import forms
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
     # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
 from .models import User, Restaurant
@@ -178,9 +177,7 @@ def get_photos(photo_id, counter, type):
         f.close()
 
 
-# later, learn how to use csrf and not just use exempt 
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
-@csrf_exempt
 @never_cache
 def results(request, city="None", radius=1500, categories='7315'):  
     # (Restaurant category number is 7315)                  

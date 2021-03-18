@@ -9,6 +9,10 @@ body {
   background-color: var(--GrayBackground);
 }
 
+.title {
+  margin-bottom: 4rem;
+}
+
 .cards-container {
   justify-content: center;
 }
@@ -20,10 +24,11 @@ body {
     /* Edited from: https://boxshadows.com/presets */
 }
 
-.title {
-  margin-bottom: 4rem;
+#No_saved_restaurants {
+  font-size: 1.4rem;
+  padding: 1.1rem;
+  text-align: center;
 }
-
 
 @media only screen and (min-width: 992px) {    
   .cards-container {
