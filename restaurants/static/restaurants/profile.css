@@ -1,5 +1,5 @@
 .nav-links li:nth-of-type(2) a {
-  text-decoration: underline;
+  color: var(--Orange);
 }
 .burger div {
   background-color: white;
@@ -28,6 +28,13 @@ body {
   font-size: 1.4rem;
   padding: 1.1rem;
   text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-links li:nth-of-type(2) a {
+    color: white;
+    text-decoration: underline;
+  }
 }
 
 @media only screen and (min-width: 992px) {    
