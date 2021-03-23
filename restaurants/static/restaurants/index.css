@@ -55,6 +55,7 @@ input[type=submit] {
   margin-bottom: 0;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color .1s;
 }
 input[type=submit]:hover {
   background-color: var(--HoverOrange);
