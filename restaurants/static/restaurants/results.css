@@ -244,6 +244,27 @@ button:hover {
     height: 1px;
 }
 
+/* https://www.w3schools.com/howto/howto_css_next_prev.asp */
+.page-buttons {
+    padding: 1rem;    
+    width: 50%;
+    text-align: center;
+    transition: all .2s;
+}
+.previous {
+    background-color: #d2d2d2;
+}
+.next {
+    background-color: var(--Orange);
+    color: white !important;
+}
+.next:hover {
+    background-color: var(--HoverOrange);
+}
+.previous:hover {
+    background-color: #c2c2c2;
+}
+
 
 @media only screen and (min-width: 768px) {
     .nav-links a {
