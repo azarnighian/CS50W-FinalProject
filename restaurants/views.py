@@ -128,13 +128,14 @@ def geocode(city):
     return lat_and_lon
 
 
-def search(lat_and_lon, radius, categories):            
+def search(lat_and_lon, radius, categories, offset):            
     parameters = {                
         'key': api_key,
         'lat': lat_and_lon['lat'],
         'lon': lat_and_lon['lon'],
         'radius': radius,
-        'categorySet': categories # this: '7315003,7315062' works
+        'categorySet': categories, # this: '7315003,7315062' works
+        'ofs': offset
     }
     
     response = requests.get('https://api.tomtom.com/search/2/nearbySearch/.json', params=parameters)
@@ -179,7 +180,7 @@ def get_photos(photo_id, counter, type):
 
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
 @never_cache
-def results(request, city="None", radius=1500, categories='7315'):  
+def results(request, offset=0, city="None", radius=1500, categories='7315'):  
     # (Restaurant category number is 7315)                  
     if request.method == "POST":
         form = SidebarForm(request.POST)
@@ -196,13 +197,13 @@ def results(request, city="None", radius=1500, categories='7315'):
             return render(request, "restaurants/results.html", {
                 "form": form
             })
-    
+        
 
     # Turn city name into coordinates
     lat_and_lon = geocode(city)
 
     # Search for nearby restaurants
-    restaurants = search(lat_and_lon, radius, categories)    
+    restaurants = search(lat_and_lon, radius, categories, offset)    
 
     if not restaurants:
         return render(request, "restaurants/results_no_match.html", {
@@ -249,7 +250,8 @@ def results(request, city="None", radius=1500, categories='7315'):
         "city": city,            
         "restaurants": restaurants,    
         "regular_ids_list": regular_ids_list,          
-        "form": SidebarForm(initial={'location': city, 'radius': radius})
+        "form": SidebarForm(initial={'location': city, 'radius': radius}),
+        'current_offset': offset
     })                                                        
 
 @never_cache

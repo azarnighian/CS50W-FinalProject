@@ -9,6 +9,7 @@ urlpatterns = [
     path("profile/<str:username>", views.profile, name="profile"),
     path("about", views.about, name="about"),
     path("results", views.results, name="results"),
+    path("results/<int:offset>/<str:city>", views.results, name="results"),
     path("results/<str:city>", views.results, name="results"),
     path("results/<str:city>/<int:radius>", views.results, name="results"),
     path("results/<str:city>/<str:categories>", views.results, name="results"),

@@ -86,8 +86,21 @@
                     </div>
                     <div class="line"></div>
                 {% endfor %}
-                <a href="#" class="page-buttons previous">Previous</a>
-                <a href="#" class="page-buttons next">Next</a>
+                {% if restaurants %}
+                    <!-- Previous button -->
+                    {% if current_offset == 0 %}                        
+                        <a href="#" class="page-buttons previous">Previous</a>
+                    {% else %}
+                        {% with offset=current_offset|add:-10 %}
+                            <a href="{% url 'results' offset city %}" class="page-buttons previous">Previous</a>
+                        {% endwith %}
+                    {% endif %} 
+
+                    <!-- Next button -->
+                    {% with offset=current_offset|add:10 %}
+                        <a href="{% url 'results' offset city %}" class="page-buttons next">Next</a>
+                    {% endwith %}                    
+                {% endif %}
             </div>
         </div>
     </div>
