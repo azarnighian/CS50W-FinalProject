@@ -89,7 +89,7 @@
                 {% if restaurants %}
                     <!-- Previous button -->
                     {% if current_offset == 0 %}                        
-                        <a href="#" class="page-buttons previous">Previous</a>
+                        <a class="page-buttons previous disabled">Previous</a>
                     {% else %}
                         {% with offset=current_offset|add:-10 %}
                             <a href="{% url 'results' offset city %}" class="page-buttons previous">Previous</a>
