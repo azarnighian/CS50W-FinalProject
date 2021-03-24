@@ -15,7 +15,7 @@ urlpatterns = [
     path("results/<str:city>/<str:categories>", views.results, name="results"),
     path("results/<str:city>/<int:radius>/<str:categories>", views.results, name="results"),
         # https://docs.djangoproject.com/en/3.1/topics/http/urls/#specifying-defaults-for-view-arguments
-    path("restaurant/<str:name>/<str:id>/<str:details_id>", views.restaurant_page, name="restaurant_page"),
+    path("restaurant/<path:name>/<str:id>/<str:details_id>", views.restaurant_page, name="restaurant_page"),
     path("add_or_remove/<str:add_or_remove>/<str:regular_id>/<str:details_id>", views.add_or_remove, name="add_or_remove"),
     path("get_categories", views.get_categories, name="get_categories")
 ]
