@@ -9,11 +9,13 @@ urlpatterns = [
     path("profile/<str:username>", views.profile, name="profile"),
     path("about", views.about, name="about"),
     path("results", views.results, name="results"),
-    path("results/<int:offset>/<str:city>", views.results, name="results"),
     path("results/<str:city>", views.results, name="results"),
-    path("results/<str:city>/<int:radius>", views.results, name="results"),
-    path("results/<str:city>/<str:categories>", views.results, name="results"),
+    # Results with offset (next or previous page):
+    path("results/<int:offset>/<str:city>", views.results, name="results"),
+    # Results with filters:    
     path("results/<str:city>/<int:radius>/<str:categories>", views.results, name="results"),
+    # Results with filters and offset:    
+    path("results/<int:offset>/<str:city>/<int:radius>/<str:categories>", views.results, name="results"), 
         # https://docs.djangoproject.com/en/3.1/topics/http/urls/#specifying-defaults-for-view-arguments
     path("restaurant/<path:name>/<str:id>/<str:details_id>", views.restaurant_page, name="restaurant_page"),
     path("add_or_remove/<str:add_or_remove>/<str:regular_id>/<str:details_id>", views.add_or_remove, name="add_or_remove"),
