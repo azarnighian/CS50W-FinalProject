@@ -95,13 +95,20 @@
                             <a href="{% url 'results' offset city %}" class="page-buttons previous">Previous</a>
                         {% endwith %}
                     {% endif %} 
-
+                    
+                    <!-- If number of results is == 10, else add disabled class 
+                          (could be on the next page from a previous page, and therefore still keep previous button).
+                          Number of results might be already returned from api -->
                     <!-- Next button -->
-                    {% with offset=current_offset|add:10 %}
-                        <a href="{% url 'results' offset city %}" class="page-buttons next">Next</a>
-                    {% endwith %}                    
+                    {% if restaurants|length == 10 %}
+                        {% with offset=current_offset|add:10 %}
+                            <a href="{% url 'results' offset city %}" class="page-buttons next">Next</a>
+                        {% endwith %} 
+                    {% else %}
+                        <a class="page-buttons next disabled disabled-next">Next</a>
+                    {% endif %}
                 {% endif %}
-            </div>
+            </div>            
         </div>
     </div>
 {% endblock %}

@@ -266,10 +266,14 @@ button:hover {
 }
 .disabled {
     cursor: not-allowed;
-    color: grey;
+    color: grey !important;    
 }
 .disabled:hover {
     background-color: #d2d2d2;
+}
+.disabled-next {
+    background-color: #d2d2d2;
+    border-left: 1px solid grey;
 }
 
 @media only screen and (min-width: 768px) {
