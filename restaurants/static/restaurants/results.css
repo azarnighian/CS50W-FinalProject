@@ -237,6 +237,9 @@ button:hover {
     background-color: var(--Orange);
     color: white;
 }
+button:focus {
+  outline: none;
+}
 
 .line {
     width: 100%;

@@ -296,24 +296,17 @@ def restaurant_page(request, name, id, details_id):
     else:
         photos_quantity = 0
 
-    # Changing each date in 'openingHours' to the name of the day of the week
-        # Ex: '2019-02-05' should become 'Tuesday'
-    # if 'openingHours' in restaurant['results'][0]:
-    #     for time_range in restaurant['results'][0]['openingHours']['timeRanges']:
-    #         # https://stackoverflow.com/questions/9847213/how-do-i-get-the-day-of-week-given-a-date
-    #         this_date_string = time_range['startTime']['date']
-    #         this_date = date.fromisoformat(this_date_string)
-    #         this_date_name = calendar.day_name[this_date.weekday()]
-            
-    #         time_range['startTime']['date'] = this_date_name
-    
+    regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
+                        if request.user.is_authenticated 
+                        else [])
 
     return render(request, "restaurants/restaurant.html", {
         "restaurant": restaurant['results'][0],
         "restaurant_details": restaurant_details,
         "photos_quantity": photos_quantity,
         # https://stackoverflow.com/questions/48637178/do-django-templates-allow-for-range-in-for-loops
-        "range": range(photos_quantity)
+        "range": range(photos_quantity),
+        "regular_ids_list": regular_ids_list
     })
 
 

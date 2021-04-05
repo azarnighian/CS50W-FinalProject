@@ -63,6 +63,7 @@
                                 <p><b>Website: </b><br>unavailable</p>
                             {% endif %}
                 
+                            <!-- To add or remove restaurant from saved list -->
                             {% if user.is_authenticated %}
                                 {% if 'dataSources' in restaurant %}
                                     <ol class="invisible_info">
