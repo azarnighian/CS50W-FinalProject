@@ -18,7 +18,7 @@ The following is a list of files I created for this project and what’s contain
 
 - add_or_remove.js: to add or remove a restaurant from a user's list
 - change_nav_bar.js: to change the style of the nav bar when scrolling past or above a certain point
-- index.js: to slide in the side nav bar on mobile
+- navSlide.js: to slide in the side nav bar on mobile
 - results.js: to style the results.html page when there are no results from the API, and to activate the filters bar on mobile or on the no results page
 
 - LogoMakr...pngs: for the logo

@@ -6,10 +6,20 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'restaurants/index.js' %}"></script>    
+    <script src="{% static 'restaurants/navSlide.js' %}"></script>
+    <script src="{% static 'restaurants/index.js' %}"></script>
 {% endblock %}
 
 {% block body %}
+    <!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
+    <div class="modal">    
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>By continuing, you agree to the TomTom Terms and Conditions</p>
+            <p>(see <a href="{% url 'about' %}">About</a> page)</p>
+        </div>    
+    </div>
+    
     <div class="cover_photo container">
         <h1 class="title">Discover Restaurants Around The World</h1>
         
