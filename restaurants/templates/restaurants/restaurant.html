@@ -91,20 +91,19 @@
                     <!-- https://www.w3schools.com/howto/howto_js_lightbox.asp -->
                 <div id="myModal" class="modal">
                     <span class="close cursor" onclick="closeModal()">&times;</span>
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <div class="modal-content">                        
                         {% for counter in range %}
-                            {% with counter=counter|stringformat:"s" %}
+                            {% with s_counter=counter|stringformat:"s" %}
                                 <div class="mySlides">
-                                    <div class="numbertext">{{counter}}/{{photos_quantity}}</div>
-                                    <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:counter|add:'.jpg' %}">
+                                    <div class="numbertext">{{counter|add:"1"}}/{{photos_quantity}}</div>
+                                    <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:s_counter|add:'.jpg' %}">
                                 </div>
                             {% endwith %}
-                        {% endfor %}                                                            
-                
-                        <!-- Next/previous controls -->
-                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1)">&#10095;</a>                                                                                                    
+                        {% endfor %}                                                                            
+                        <!-- Next/previous controls -->                                                
                     </div>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
                 
             {% else %}
