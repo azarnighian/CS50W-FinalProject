@@ -19,7 +19,6 @@
             <h2>About</h2>
                 <p><b>Address:</b> {{ restaurant.address.freeformAddress }}</p>
                 <p><b>Phone Number:</b> {{ restaurant.poi.phone }}</p>
-                <!-- <p>{{ details.opening_hours }}</p> -->
                 {% if restaurant.poi.url %}
                     <p><b>Website: </b></p>
                         {% if "http" in restaurant.poi.url %}
@@ -47,9 +46,9 @@
                 {% endif %}
 
                 {% if restaurant_details.result.socialMedia %}
-                    <p><b>Social Media:</b>
+                    <p><b class="social_media">Social Media:</b>
                     {% for social_media in restaurant_details.result.socialMedia %}
-                        <b>{{ social_media.name }}: </b> <a href="{{ social_media.url }}">{{ social_media.url }}</a></p>
+                        <p class="social_media_name">{{ social_media.name }}: </p> <a href="{{ social_media.url }}">{{ social_media.url }}</a></p>
                     {% endfor %}
                 {% else %}
                     <p><b>Social Media:</b> unavailable</p>

@@ -51,9 +51,23 @@ p {
 
 .about-container a {
     color: var(--LinkBlue);
+    line-height: 1.8;
 }
 .about-container a:hover {
     color: var(--HoverLinkBlue);
+}
+
+.social_media {
+    content: "\A";
+    white-space: pre-wrap;
+}
+.social_media_name {
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.social_media_name::after {
+    content: "\A";
+    white-space: pre-wrap;
 }
 
 .photos {
@@ -240,6 +254,7 @@ button:focus {
     }
     .prev:hover, .next:hover {
         background-color: var(--Orange);
+        color: white;
     }
     
     .photos img {

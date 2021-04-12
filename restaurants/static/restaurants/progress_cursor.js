@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var submitButton = document.querySelector('input[type=submit]');
 
     // (For when the page reloads after filters form submission)
-    // submitButton.style.cursor = 'alias';
-    // document.body.style.cursor = 'alias';
+    // submitButton.style.cursor = 'auto';
+    // document.body.style.cursor = 'auto';
 
     form.addEventListener('submit', function () {
         submitButton.style.cursor = 'progress';
