@@ -57,6 +57,12 @@ p {
     color: var(--HoverLinkBlue);
 }
 
+.description {
+    margin: 1rem auto;
+    width: 80%;
+    line-height: 1.4rem;
+}
+
 .social_media {
     content: "\A";
     white-space: pre-wrap;
@@ -241,6 +247,9 @@ button:focus {
         color: white;
         text-decoration: underline;
     }
+    .description {
+        width: 50%;
+    }
 }
 
 @media only screen and (min-width: 992px) {    
@@ -266,6 +275,12 @@ button:focus {
     .photos img {
         width: 25%;
         height: 20rem;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .description {
+        width: 40%;
     }
 }
 
