@@ -27,8 +27,10 @@ class SearchForm(forms.Form):
 
 
 # Get API key
-with open('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/finalproject/api_key.txt') as file:
-    api_key = file.read().strip()
+# with open('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/finalproject/api_key.txt') as file:
+    # api_key = file.read().strip()
+# Production: 
+api_key = os.environ.get('API_KEY', 'qg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag') 
 
 
 def get_categories():
