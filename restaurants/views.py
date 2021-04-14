@@ -30,6 +30,8 @@ class SearchForm(forms.Form):
 # with open('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/finalproject/api_key.txt') as file:
     # api_key = file.read().strip()
 # Production: 
+# https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
+# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 api_key = os.environ.get('API_KEY', 'qg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag') 
 
 
