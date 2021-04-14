@@ -37,7 +37,8 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 # PRODUCTION:
-ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
+# ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
