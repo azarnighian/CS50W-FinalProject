@@ -51,6 +51,10 @@ SESSION_COOKIE_SECURE = True
 # For getting error emails
     # https://docs.djangoproject.com/en/3.1/howto/error-reporting/#server-errors
 ADMINS = [('Aharon', 'aharonzarnighian@gmail.com')]
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+
 
 # PRODUCTION:
 # ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
