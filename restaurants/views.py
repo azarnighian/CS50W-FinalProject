@@ -33,7 +33,7 @@ class SearchForm(forms.Form):
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 # api_key = os.environ.get('API_KEY', 'qg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag') 
-api_key = 9aveh0jzWKMG9fZKpt063gA1lQGF9JJO
+api_key = "9aveh0jzWKMG9fZKpt063gA1lQGF9JJO"
 
 def get_categories():
     # API call
