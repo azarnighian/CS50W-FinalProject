@@ -48,6 +48,11 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 # PRODUCTION:
+# For getting error emails
+    # https://docs.djangoproject.com/en/3.1/howto/error-reporting/#server-errors
+ADMINS = [('Aharon', 'aharonzarnighian@gmail.com')]
+
+# PRODUCTION:
 # ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
 
@@ -59,14 +64,19 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
+        'mail_admins': {
+            'level': 'INFO',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        }
     },
     'root': {
-        'handlers': ['console'],
+        'handlers': ['console', 'mail_admins'],
         'level': 'WARNING',
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers': ['console', 'mail_admins'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': False,
         },
