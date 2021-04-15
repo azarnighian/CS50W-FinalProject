@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 # SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
-SECRET_KEY = v9xbx&yma^o&*g50%fsc+v@m8&hj(rmel3j1ky09shkje8_bx*
+SECRET_KEY = v9xbx&yma^o&eg50%fsc+v@m8&hj(rmel3j1ky09shkje8_bxf
 
 # PRODUCTION:
 # SECURITY WARNING: don't run with debug turned on in production!
