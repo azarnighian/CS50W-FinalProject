@@ -51,6 +51,29 @@ SESSION_COOKIE_SECURE = True
 # ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
 
+# PRODUCTION:
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
+}
+
+
 # Application definition
 
 INSTALLED_APPS = [

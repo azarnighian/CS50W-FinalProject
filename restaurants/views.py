@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.cache import never_cache
     # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
 from .models import User, Restaurant
+import logging
 
 import requests
 import urllib.parse
@@ -43,6 +44,10 @@ environ.Env.read_env()
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 # api_key = os.environ.get('API_KEY', 'qg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag') 
 api_key = env("API_KEY")
+
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 def get_categories():
@@ -195,80 +200,84 @@ def get_photos(photo_id, counter, type):
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
 @never_cache
 def results(request, offset=0, city="None", radius=1500, categories='7315'):  
-    # (Restaurant category number is 7315)                  
-    if request.method == "POST":
-        form = SidebarForm(request.POST)
-        if form.is_valid():
-            location = form.cleaned_data["location"]
-            city = location
-            radius = form.cleaned_data["radius"] 
-            categories = form.cleaned_data["categories"]                         
-            categories = ",".join(categories)
+    try:
+        # (Restaurant category number is 7315)                  
+        if request.method == "POST":
+            form = SidebarForm(request.POST)
+            if form.is_valid():
+                location = form.cleaned_data["location"]
+                city = location
+                radius = form.cleaned_data["radius"] 
+                categories = form.cleaned_data["categories"]                         
+                categories = ",".join(categories)
 
-            return HttpResponseRedirect(reverse("results", 
-                    args=[city, radius, categories])) 
-        else:
-            return render(request, "restaurants/results.html", {
-                "form": form
+                return HttpResponseRedirect(reverse("results", 
+                        args=[city, radius, categories])) 
+            else:
+                return render(request, "restaurants/results.html", {
+                    "form": form
+                })
+            
+
+        # Turn city name into coordinates
+        lat_and_lon = geocode(city)
+
+        # Search for nearby restaurants
+        restaurants = search(lat_and_lon, radius, categories, offset)    
+
+        if not restaurants:
+            return render(request, "restaurants/results_no_match.html", {
+                "city": city,                                             
+                "form": SidebarForm(initial={'location': city, 'radius': radius})
             })
+
+        # Get the additional details for each restaurant
+        restaurant_details = []
+        for restaurant in restaurants:
+            # If the restaurant has a details id
+            if 'dataSources' in restaurant:
+                id = restaurant['dataSources']['poiDetails'][0]['id']
+                restaurant_details.append(get_restaurant_details(id))
+            else:
+                restaurant_details.append(0)
+
+        # Get a photo for each restaurant
         
+        delete_photos("results")
+        
+        counter = 1
 
-    # Turn city name into coordinates
-    lat_and_lon = geocode(city)
+        for restaurant in restaurant_details:        
+            if restaurant != 0 and 'photos' in restaurant['result']:
+                photo_id = restaurant['result']['photos'][0]['id']
+                get_photos(photo_id, counter, "Results")        
+            # if restaurant has no details and photos:
+            else:                    
+                # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
+                # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
+                copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Restaurants_Photos')
 
-    # Search for nearby restaurants
-    restaurants = search(lat_and_lon, radius, categories, offset)    
+                # https://www.geeksforgeeks.org/python-os-rename-method/
+                os.rename('restaurants/static/restaurants/Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg')
 
-    if not restaurants:
-        return render(request, "restaurants/results_no_match.html", {
-            "city": city,                                             
-            "form": SidebarForm(initial={'location': city, 'radius': radius})
+            counter += 1            
+
+        regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
+                            if request.user.is_authenticated 
+                            else [])                 
+
+        return render(request, "restaurants/results.html", {
+            "city": city,  
+            "radius": radius,
+            "categories": categories,          
+            "restaurants": restaurants,    
+            "regular_ids_list": regular_ids_list,          
+            "form": SidebarForm(initial={'location': city, 'radius': radius}),
+            'current_offset': offset
         })
-
-    # Get the additional details for each restaurant
-    restaurant_details = []
-    for restaurant in restaurants:
-        # If the restaurant has a details id
-        if 'dataSources' in restaurant:
-            id = restaurant['dataSources']['poiDetails'][0]['id']
-            restaurant_details.append(get_restaurant_details(id))
-        else:
-            restaurant_details.append(0)
-
-    # Get a photo for each restaurant
-    
-    delete_photos("results")
-    
-    counter = 1
-
-    for restaurant in restaurant_details:        
-        if restaurant != 0 and 'photos' in restaurant['result']:
-            photo_id = restaurant['result']['photos'][0]['id']
-            get_photos(photo_id, counter, "Results")        
-        # if restaurant has no details and photos:
-        else:                    
-            # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
-            # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
-            copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Restaurants_Photos')
-
-            # https://www.geeksforgeeks.org/python-os-rename-method/
-            os.rename('restaurants/static/restaurants/Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg')
-
-        counter += 1            
-
-    regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
-                        if request.user.is_authenticated 
-                        else [])                 
-
-    return render(request, "restaurants/results.html", {
-        "city": city,  
-        "radius": radius,
-        "categories": categories,          
-        "restaurants": restaurants,    
-        "regular_ids_list": regular_ids_list,          
-        "form": SidebarForm(initial={'location': city, 'radius': radius}),
-        'current_offset': offset
-    })                                                        
+    except:
+        # Log an error message
+        logger.error('Something went wrong!')                                                        
 
 @never_cache
 def add_or_remove(request, add_or_remove, regular_id, details_id):
