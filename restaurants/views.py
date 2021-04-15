@@ -20,10 +20,19 @@ import calendar
 
 import json
 
+import environ
+
 
 class SearchForm(forms.Form):
     city = forms.CharField(label="", 
                            widget=forms.TextInput(attrs={'placeholder': 'Name of city'}))
+
+
+# For environment variable (for api key)
+    # https://djangocentral.com/environment-variables-in-django/
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 
 
 # Get API key
@@ -33,7 +42,8 @@ class SearchForm(forms.Form):
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 # api_key = os.environ.get('API_KEY', 'qg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag') 
-api_key = "9aveh0jzWKMG9fZKpt063gA1lQGF9JJO"
+api_key = env("API_KEY")
+
 
 def get_categories():
     # API call

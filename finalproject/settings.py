@@ -11,12 +11,21 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
 
+import environ
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+
+# For environment variable (for secret key)
+    # https://djangocentral.com/environment-variables-in-django/
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # with open('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/finalproject/secret_key.txt') as f:
@@ -25,7 +34,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 # SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
-SECRET_KEY = "v9xbx&yma^o&*g50%#sc+v@m8&hj(rmel3j1ky09shkje8_#x*"
+SECRET_KEY = env("DJANGO_SECRET_KEY")
+
 
 # PRODUCTION:
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -38,8 +48,8 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 # PRODUCTION:
-ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
-
+# ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
