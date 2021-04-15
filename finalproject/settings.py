@@ -50,10 +50,14 @@ SESSION_COOKIE_SECURE = True
 # PRODUCTION:
 # For getting error emails
     # https://docs.djangoproject.com/en/3.1/howto/error-reporting/#server-errors
-ADMINS = [('Aharon', 'aharonzarnighian@gmail.com')]
-EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+    # https://stackoverflow.com/questions/6367014/how-to-send-email-via-django
+ADMINS = [('Aharon', env("GMAIL_USERNAME"))]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env("GMAIL_USERNAME")
+EMAIL_HOST_PASSWORD = env("GMAIL_APP_PASSWORD")
+EMAIL_PORT = 587
 
 
 # PRODUCTION:
