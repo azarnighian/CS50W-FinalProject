@@ -1,7 +1,5 @@
 **/__pycache__
 .env
-secret_key.txt
-api_key.txt
 Restaurant_Photos
 Restaurants_Photos
 Saved_Restaurants_Photos
