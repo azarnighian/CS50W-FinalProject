@@ -13,6 +13,10 @@ import os
 
 import environ
 
+# https://devcenter.heroku.com/articles/django-app-configuration
+# https://devcenter.heroku.com/articles/deploying-python 
+import django_heroku
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -202,3 +206,7 @@ DATABASES['default'].update(db_from_env)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# PRODUCTION:
+# Activate Django-Heroku.
+django_heroku.settings(locals())
