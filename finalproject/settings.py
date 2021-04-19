@@ -205,7 +205,7 @@ DATABASES['default'].update(db_from_env)
 # PRODUCTION:
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # PRODUCTION:
 # Activate Django-Heroku.
