@@ -65,8 +65,8 @@ EMAIL_PORT = 587
 
 
 # PRODUCTION:
-# ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
+# ALLOWED_HOSTS = ['*']
 
 # PRODUCTION:
 LOGGING = {
