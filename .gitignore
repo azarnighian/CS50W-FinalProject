@@ -1,8 +1,8 @@
 **/__pycache__
 .env
-# Restaurant_Photos
-# Restaurants_Photos
-# Saved_Restaurants_Photos
+Restaurant_Photos
+Restaurants_Photos
+Saved_Restaurants_Photos
 
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#creating_an_application_repository_in_github
 # Text backup files
