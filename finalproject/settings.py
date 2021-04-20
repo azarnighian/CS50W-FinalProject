@@ -44,7 +44,9 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # PRODUCTION:
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = False
+# DEBUG = False
+# https://www.reddit.com/r/django/comments/kiphpl/django_deployment_heroku_server_status_500_when/gu8idla?utm_source=share&utm_medium=web2x&context=3
+DEBUG = os.environ.get('DEBUG', False)
 
 # PRODUCTION:
 # https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/#csrf-cookie-secure
