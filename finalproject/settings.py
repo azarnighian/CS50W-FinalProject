@@ -65,8 +65,9 @@ EMAIL_PORT = 587
 
 
 # PRODUCTION:
-ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # PRODUCTION:
 LOGGING = {
@@ -108,10 +109,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-MIDDLEWARE = [    
+MIDDLEWARE = [        
+    'django.middleware.security.SecurityMiddleware',    
     'whitenoise.middleware.WhiteNoiseMiddleware',
         # PRODUCTION^
-    'django.middleware.security.SecurityMiddleware',    
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,8 +126,7 @@ ROOT_URLCONF = 'finalproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS':  [os.path.join(BASE_DIR, 'templates')],
-            # PRODUCTION^
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,8 +147,15 @@ WSGI_APPLICATION = 'finalproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # PRODUCTION:
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd8ls2agm2ovu9s',
+        'HOST': 'ec2-18-214-140-149.compute-1.amazonaws.com',
+        'PORT': '5432',
+        'USER': 'vsrfunanbiefvw',
+        'PASSWORD': '1f85a775ced48589ce6841a189666542c5c5edd0ce359bf3a290ee0f2ab859e9'  
     }
 }
 
