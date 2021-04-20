@@ -1,0 +1,94 @@
+nav {
+  position: fixed;
+}
+
+.nav-links li:nth-of-type(4) a {
+    color: var(--Orange);
+}
+.whitelogo {
+    display: none;
+}
+.orangelogo {
+    display: block;
+}
+
+body {
+  background-color: var(--GrayBackground);
+}
+
+.flex-container {    
+  display: flex;
+  flex-wrap: wrap;  
+  min-height: calc( 100vh - (var(--NavBarHeight)) );
+  margin-top: var(--NavBarHeight);
+}
+
+.white-box {
+    background-color: white;    
+    margin-top: 3rem;
+    text-align: center;
+    width: 100%;    
+    box-shadow: 0px 0px 10px 5px #eeeeee;    
+}
+
+.white-box img {
+    height: 2.2rem;
+    vertical-align: text-bottom;
+    margin-left: 5px;
+}
+
+.about h1 {    
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.line {
+    height: 1px;
+    background-color: lightgray;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.white-box ul {
+    padding: 1rem;
+    list-style-type: none;
+}
+
+.white-box li {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    list-style-position: inside;
+    font-weight: 300;
+}
+
+.white-box a {
+    word-wrap: anywhere;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+    color: var(--LinkBlue);
+}
+.white-box a:hover {
+    color: var(--HoverLinkBlue);
+    text-decoration: underline;
+}
+
+.tomtom-terms {
+    padding: 2rem;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .white-box {
+        margin: 3rem 7rem 0;
+        border-radius: 10px;       
+    }
+}
