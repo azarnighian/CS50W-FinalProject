@@ -43,8 +43,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # PRODUCTION:
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 # PRODUCTION:
 # https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/#csrf-cookie-secure
