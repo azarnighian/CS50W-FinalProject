@@ -4,7 +4,6 @@ from django import forms
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.cache import never_cache
     # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
 from .models import User, Restaurant
 import logging
@@ -37,12 +36,8 @@ environ.Env.read_env()
 
 
 # Get API key
-# with open('/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/finalproject/api_key.txt') as file:
-#     api_key = file.read().strip()
-# Production: 
 # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
-# api_key = os.environ.get('API_KEY', 'qg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag') 
 api_key = env("API_KEY")
 
 
@@ -198,7 +193,6 @@ def get_photos(photo_id, counter, type):
 
 
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
-@never_cache
 def results(request, offset=0, city="None", radius=1500, categories='7315'):  
     try:
         # (Restaurant category number is 7315)                  
@@ -279,7 +273,6 @@ def results(request, offset=0, city="None", radius=1500, categories='7315'):
         # Log an error message
         logger.error('Something went wrong!')                                                        
 
-@never_cache
 def add_or_remove(request, add_or_remove, regular_id, details_id):
     # if you have time, learn about the django get_or_create() method
         # (https://docs.djangoproject.com/en/3.1/ref/models/querysets/#get-or-create)        
@@ -301,7 +294,6 @@ def add_or_remove(request, add_or_remove, regular_id, details_id):
         # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
 
-@never_cache
 def restaurant_page(request, name, id, details_id):    
     # Make the following a single function to be shared with the profile function
     # (return an array with restaurant, restaurant_details, and photos_quantity)
@@ -369,7 +361,6 @@ def get_restaurant_photos(photo_ids):
         counter += 1
 
 
-@never_cache
 def profile(request, username):
     delete_photos("saved_restaurants")
 
