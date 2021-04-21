@@ -192,7 +192,7 @@ def get_photos(photo_id, counter, type):
                 f.write(chunk)
         f.close()
 
-        return HttpResponse()
+        return HttpResponse("")
             # https://docs.djangoproject.com/en/3.1/topics/http/views/
             # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
@@ -296,7 +296,7 @@ def add_or_remove(request, add_or_remove, regular_id, details_id):
     else:
         request.user.saved_restaurants.remove(restaurant)     
 
-    return HttpResponse()
+    return HttpResponse("")
         # https://docs.djangoproject.com/en/3.1/topics/http/views/
         # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
@@ -360,7 +360,7 @@ def delete_photos(type):
         except OSError as e:
             print("Error: %s : %s" % (f, e.strerror))
     
-    return HttpResponse()
+    return HttpResponse("")
         # https://docs.djangoproject.com/en/3.1/topics/http/views/
         # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
@@ -372,7 +372,7 @@ def get_restaurant_photos(photo_ids):
         get_photos(photo_id['id'], counter, "Restaurant")
         counter += 1
     
-    return HttpResponse()
+    return HttpResponse("")
         # https://docs.djangoproject.com/en/3.1/topics/http/views/
         # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
