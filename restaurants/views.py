@@ -4,6 +4,7 @@ from django import forms
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.cache import never_cache
     # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
 from .models import User, Restaurant
 import logging
@@ -191,8 +192,13 @@ def get_photos(photo_id, counter, type):
                 f.write(chunk)
         f.close()
 
+        return HttpResponse()
+            # https://docs.djangoproject.com/en/3.1/topics/http/views/
+            # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
+
 
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
+@never_cache
 def results(request, offset=0, city="None", radius=1500, categories='7315'):  
     try:
         # (Restaurant category number is 7315)                  
@@ -273,6 +279,7 @@ def results(request, offset=0, city="None", radius=1500, categories='7315'):
         # Log an error message
         logger.error('Something went wrong!')                                                        
 
+@never_cache
 def add_or_remove(request, add_or_remove, regular_id, details_id):
     # if you have time, learn about the django get_or_create() method
         # (https://docs.djangoproject.com/en/3.1/ref/models/querysets/#get-or-create)        
@@ -294,6 +301,7 @@ def add_or_remove(request, add_or_remove, regular_id, details_id):
         # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
 
+@never_cache
 def restaurant_page(request, name, id, details_id):    
     # Make the following a single function to be shared with the profile function
     # (return an array with restaurant, restaurant_details, and photos_quantity)
@@ -351,6 +359,10 @@ def delete_photos(type):
             os.remove(f)
         except OSError as e:
             print("Error: %s : %s" % (f, e.strerror))
+    
+    return HttpResponse()
+        # https://docs.djangoproject.com/en/3.1/topics/http/views/
+        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
 
 def get_restaurant_photos(photo_ids):
@@ -359,8 +371,13 @@ def get_restaurant_photos(photo_ids):
     for photo_id in photo_ids:
         get_photos(photo_id['id'], counter, "Restaurant")
         counter += 1
+    
+    return HttpResponse()
+        # https://docs.djangoproject.com/en/3.1/topics/http/views/
+        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
 
 
+@never_cache
 def profile(request, username):
     delete_photos("saved_restaurants")
 
