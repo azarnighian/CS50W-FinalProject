@@ -277,7 +277,10 @@ def results(request, offset=0, city="None", radius=1500, categories='7315'):
         })
     except:
         # Log an error message
-        logger.error('Something went wrong!')                                                        
+        logger.error('Something went wrong!')  
+
+        raise
+            # https://www.reddit.com/r/Heroku/comments/muziyl/getting_server_error_500_on_django_heroku_website/gvc85yl?utm_source=share&utm_medium=web2x&context=3
 
 # @never_cache
 def add_or_remove(request, add_or_remove, regular_id, details_id):
