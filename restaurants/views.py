@@ -218,7 +218,6 @@ def results(request, offset=0, city="None", radius=1500, categories='7315'):
                     "form": form
                 })
             
-
         # Turn city name into coordinates
         lat_and_lon = geocode(city)
 
