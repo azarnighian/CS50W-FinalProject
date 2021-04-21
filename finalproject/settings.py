@@ -66,7 +66,7 @@ EMAIL_PORT = 587
 
 # PRODUCTION:
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['discoverrestaurants.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
 # ALLOWED_HOSTS = ['trovare1.herokuapp.com']
 # ALLOWED_HOSTS = ['*']
 
