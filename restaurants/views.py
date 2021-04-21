@@ -181,11 +181,14 @@ def get_photos(photo_id, counter, type):
         
         # https://www.w3schools.com/python/python_file_handling.asp
         if type == "Results":
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')        
+            # f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')        
+            f = open(f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')
         elif type == "Profile":
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
+            # f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
+            f = open(f'restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
         else:
-            f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
+            # f = open(f'/Users/azarnighian/Desktop/CS50W/Final Project/finalproject/restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
+            f = open(f'restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
         
         for chunk in response:
             if chunk:
