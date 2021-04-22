@@ -177,8 +177,8 @@ def get_photos(photo_id, counter, type):
             'id': photo_id
         }
         
-        response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)
-        
+        response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)                
+
         # https://www.w3schools.com/python/python_file_handling.asp
         if type == "Results":
             f = open(f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')
@@ -188,7 +188,7 @@ def get_photos(photo_id, counter, type):
             f = open(f'restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
         
         for chunk in response:
-            if chunk:
+            if chunk:                
                 f.write(chunk)
         f.close()
 

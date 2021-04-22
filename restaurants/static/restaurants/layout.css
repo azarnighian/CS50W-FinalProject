@@ -182,4 +182,16 @@ nav {
   }
 }
 
+@media screen and (min-width: 1400px) {
+  html {
+    font-size: 18px; 
+  }
+}
+
+@media screen and (min-width: 2000px) {    
+  html {
+    font-size: 22px;
+  }
+}
+
 /* End Nav Bar */
