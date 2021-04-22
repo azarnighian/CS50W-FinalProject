@@ -67,6 +67,8 @@ nav {
   position: absolute;
   left: 0px;
   height: calc( 100vh - (var(--NavBarHeight)) );
+  height: calc( -webkit-fill-available - (var(--NavBarHeight)) );
+  height: calc( fill-available - (var(--NavBarHeight)) );
   top: var(--NavBarHeight);
   background-color: white;      
   flex-direction: column;
