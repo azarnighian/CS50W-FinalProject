@@ -18,6 +18,7 @@
 /* Variables */
 :root {
   --NavBarHeight: 9vh;
+  --NavBarHeight: calc(var(--vh, 1vh) * 9);
   --Orange: #da7337;
   --HoverOrange: #dd641e;
   --LinkBlue: rgb(0, 98, 255);
@@ -66,7 +67,7 @@ nav {
   display: flex;
   position: absolute;
   left: 0px;
-  height: calc( --vh100 - (var(--NavBarHeight)) );
+  height: calc( var(--vh100) - (var(--NavBarHeight)) );
   top: var(--NavBarHeight);
   background-color: white;      
   flex-direction: column;

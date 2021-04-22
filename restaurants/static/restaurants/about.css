@@ -19,7 +19,7 @@ body {
 .flex-container {    
   display: flex;
   flex-wrap: wrap;  
-  min-height: calc( 100vh - (var(--NavBarHeight)) );
+  min-height: calc( var(--vh100) - (var(--NavBarHeight)) );
   margin-top: var(--NavBarHeight);
 }
 

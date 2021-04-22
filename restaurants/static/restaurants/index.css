@@ -65,7 +65,7 @@
   background-image: linear-gradient(rgba(47,45,65,.7),rgba(47,45,65,.7)),
                     url("https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_960_720.jpg");
     /* rgba codes from opentable.com */                 
-  height: 100vh;
+  height: var(--vh100);
   
   background-position: center;
   background-repeat: no-repeat;

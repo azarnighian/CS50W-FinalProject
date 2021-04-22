@@ -15,14 +15,14 @@ body {
   color: white;
   padding: 1.5rem;
   margin-top: var(--NavBarHeight);
-  margin-bottom: -9vh; /* nav bar height (because of margin-top of flex-container) */
+  margin-bottom: calc(var(--vh, 1vh) * -9); /* nav bar height (9vh) (because of margin-top of flex-container) */
 }
 
 .flex-container {    
   display: flex;
   flex-wrap: wrap;
   margin-top: var(--NavBarHeight);
-  height: calc( 100vh - (var(--NavBarHeight)) );
+  height: calc( var(--vh100) - (var(--NavBarHeight)) );
 }
 
 .side-image-container {
