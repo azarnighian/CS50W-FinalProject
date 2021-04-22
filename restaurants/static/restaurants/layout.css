@@ -108,7 +108,6 @@ nav {
 
 .nav-active {
   transform: translateX(0%);
-  box-shadow: 0 16px 10px 5px #aaaaaa;
 }
 .nav-active-darken-screen {
   display: none;
