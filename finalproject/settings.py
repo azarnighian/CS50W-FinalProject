@@ -40,25 +40,25 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # PRODUCTION:
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 # PRODUCTION:
 # https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/#csrf-cookie-secure
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
 # PRODUCTION:
 # For getting error emails
     # https://docs.djangoproject.com/en/3.1/howto/error-reporting/#server-errors
     # https://stackoverflow.com/questions/6367014/how-to-send-email-via-django
-ADMINS = [('Aharon', env("GMAIL_USERNAME"))]
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env("GMAIL_USERNAME")
-EMAIL_HOST_PASSWORD = env("GMAIL_APP_PASSWORD")
-EMAIL_PORT = 587
+# ADMINS = [('Aharon', env("GMAIL_USERNAME"))]
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = env("GMAIL_USERNAME")
+# EMAIL_HOST_PASSWORD = env("GMAIL_APP_PASSWORD")
+# EMAIL_PORT = 587
 
 
 # PRODUCTION:
@@ -68,31 +68,31 @@ ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
 # ALLOWED_HOSTS = ['*']
 
 # PRODUCTION:
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-        'mail_admins': {
-            'level': 'INFO',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        }
-    },
-    'root': {
-        'handlers': ['console', 'mail_admins'],
-        'level': 'WARNING',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'mail_admins'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': False,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#         'mail_admins': {
+#             'level': 'INFO',
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'include_html': True,
+#         }
+#     },
+#     'root': {
+#         'handlers': ['console', 'mail_admins'],
+#         'level': 'WARNING',
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'mail_admins'],
+#             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+#             'propagate': False,
+#         },
+#     },
+# }
 
 
 # Application definition
@@ -109,7 +109,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [        
     'django.middleware.security.SecurityMiddleware',    
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
         # PRODUCTION^
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -189,7 +189,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # PRODUCTION^
 
 # The URL to use when referring to static files (where they will be served from)
@@ -197,9 +197,9 @@ STATIC_URL = '/static/'
 
 # PRODUCTION:
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # PRODUCTION:
 # Simplified static file serving.
@@ -208,4 +208,4 @@ DATABASES['default'].update(db_from_env)
 
 # PRODUCTION:
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

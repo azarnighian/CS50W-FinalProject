@@ -1,5 +1,6 @@
 {% extends "restaurants/layout.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'restaurants/results.css' %}">
@@ -33,10 +34,16 @@
                 {% for restaurant in restaurants %}
                     <div class="card">
                         <div class="card-img">
-                            <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
-                            {% with counter=forloop.counter|stringformat:"s" %}
-                                <img src="{% static 'restaurants/Restaurants_Photos/Restaurant'|add:counter|add:'.jpg' %}">
-                            {% endwith %}
+                            {% if restaurants_photos|index:forloop.counter0 == 0 %}
+                                <!-- If no photo -->
+                                
+                                <!-- Verify that this works -->
+                                
+                                <img src="{% static 'restaurants/static/restaurants/no_image.png' %}">
+                            {% else %}
+                                <!-- Custom filter -->
+                                <img src="data:image/jpg;base64,{{ restaurants_photos|index:forloop.counter0 }}"/>
+                            {% endif %}
                         </div>
                 
                         <div class="caption">

@@ -7,21 +7,18 @@ from django.http import HttpResponse, HttpResponseRedirect
 # from django.views.decorators.cache import never_cache
     # https://stackoverflow.com/questions/2095520/fighting-client-side-caching-in-django
 from .models import User, Restaurant
-import logging
 
+import logging
 import requests
 import urllib.parse
-
 from shutil import copy
 import os 
 import glob
-
 from datetime import date
 import calendar
-
 import json
-
 import environ
+import base64
 
 
 class SearchForm(forms.Form):
@@ -171,30 +168,17 @@ def get_restaurant_details(id):
     return restaurant_details
 
 
-def get_photos(photo_id, counter, type):
-        parameters = {                
-            'key': api_key,
-            'id': photo_id
-        }
-        
-        response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)                
+def get_photo(photo_id):
+    parameters = {                
+        'key': api_key,
+        'id': photo_id
+    }
 
-        # https://www.w3schools.com/python/python_file_handling.asp
-        if type == "Results":
-            f = open(f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg', 'wb')
-        elif type == "Profile":
-            f = open(f'restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg', 'wb')                 
-        else:
-            f = open(f'restaurants/static/restaurants/Restaurant_Photos/Photo{counter}.jpg', 'wb')                   
+    response = requests.get('https://api.tomtom.com/search/2/poiPhoto', params=parameters)                
         
-        for chunk in response:
-            if chunk:                
-                f.write(chunk)
-        f.close()
-
-        return HttpResponse("")
-            # https://docs.djangoproject.com/en/3.1/topics/http/views/
-            # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
+    encoded_string = base64.b64encode(response.content)        
+   
+    return encoded_string
 
 
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
@@ -240,36 +224,29 @@ def results(request, offset=0, city="None", radius=1500, categories='7315'):
             else:
                 restaurant_details.append(0)
 
-        # Get a photo for each restaurant
-        
-        delete_photos("results")
-        
-        counter = 1
-
+        # Get a photo for each restaurant  
+        restaurants_photos = []              
         for restaurant in restaurant_details:        
             if restaurant != 0 and 'photos' in restaurant['result']:
                 photo_id = restaurant['result']['photos'][0]['id']
-                get_photos(photo_id, counter, "Results")        
+                encoded_string = get_photo(photo_id)  
+                # https://stackoverflow.com/questions/41918836/how-do-i-get-rid-of-the-b-prefix-in-a-string-in-python
+                restaurants_photos.append(encoded_string.decode('utf-8'))      
             # if restaurant has no details and photos:
             else:                    
-                # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
-                # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
-                copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Restaurants_Photos')
-
-                # https://www.geeksforgeeks.org/python-os-rename-method/
-                os.rename('restaurants/static/restaurants/Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Restaurants_Photos/Restaurant{counter}.jpg')
-
-            counter += 1            
+                restaurants_photos.append(0)
 
         regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
                             if request.user.is_authenticated 
-                            else [])                 
+                            else [])  
+
 
         return render(request, "restaurants/results.html", {
             "city": city,  
             "radius": radius,
             "categories": categories,          
-            "restaurants": restaurants,    
+            "restaurants": restaurants,
+            "restaurants_photos": restaurants_photos,    
             "regular_ids_list": regular_ids_list,          
             "form": SidebarForm(initial={'location': city, 'radius': radius}),
             'current_offset': offset
@@ -371,7 +348,7 @@ def get_restaurant_photos(photo_ids):
     counter = 0
     
     for photo_id in photo_ids:
-        get_photos(photo_id['id'], counter, "Restaurant")
+        get_photo(photo_id['id'], counter, "Restaurant")
         counter += 1
     
     return HttpResponse("")
@@ -399,7 +376,7 @@ def profile(request, username):
 
         if restaurant_details != 0 and 'photos' in restaurant_details['result']:
             photo_id = restaurant_details['result']['photos'][0]['id']
-            get_photos(photo_id, counter, "Profile")        
+            get_photo(photo_id, counter, "Profile")        
         # if restaurant has no details and photos:
         else:                    
             # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
