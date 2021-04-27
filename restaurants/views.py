@@ -231,9 +231,9 @@ def results(request, offset=0, city="None", radius=1500, categories='7315'):
                 photo_id = restaurant['result']['photos'][0]['id']
                 encoded_string = get_photo(photo_id)  
                 # https://stackoverflow.com/questions/41918836/how-do-i-get-rid-of-the-b-prefix-in-a-string-in-python
-                restaurants_photos.append(encoded_string.decode('utf-8'))      
-            # if restaurant has no details and photos:
+                restaurants_photos.append(encoded_string.decode('utf-8'))                  
             else:                    
+            # if restaurant has no details and photos:                
                 restaurants_photos.append(0)
 
         regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
@@ -288,10 +288,8 @@ def restaurant_page(request, name, id, details_id):
     restaurant = get_restaurant(id)
     restaurant_details = get_restaurant_details(details_id) if details_id != '0' else 0
     
-    delete_photos("restaurant_page")
-
     if restaurant_details != 0 and 'photos' in restaurant_details['result']:
-        get_restaurant_photos(restaurant_details['result']['photos'])
+        restaurant_photos = get_restaurant_photos(restaurant_details['result']['photos'])
         # https://stackoverflow.com/questions/49284015/how-to-check-if-folder-is-empty-with-python
         # photos_quantity = len(os.listdir('restaurants/static/restaurants/Restaurant_Photos'))
         photos_quantity = len(restaurant_details['result']['photos'])
@@ -305,6 +303,7 @@ def restaurant_page(request, name, id, details_id):
     return render(request, "restaurants/restaurant.html", {
         "restaurant": restaurant['results'][0],
         "restaurant_details": restaurant_details,
+        "restaurant_photos": restaurant_photos,
         "photos_quantity": photos_quantity,
         # https://stackoverflow.com/questions/48637178/do-django-templates-allow-for-range-in-for-loops
         "range": range(photos_quantity),
@@ -324,46 +323,22 @@ def get_restaurant(id):
     return restaurant
 
 
-def delete_photos(type):
-    # https://linuxize.com/post/python-delete-files-and-directories/
-    if type == "results":
-        files = glob.glob('restaurants/static/restaurants/Restaurants_Photos/*')
-    elif type == "restaurant_page":
-        files = glob.glob('restaurants/static/restaurants/Restaurant_Photos/*')
-    else:
-        files = glob.glob('restaurants/static/restaurants/Saved_Restaurants_Photos/*')
+def get_restaurant_photos(photo_ids):        
+    restaurant_photos = []
 
-    for f in files:
-        try:
-            os.remove(f)
-        except OSError as e:
-            print("Error: %s : %s" % (f, e.strerror))
-    
-    return HttpResponse("")
-        # https://docs.djangoproject.com/en/3.1/topics/http/views/
-        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
-
-
-def get_restaurant_photos(photo_ids):
-    counter = 0
-    
     for photo_id in photo_ids:
-        get_photo(photo_id['id'], counter, "Restaurant")
-        counter += 1
+        encoded_string = get_photo(photo_id['id'])
+        restaurant_photos.append(encoded_string.decode('utf-8'))
     
-    return HttpResponse("")
-        # https://docs.djangoproject.com/en/3.1/topics/http/views/
-        # ("Each view function is responsible for returning an HttpResponse object. (There are exceptions, but we’ll get to those later.)")        
+    return restaurant_photos
 
 
 # @never_cache
 def profile(request, username):
-    delete_photos("saved_restaurants")
-
     saved_restaurants_objects = request.user.saved_restaurants.all()
     saved_restaurants = []    
     
-    counter = 1
+    restaurants_photos = []
     
     for saved_restaurant_object in saved_restaurants_objects:
         restaurant = get_restaurant(saved_restaurant_object.regular_id)
@@ -373,25 +348,20 @@ def profile(request, username):
         saved_restaurants.append(restaurant)
 
         # Get photos   
-
         if restaurant_details != 0 and 'photos' in restaurant_details['result']:
             photo_id = restaurant_details['result']['photos'][0]['id']
-            get_photo(photo_id, counter, "Profile")        
-        # if restaurant has no details and photos:
+            encoded_string = get_photo(photo_id) 
+            restaurants_photos.append(encoded_string.decode('utf-8'))        
         else:                    
-            # https://stackoverflow.com/questions/123198/how-do-i-copy-a-file-in-python
-            # https://thispointer.com/python-how-to-copy-files-from-one-location-to-another-using-shutil-copy/
-            copy('restaurants/static/restaurants/no_image.png', 'restaurants/static/restaurants/Saved_Restaurants_Photos')
+        # if restaurant has no details and photos:
+            restaurants_photos.append(0)
 
-            # https://www.geeksforgeeks.org/python-os-rename-method/
-            os.rename('restaurants/static/restaurants/Saved_Restaurants_Photos/no_image.png', f'restaurants/static/restaurants/Saved_Restaurants_Photos/Restaurant{counter}.jpg')
-
-        counter += 1     
 
     regular_ids_list = request.user.saved_restaurants.values_list('regular_id', flat=True)                           
     
     return render(request, "restaurants/profile.html", {
         "restaurants": saved_restaurants,
+        "restaurants_photos": restaurants_photos,
         "regular_ids_list": regular_ids_list
     })
 

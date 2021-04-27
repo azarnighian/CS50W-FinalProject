@@ -34,14 +34,11 @@
                 {% for restaurant in restaurants %}
                     <div class="card">
                         <div class="card-img">
+                            <!-- (index is a custom filter) -->
                             {% if restaurants_photos|index:forloop.counter0 == 0 %}
-                                <!-- If no photo -->
-                                
-                                <!-- Verify that this works -->
-                                
-                                <img src="{% static 'restaurants/static/restaurants/no_image.png' %}">
+                                <!-- If no photo -->                                                                
+                                <img src="{% static 'restaurants/no_image.png' %}">
                             {% else %}
-                                <!-- Custom filter -->
                                 <img src="data:image/jpg;base64,{{ restaurants_photos|index:forloop.counter0 }}"/>
                             {% endif %}
                         </div>

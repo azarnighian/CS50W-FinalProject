@@ -78,11 +78,8 @@
         <h2>Photos</h2>
             {% if photos_quantity != 0 %}        
                 <div class="photos">                                        
-                    {% for counter in range %}
-                    <!-- https://www.reddit.com/r/django/comments/kjmj6b/string_formatting_in_template/ -->
-                        {% with counter=counter|stringformat:"s" %}
-                            <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:counter|add:'.jpg' %}">
-                        {% endwith %}
+                    {% for photo_string in restaurant_photos %}
+                        <img src="data:image/jpg;base64,{{ photo_string }}"/>
                     {% endfor %}
                 </div>
                 
@@ -92,13 +89,11 @@
                     <span class="close cursor" onclick="closeModal()">&times;</span>
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <div class="modal-content">                        
-                        {% for counter in range %}
-                            {% with s_counter=counter|stringformat:"s" %}
-                                <div class="mySlides">
-                                    <div class="numbertext">{{counter|add:"1"}}/{{photos_quantity}}</div>
-                                    <img src="{% static 'restaurants/Restaurant_Photos/Photo'|add:s_counter|add:'.jpg' %}">
-                                </div>
-                            {% endwith %}
+                        {% for photo_string in restaurant_photos %}
+                            <div class="mySlides">
+                                <div class="numbertext">{{forloop.counter}}/{{photos_quantity}}</div>
+                                <img src="data:image/jpg;base64,{{ photo_string }}"/>
+                            </div>
                         {% endfor %}                                                                            
                         <!-- Next/previous controls -->                                                
                     </div>
