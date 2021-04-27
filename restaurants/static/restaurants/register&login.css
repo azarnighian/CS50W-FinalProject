@@ -15,7 +15,7 @@ body {
   color: white;
   padding: 1.5rem;
   margin-top: var(--NavBarHeight);
-  margin-bottom: calc(var(--vh, 1vh) * -10); /* nav bar height (10vh) (because of margin-top of flex-container) */
+  margin-bottom: calc(var(--NavBarHeight) * -1); /* negative nav bar height (because of margin-top of flex-container) */
 }
 
 .flex-container {    

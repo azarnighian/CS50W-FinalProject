@@ -17,8 +17,7 @@
 
 /* Variables */
 :root {
-  --NavBarHeight: 10vh;
-  --NavBarHeight: calc(var(--vh, 1vh) * 10);
+  --NavBarHeight: 4rem;
   --Orange: #da7337;
   --HoverOrange: #dd641e;
   --LinkBlue: rgb(0, 98, 255);
