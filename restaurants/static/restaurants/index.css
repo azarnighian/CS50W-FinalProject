@@ -26,6 +26,7 @@
 
 /* Modal Content/Box */
 .modal-content {
+  position: relative;
   background-color: white;
   font-weight: 400;
   font-size: 1.1rem;
@@ -49,6 +50,9 @@
 .close {
   color: grey;
   float: right;
+  position: absolute;
+  top: 0;
+  right: 1rem;
   font-size: 35px;
   font-weight: bold;
 }
@@ -118,6 +122,10 @@ input[type=submit]:hover {
 }
 
 @media only screen and (min-width: 550px) {  
+  .modal-content {    
+    width: 70%;    
+  }
+
   form {
     flex-direction: row;
   }
@@ -133,6 +141,10 @@ input[type=submit]:hover {
 }
 
 @media only screen and (min-width: 768px) {
+  .modal-content {    
+    width: 60%;    
+  }
+
   nav {
     background-color: transparent;
     top: 20px;
