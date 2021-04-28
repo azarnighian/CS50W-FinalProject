@@ -183,7 +183,7 @@ def get_photo(photo_id):
 
 # make this function smaller by breaking it into different parts (learned from App Academy Open (see Google Keep))
 # @never_cache
-def results(request, offset=0, city="None", radius=1500, categories='7315'):  
+def results(request, offset=0, city="None", radius=10000, categories='7315'):  
     try:
         # (Restaurant category number is 7315)                  
         if request.method == "POST":
