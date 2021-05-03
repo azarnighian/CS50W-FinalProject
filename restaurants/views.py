@@ -283,6 +283,7 @@ def restaurant_page(request, name, id, details_id):
         # photos_quantity = len(os.listdir('restaurants/static/restaurants/Restaurant_Photos'))
         photos_quantity = len(restaurant_details['result']['photos'])
     else:
+        restaurant_photos = []
         photos_quantity = 0
 
     regular_ids_list = (request.user.saved_restaurants.values_list('regular_id', flat=True) 
