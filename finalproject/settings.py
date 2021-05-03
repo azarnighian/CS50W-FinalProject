@@ -25,16 +25,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# For environment variable (for secret key)
+# For environment variables
     # https://djangocentral.com/environment-variables-in-django/
 env = environ.Env()
-# reading .env file
 environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # PRODUCTION:
-# https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
-# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
+    # https://stackoverflow.com/questions/47949022/git-heroku-how-to-hide-my-secret-key
+    # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment#getting_your_website_ready_to_publish
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 
@@ -44,7 +43,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = False
 
 # PRODUCTION:
-# https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/#csrf-cookie-secure
+    # https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/#csrf-cookie-secure
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
@@ -62,12 +61,11 @@ EMAIL_PORT = 587
 
 
 # PRODUCTION:
-# ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = ['trovare1.herokuapp.com', '127.0.0.1']
 ALLOWED_HOSTS = ['trovare1.herokuapp.com']
-# ALLOWED_HOSTS = ['*']
 
 # PRODUCTION:
+    # https://docs.djangoproject.com/en/3.2/topics/logging/
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -120,7 +118,7 @@ MIDDLEWARE = [
 ]
 
 # PRODUCTION:
-# https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
+    # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 
@@ -146,7 +144,7 @@ WSGI_APPLICATION = 'finalproject.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+    # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -158,7 +156,7 @@ DATABASES = {
 AUTH_USER_MODEL = "restaurants.User"
 
 # Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+    # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -177,7 +175,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
+    # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -191,7 +189,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+    # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -208,7 +206,7 @@ DATABASES['default'].update(db_from_env)
 
 # PRODUCTION:
 # Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
+    # https://warehouse.python.org/project/whitenoise/
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # PRODUCTION:

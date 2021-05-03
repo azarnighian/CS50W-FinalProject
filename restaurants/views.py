@@ -10,12 +10,7 @@ from .models import User, Restaurant
 
 import logging
 import requests
-import urllib.parse
-from shutil import copy
 import os 
-import glob
-from datetime import date
-import calendar
 import json
 import environ
 import base64
@@ -29,7 +24,6 @@ class SearchForm(forms.Form):
 # For environment variable (for api key)
     # https://djangocentral.com/environment-variables-in-django/
 env = environ.Env()
-# reading .env file
 environ.Env.read_env()
 
 
@@ -123,12 +117,7 @@ def index(request):
     })
 
 
-def geocode(city):
-    # URL-encode city string
-        # https://www.kite.com/python/answers/how-to-encode-a-url-in-python
-        # https://www.urlencoder.io/python/#:~:text=In%20Python%203%2B%2C%20You%20can,uses%20UTF%2D8%20encoding%20scheme.
-    # url_encoded_city = urllib.parse.quote(city)        
-        
+def geocode(city):      
     parameters = {
         'query': city,        
         'key': api_key
