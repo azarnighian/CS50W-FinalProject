@@ -78,7 +78,7 @@ class SidebarForm(forms.Form):
     categories_choices = [(k, v) for k, v in categories_dictionary.items()] 
     
     categories = forms.MultipleChoiceField(label="Categories", choices = categories_choices,
-                           widget=forms.CheckboxSelectMultiple(attrs={'placeholder': 'Categories'}))    
+                           widget=forms.SelectMultiple(attrs={'placeholder': 'Categories'}))    
         # https://stackoverflow.com/a/147793/
 
 class RegisterForm(forms.Form):
