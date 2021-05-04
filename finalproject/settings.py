@@ -130,7 +130,7 @@ STATIC_URL = '/static/'
 
 
 # https://stackoverflow.com/a/34891731/11528872
-if env("PRODUCTION_SETTINGS") == True:
+if env("PRODUCTION_SETTINGS") == 'True':
     # https://devcenter.heroku.com/articles/django-app-configuration
     # https://devcenter.heroku.com/articles/deploying-python 
     import django_heroku
