@@ -33,6 +33,3 @@ The following is a list of files I created for this project and what’s contain
 
 To run the website, one types in “python3 manage.py runserver” in the terminal, in the “finalproject” directory of my project.
 (By the way, my project isn’t done yet, but I wanted to submit it early. I plan on continuing to work on it.)
-
-
-
