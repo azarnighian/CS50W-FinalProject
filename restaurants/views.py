@@ -325,7 +325,6 @@ def get_restaurant_photos(photo_ids):
     return restaurant_photos
 
 
-# @never_cache
 def profile(request, username):
     saved_restaurants_objects = request.user.saved_restaurants.all()
     saved_restaurants = []    
