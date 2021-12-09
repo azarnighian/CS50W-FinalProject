@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
+from django.conf import settings
 from django.db import IntegrityError
 from django import forms
 from django.shortcuts import render
@@ -356,7 +358,26 @@ def profile(request, username):
     })
 
 
-# Learned register,login, and logout functions from CS50W network project
+# Learned register, login, and logout functions from CS50W network project
+
+def send_mail_to_me(username, email):
+    send_mail(
+        subject='New account on Trovare',
+        message=f'Someone registered on https://trovare1.herokuapp.com/. \n Username: {username} \n Email: {email}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[settings.EMAIL_HOST_USER]
+    )
+    return HttpResponse("")
+
+def send_mail_to_user(username, email):
+    send_mail(
+        subject='Your new account on Trovare',
+        message=f'Here is your account information on https://trovare1.herokuapp.com/. \n Username: {username} \n Email: {email}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[email]
+    )
+    return HttpResponse("")    
+
 
 def register(request):    
     if request.method == "POST":
@@ -375,12 +396,16 @@ def register(request):
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
-            user.save()
+            user.save()            
         except IntegrityError:
             return render(request, "restaurants/register.html", {
                 "message": "Username already taken.",
                 "form": RegisterForm()
             })
+        # Send email to me and new user
+        send_mail_to_me(username, email)
+        send_mail_to_user(username, email)
+        
         login(request, user)
         return HttpResponseRedirect(reverse("profile", args=[username]))
     else:        

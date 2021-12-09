@@ -142,7 +142,7 @@ if env("PRODUCTION_SETTINGS") == 'True':
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 
-    # For getting error emails
+    # For getting error emails, and sending emails
         # https://docs.djangoproject.com/en/3.1/howto/error-reporting/#server-errors
         # https://stackoverflow.com/questions/6367014/how-to-send-email-via-django
     ADMINS = [('Aharon', env("GMAIL_USERNAME"))]
