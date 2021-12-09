@@ -41,12 +41,12 @@
                 <div class="line3"></div>
             </div>
             
-            <div class="logo orangelogo">
-                <img src="{% static 'restaurants/LogoMakr-61dCEP.png' %}">
-            </div>
-            <div class="logo whitelogo">
-                <img src="{% static 'restaurants/LogoMakr-61dCEP white.png' %}">
-            </div>
+            <a class="orangelogo" href="{% url 'index' %}">
+                <img class="logo" src="{% static 'restaurants/LogoMakr-61dCEP.png' %}">
+            </a>
+            <a class="whitelogo" href="{% url 'index' %}">
+                <img class="logo" src="{% static 'restaurants/LogoMakr-61dCEP white.png' %}">
+            </a>
 
             <ul class="nav-links">
                 <li>

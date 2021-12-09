@@ -362,7 +362,7 @@ def profile(request, username):
 def send_mail_to_me(username, email):
     send_mail(
         subject='New account on Trovare',
-        message=f'Someone registered on https://trovare1.herokuapp.com/. \n Username: {username} \n Email: {email}',
+        message=f'Someone registered on https://trovare1.herokuapp.com/.\n\nUsername: {username}\nEmail: {email}',
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[settings.EMAIL_HOST_USER]
     )
@@ -371,7 +371,7 @@ def send_mail_to_me(username, email):
 def send_mail_to_user(username, email):
     send_mail(
         subject='Your new account on Trovare',
-        message=f'Here is your account information on https://trovare1.herokuapp.com/. \n Username: {username} \n Email: {email}',
+        message=f'Here is your account information on https://trovare1.herokuapp.com/.\n\nUsername: {username}\nEmail: {email}',
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[email]
     )

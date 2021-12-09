@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;  
 }
 
 /* html,body { */
@@ -54,12 +54,12 @@ nav {
 }
                                 /* until here */
 
-.logo img {
+.logo {
   height: 2rem;
   margin-top: -6px;
 }
 .orangelogo {
-    display: none;
+  display: none;
 }
 
 .nav-links {
@@ -84,10 +84,12 @@ nav {
 }
 .nav-links a {
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  color: grey;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: gray;
   transition: color 0.2s;
+  /* https://stackoverflow.com/questions/45049873/how-to-remove-the-blue-highlight-of-button-on-mobile */
+  -webkit-tap-highlight-color: transparent;
 }
 .nav-links a:hover {
   color: var(--Orange);
@@ -141,8 +143,8 @@ nav {
 
 
 @media screen and (min-width: 768px){
-  .logo {
-    width: 40%;
+  .orangelogo, .whitelogo {
+    margin-right: 23%;
   }
   
   /* Reseting mobile styles */
@@ -156,19 +158,23 @@ nav {
     width: 40%;
         
     position: initial;
-      left: initial;
-      height: initial;
-      top: initial;
-      background-color: initial;
-      flex-direction: initial;
-      align-items: initial;
-      transform: initial;
-      transition: initial;
+    left: initial;
+    height: initial;
+    top: initial;
+    background-color: initial;
+    flex-direction: initial;
+    align-items: initial;
+    transform: initial;
+    transition: initial;
 
-      z-index: initial;
+    z-index: initial;
   }
   .nav-links li {
     opacity: initial;
+  }
+  .nav-links a {
+    font-weight: 600;
+    font-size: 1rem;
   }  
   .burger {
     display: none;

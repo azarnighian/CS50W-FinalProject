@@ -9,7 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     var slideIndex = 1;
-    showSlides(slideIndex);
+    showSlides(slideIndex);    
+});
+
+// When the user clicks 'esc', close the modal
+    // https://stackoverflow.com/a/47614278/11528872
+document.addEventListener('keydown', function(event) {
+    const key = event.key;
+    if (key === "Escape") {
+        closeModal();
+    }
 });
 
 // https://www.w3schools.com/howto/howto_js_lightbox.asp
