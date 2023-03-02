@@ -80,15 +80,28 @@ input[type=submit]:hover {
 
 @media only screen and (min-width: 768px) {
     .side-image-container {
-      display: block;
-      flex: 55%;  
-
-      background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),
-                        url("https://images.unsplash.com/photo-1580802841960-bb47baa91eac?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=717&q=80");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      display: flex;
+      flex: 55%;        
     }
+    .side-image-container:after {
+      /* Linear gradient: */
+        /* https://stackoverflow.com/questions/68095175/how-to-gradient-an-image-from-bottom-to-top-with-css */
+        /* https://stackoverflow.com/questions/23935758/gradient-over-img-tag-using-css */
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 55%;
+        /* match with 'flex: 55%;' of .side-image-container */
+      background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2));
+    }
+    .side-image-container-image {
+      width: 100%;
+      height: 100%;     
+      object-fit: cover;
+    }    
 
     .form-container {      
       flex: 45%;

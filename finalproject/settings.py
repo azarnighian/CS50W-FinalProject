@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [        
-    'django.middleware.security.SecurityMiddleware',    
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -185,6 +185,9 @@ if env("PRODUCTION_SETTINGS") == 'True':
     MIDDLEWARE = [        
         'django.middleware.security.SecurityMiddleware',    
         'whitenoise.middleware.WhiteNoiseMiddleware',
+            # For production ^
+        'csp.middleware.CSPMiddleware',
+            # For production ^            
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -211,3 +214,17 @@ if env("PRODUCTION_SETTINGS") == 'True':
 
     # Activate Django-Heroku.
     django_heroku.settings(locals())
+
+    # CSP security headers
+            # https://www.geeksforgeeks.org/adding-csp-headers-in-django-project/
+            # https://www.stackhawk.com/blog/django-content-security-policy-guide-what-it-is-and-how-to-enable-it/#csp-the-basics        
+    CSP_DEFAULT_SRC = ("'none'", )    
+    CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com", )    
+    CSP_SCRIPT_SRC = ("'self'", )    
+    CSP_IMG_SRC = ("'self'", )    
+    CSP_FONT_SRC = ("https://fonts.gstatic.com", )
+    CSP_CONNECT_SRC = ("'self'", )
+    CSP_BASE_URI = ("'none'", )
+    CSP_FORM_ACTION = ("'self'", )
+    CSP_MANIFEST_SRC = ("'self'", )
+    CSP_INCLUDE_NONCE_IN = ('script-src', 'style-src', )    

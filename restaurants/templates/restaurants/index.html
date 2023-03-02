@@ -20,13 +20,17 @@
         </div>    
     </div>
     
-    <div class="cover_photo container">
-        <h1 class="title">Discover Restaurants Around The World</h1>
+    <div class="index-container">
+        <img src="{% static 'restaurants/lubeck-gf76117eba_1920.jpg' %}" alt="Landing page">
         
-        <form action="{% url 'index' %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Search">
-        </form>
-    </div>        
+        <div>
+            <h1 class="title">Discover Restaurants Around The World</h1>
+            
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Search">
+            </form>
+        </div>
+    </div>      
 {% endblock %}

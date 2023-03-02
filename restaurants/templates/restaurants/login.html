@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block style %}
-    <style>        
+    <style nonce="{{request.csp_nonce}}">        
         .nav-links li:nth-of-type(3) a {
             color: var(--Orange);
         }
@@ -24,7 +24,9 @@
 {% endif %}
 
 <div class="flex-container">        
-    <div class="side-image-container"></div>
+    <div class="side-image-container">
+        <img class="side-image-container-image" src="{% static 'restaurants/sun-koh-71OAFIbqh_M-unsplash.jpg' %}" alt="Register/login page">
+    </div>
 
     <div class="form-container">
         <h1>Login</h1>
